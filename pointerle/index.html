@@ -1,1 +1,591 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pointerle; - C Wordle Game</title>
+  <style>
+    :root {
+      --bg-color: #1e1e1e;       /* Фон редактора VS Code */
+      --card-bg: #2d2d2d;        /* Фон пустых ячеек */
+      --text-main: #ffffff;      /* Основной текст */
+      --border-color: #444444;   /* Границы плиток */
+      
+      --color-correct: #4ec9b0;  /* "Зеленый" -> Бирюзовый (типы/классы) */
+      --color-present: #ce9178;  /* "Желтый" -> Терракотовый (строки) */
+      --color-absent: #3c3c3c;   /* "Серый" -> Темный заблокированный токен */
+      --color-active: #569cd6;   /* Синий фокус на текущей строке */
+    }
+    
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: 'Fira Code', 'Courier New', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 100vh;
+      margin: 0;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: 1px;
+    }
+    
+    header p {
+      margin: 5px 0 0 0;
+      color: #858585;
+      font-size: 0.9rem;
+    }
+    
+    .board {
+      grid-template-rows: repeat(6, 1fr);
+      gap: 8px;
+      width: 100%;
+      max-width: 550px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .row-wrapper {
+	  display: flex;
+	  align-items: center;
+	  gap: 12px;
+	  width: 100%;
+	}
+    
+	.row {
+	  display: grid;
+	  grid-template-columns: repeat(5, 1fr);
+	  gap: 6px;
+	  flex-grow: 1;
+	}
+    
+	.code-tail {
+	  font-size: 1.4rem;
+	  font-weight: bold;
+	  color: #569cd6;
+	  width: 30px;
+	  user-select: none;
+	  font-family: 'Fira Code', 'Courier New', monospace;
+	}
+    
+    .tile {
+      height: 55px;
+      background-color: var(--card-bg);
+      border: 2px solid var(--border-color);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      font-weight: bold;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding: 0 4px;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    
+    .tile.pop {
+      border-color: var(--color-active);
+      transform: scale(1.02);
+    }
+    
+    .tile.correct {
+      background-color: var(--color-correct);
+      border-color: var(--color-correct);
+      color: #121212;
+      box-shadow: 0 0 12px rgba(78, 201, 176, 0.3);
+    }
+    
+    .tile.present {
+      background-color: var(--color-present);
+      border-color: var(--color-present);
+      color: #121212;
+      box-shadow: 0 0 12px rgba(206, 145, 120, 0.3);
+    }
+    
+    .tile.absent {
+      background-color: var(--color-absent);
+      border-color: var(--color-absent);
+      color: #7a7a7a;
+    }
+    
+    .keyboard {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+      max-width: 550px;
+      margin-top: 15px;
+    }
+    
+    .keyboard-row {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+    }
+    
+    .key {
+      background-color: #333333;
+      color: #d4d4d4;
+      border: none;
+      border-radius: 4px;
+      padding: 14px 4px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      cursor: pointer;
+      flex: 1;
+      text-align: center;
+      user-select: none;
+      transition: background-color 0.1s;
+    }
+    
+    .key:hover {
+      background-color: #444444;
+    }
+    
+    .key:active {
+      background-color: #555555;
+    }
+    
+    .key.action {
+      background-color: #3a3a3a;
+      color: #569cd6;
+      font-weight: bold;
+    }
+    
+    .key.action:hover {
+      background-color: #4a4a4a;
+    }
+	
+	.key.correct {
+	  background-color: var(--color-correct);
+	  color: #121212;
+	}
+    
+	.key.present {
+	  background-color: var(--color-present);
+	  color: #121212;
+	}
+    
+	.key.absent {
+	  background-color: var(--color-absent);
+	  color: #666666;
+	  opacity: 0.6;
+	}
+    
+    .console-output {
+      width: 100%;
+      max-width: 550px;
+      margin: 15px 0 5px 0;
+      padding: 10px;
+      background-color: #1a1a1a;
+      border: 1px solid #333333;
+      border-radius: 4px;
+      font-family: 'Fira Code', 'Courier New', monospace;
+      font-size: 0.85rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      color: #858585;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+      white-space: pre;
+      overflow-x: auto;
+      text-align: left;
+    }
+    
+    .console-output.success {
+      color: var(--color-correct);
+      border-color: var(--color-correct);
+      background-color: rgba(78, 201, 176, 0.05);
+      box-shadow: 0 0 10px rgba(78, 201, 176, 0.1);
+    }
+    
+    .console-output.error {
+      color: #f44747;
+      border-color: #f44747;
+      background-color: rgba(244, 71, 71, 0.05);
+      box-shadow: 0 0 10px rgba(244, 71, 71, 0.1);
+    }
+    
+    .console-output.warning {
+      color: var(--color-present);
+      border-color: var(--color-present);
+      background-color: rgba(206, 145, 120, 0.05);
+    }
+    .console-output::-webkit-scrollbar {
+      height: 4px;
+    }
+    .console-output::-webkit-scrollbar-track {
+      background: #1a1a1a;
+    }
+    .console-output::-webkit-scrollbar-thumb {
+      background: #444444;
+      border-radius: 2px;
+    }
+    .console-output::-webkit-scrollbar-thumb:hover {
+      background: #555555;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Pointerle;</h1>
+    <p>Угадайте спецификацию типа C за 6 попыток</p>
+  </header>
 
+  <!-- Поле -->
+  <div class="board" id="board">
+    <!-- Строка 1 -->
+    <div class="row-wrapper">
+      <div class="row">
+        <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      </div>
+      <div class="code-tail">p;</div>
+    </div>
+    <!-- Строка 2 -->
+    <div class="row-wrapper">
+      <div class="row">
+        <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      </div>
+      <div class="code-tail">p;</div>
+    </div>
+    <!-- Строка 3 -->
+    <div class="row-wrapper">
+      <div class="row">
+        <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      </div>
+      <div class="code-tail">p;</div>
+    </div>
+    <!-- Строка 4 -->
+    <div class="row-wrapper">
+      <div class="row">
+        <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      </div>
+      <div class="code-tail">p;</div>
+    </div>
+    <!-- Строка 5 -->
+    <div class="row-wrapper">
+      <div class="row">
+        <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      </div>
+      <div class="code-tail">p;</div>
+    </div>
+    <!-- Строка 6 -->
+    <div class="row-wrapper">
+      <div class="row">
+        <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      </div>
+      <div class="code-tail">p;</div>
+    </div>
+  </div>
+  
+  <!-- Консоль -->
+  <pre class="console-output" id="console-output"></pre>
+  
+  <!-- Клавиатура -->
+  <div class="keyboard" id="keyboard">
+    <!-- Строка 1: Квалификаторы -->
+    <div class="keyboard-row">
+      <button class="key" data-token="inline">inline</button>
+      <button class="key" data-token="const">const</button>
+      <button class="key" data-token="volatile">volatile</button>
+      <!-- <button class="key" data-token="constexpr">constexpr</button> -->
+      <!-- <button class="key" data-token="constinit">constinit</button> -->
+    </div>
+    <!-- Строка 2: Типы -->
+    <div class="keyboard-row">
+      <button class="key" data-token="int">int</button>
+      <button class="key" data-token="char">char</button>
+      <button class="key" data-token="float">float</button>
+      <!-- <button class="key" data-token="double">double</button> -->
+      <button class="key" data-token="void">void</button>
+      <!-- <button class="key" data-token="auto">auto</button> -->
+    </div>
+    <!-- Строка 3: Указатели и Служебные действия -->
+    <div class="keyboard-row">
+      <button class="key" data-token="*">*</button>
+      <!-- <button class="key" data-token="&">&</button> -->
+      <!-- <button class="key" data-token="&&">&&</button> -->
+      <button class="key action" data-action="backspace"><--</button>
+    </div>
+  </div>
+
+  <script>
+	const MAX_ROWS = 6;
+	const ROW_SIZE = 5;
+    
+    // C++
+    /*
+    const PUZZLES_DATABASE = [
+      [ ["const", "int", "*", "const", "*"], "Указатель на константный указатель на константный int" ],
+      [ ["constexpr", "const", "char", "*", "*"], "Вычисляемый в compile-time указатель на указатель на константный char" ],
+      [ ["volatile", "int", "*", "const", "*"], "Константный указатель на указатель на volatile int" ],
+      [ ["constinit", "const", "double", "*", "&"], "Ссылка на указатель на константный double с compile-time инициализацией" ],
+      [ ["inline", "auto", "*", "const", "*"], "Константный указатель на указатель с выводимым типом auto" ],
+      [ ["const", "char", "*", "const", "&"], "Ссылка на константный указатель на константный char" ],
+      [ ["int", "*", "const", "*", "const"], "Константный указатель на константный указатель на обычный int" ],
+      [ ["constexpr", "auto", "*", "*", "&"], "Ссылка на указатель на указатель с выводимым типом в compile-time" ],
+      [ ["volatile", "char", "*", "const", "&"], "Ссылка на константный указатель на volatile char" ],
+      [ ["const", "void", "*", "const", "*"], "Константный указатель на константный указатель на void (сырые данные)" ],
+      [ ["int", "*", "*", "const", "&"], "Ссылка на константный указатель на указатель на int" ],
+      [ ["constinit", "int", "*", "*", "*"], "Тройной указатель (указатель на указатель на указатель) на int" ],
+      [ ["constexpr", "const", "int", "*", "&"], "Ссылка на указатель на константный int, вычисляемая при компиляции" ],
+      [ ["volatile", "double", "*", "*", "&"], "Ссылка на указатель на указатель на volatile double" ],
+      [ ["const", "auto", "*", "const", "&"], "Ссылка на константный указатель на константный auto" ],
+      [ ["inline", "int", "*", "*", "const"], "Константный указатель на указатель на int в inline-контексте" ],
+      [ ["const", "char", "*", "*", "const"], "Константный указатель на двойной указатель на константный char" ],
+      [ ["constexpr", "double", "*", "const", "*"], "Константный указатель на константный указатель на double" ],
+      [ ["int", "*", "const", "*", "&"], "Ссылка на константный указатель на указатель на int" ],
+      [ ["constinit", "auto", "*", "*", "const"], "Константный указатель на двойной указатель с авто-выведением типа" ]
+    ];
+    */
+    
+    // C
+    const PUZZLES_DATABASE = [
+      [ ["const", "int", "*", "const", "*"], "Указатель на константный указатель на константный int" ],
+      [ ["volatile", "char", "*", "const", "*"], "Константный указатель на указатель на volatile char" ],
+      [ ["inline", "void", "*", "const", "*"], "Константный указатель на указатель на void в inline-контексте" ],
+      [ ["const", "char", "*", "const", "*"], "Указатель на константный указатель на константный char" ],
+      [ ["int", "*", "const", "*", "const"], "Константный указатель на константный указатель на обычный int" ],
+      [ ["volatile", "int", "*", "volatile", "*"], "Volatile-указатель на указатель на volatile int" ],
+      [ ["const", "float", "*", "const", "*"], "Указатель на константный указатель на константный float" ],
+      [ ["inline", "int", "*", "*", "const"], "Константный указатель на двойной указатель на int в функции inline" ],
+      [ ["const", "void", "*", "const", "*"], "Константный указатель на константный указатель на void" ],
+      [ ["char", "*", "const", "*", "const"], "Константный указатель на константный указатель на char" ],
+      [ ["volatile", "float", "*", "const", "*"], "Константный указатель на указатель на volatile float" ],
+      [ ["inline", "char", "*", "const", "*"], "Константный указатель на указатель на char внутри inline-кода" ],
+      [ ["const", "int", "*", "*", "const"], "Константный указатель на двойной указатель на константный int" ],
+      [ ["float", "*", "const", "*", "const"], "Константный указатель на константный указатель на float" ],
+      [ ["volatile", "void", "*", "const", "*"], "Константный указатель на указатель на volatile void" ],
+      [ ["const", "float", "*", "*", "const"], "Константный указатель на двойной указатель на константный float" ],
+      [ ["inline", "int", "*", "const", "*"], "Константный указатель на указатель на int в inline-контексте" ],
+      [ ["char", "*", "*", "*", "const"], "Константный указатель на тройной указатель на char" ],
+      [ ["const", "void", "*", "*", "const"], "Константный указатель на двойной указатель на константный void" ],
+      [ ["volatile", "int", "*", "*", "const"], "Константный указатель на двойной указатель на volatile int" ]
+    ];
+    
+    let SECRET_CODE = [];
+    let SECRET_DESCRIPTION = "";
+	let currentRow = 0;
+	let currentTile = 0;
+	let guesses = Array(MAX_ROWS).fill(null).map(() => Array(ROW_SIZE).fill(""));
+    
+	document.addEventListener("DOMContentLoaded", () => {
+      initRandomPuzzle();
+      
+	  const keyboard = document.getElementById("keyboard");
+	  
+	  keyboard.addEventListener("click", (event) => {
+		const target = event.target;
+		
+		if (!target.classList.contains("key")) return;
+		
+		const token = target.dataset.token;
+		const action = target.dataset.action;
+		
+		if (token) handleTokenInput(token);
+		else if (action) handleActionInput(action);
+	  });
+	});
+    
+    function initRandomPuzzle() {
+      const randomIndex = Math.floor(Math.random() * PUZZLES_DATABASE.length);
+      SECRET_CODE = PUZZLES_DATABASE[randomIndex][0];
+      SECRET_DESCRIPTION = PUZZLES_DATABASE[randomIndex][1];
+      console.log(`Pointerle\nSECRET_CODE: ${SECRET_CODE.join(" ")}\nSECRET_DESCRIPTION: ${SECRET_DESCRIPTION}\n`);
+    }
+    
+	function handleTokenInput(token) {
+	  if (currentTile >= ROW_SIZE || currentRow >= MAX_ROWS) return;
+	  
+	  guesses[currentRow][currentTile] = token;
+	  
+	  const rowElements = document.querySelectorAll(".board .row");
+	  const currentTileElement = rowElements[currentRow].children[currentTile];
+	  
+	  currentTileElement.textContent = token;
+	  currentTileElement.classList.add("pop");
+	  
+	  currentTile++;
+
+      if (currentTile === ROW_SIZE) {
+        const submittedGuess = [...guesses[currentRow]];
+        
+        const syntaxCheck = isValidCSyntax(submittedGuess);
+        
+        if(!syntaxCheck.valid) {
+          const output = document.getElementById("console-output");
+          
+          output.className = "console-output error";
+          output.innerHTML = "";
+          
+          const headerText = `pointerle.c:${currentRow}:${currentRow + 1}: `;
+          output.innerHTML += `${headerText}error: ${syntaxCheck.msg}\n`;
+          
+          return;
+        }
+        
+        checkGuess(submittedGuess, currentRow);
+      }
+	}
+	
+	function handleActionInput(action) {
+	  const rowElements = document.querySelectorAll(".board .row");
+	  
+	  if (action === "backspace") {
+		if (currentTile <= 0) return;
+		
+		currentTile--;
+		guesses[currentRow][currentTile] = "";
+		
+		const currentTileElement = rowElements[currentRow].children[currentTile];
+		currentTileElement.textContent = "";
+		currentTileElement.classList.remove("pop");
+	  }
+	}
+	
+	function updateKeyboardColor(token, status) {
+	  const keyElement = document.querySelector(`.key[data-token="${token}"]`);
+	  if (!keyElement) return;
+      
+	  if (keyElement.classList.contains("correct")) return;
+	  if (keyElement.classList.contains("present") && status === "absent") return;
+      
+	  keyElement.classList.remove("correct", "present", "absent");
+	  keyElement.classList.add(status);
+	}
+    
+    function isValidCSyntax(guess) {
+      const types = ["int", "char", "float", "void"];
+      
+      const typeCount = guess.filter(token => types.includes(token)).length;
+
+      if (typeCount === 0) {
+        return { valid: false, reason: "decl-specifier-missing", msg: "data type specifier is missing (need int, char, float or void)" };
+      }
+      if (typeCount > 1) {
+        return { valid: false, reason: "two-or-more-data-types", msg: "two or more data types in declaration specifiers" };
+      }
+      
+      const typeIndex = guess.findIndex(token => types.includes(token));
+      
+      const inlineIndex = guess.indexOf("inline");
+      if (inlineIndex > 0) {
+        return { valid: false, reason: "inline-wrong-position", msg: "'inline' can only appear at the very beginning of declaration" };
+      }
+      
+      const firstAsteriskIndex = guess.indexOf("*");
+      if (firstAsteriskIndex !== -1 && firstAsteriskIndex < typeIndex) {
+        return { valid: false, reason: "pointer-before-type", msg: "expected type specifier before '*' token" };
+      }
+
+      return { valid: true };
+    }
+    
+    function checkGuess(guess, rowIndex) {
+	  const rowElements = document.querySelectorAll(".board .row");
+	  const tiles = rowElements[rowIndex].children;
+	  
+	  const statuses = Array(ROW_SIZE).fill("absent");
+	  const secretCounts = {};
+	  
+	  for (let token of SECRET_CODE) secretCounts[token] = (secretCounts[token] || 0) + 1;
+      
+	  for (let i = 0; i < ROW_SIZE; i++) {
+		if (guess[i] === SECRET_CODE[i]) {
+		  statuses[i] = "correct";
+		  secretCounts[guess[i]]--;
+		}
+	  }
+      
+	  for (let i = 0; i < ROW_SIZE; i++) {
+		if (statuses[i] === "correct") continue;
+		
+		const token = guess[i];
+		if (secretCounts[token] && secretCounts[token] > 0) {
+		  statuses[i] = "present";
+		  secretCounts[token]--;
+		}
+	  }
+	  
+	  for (let i = 0; i < ROW_SIZE; i++) {
+		const token = guess[i];
+		const status = statuses[i];
+		
+		setTimeout(() => {
+		  tiles[i].classList.remove("pop");
+		  tiles[i].classList.add(status);
+		  
+		  updateKeyboardColor(token, status);
+		}, i * 200);
+	  }
+	  
+	  setTimeout(() => {
+        const isWin = guess.every((token, i) => token === SECRET_CODE[i]);
+        const output = document.getElementById("console-output");
+        
+        currentRow++;
+        currentTile = 0;
+        output.innerHTML = "";
+        
+        if (isWin) {
+          output.className = "console-output success";
+          output.innerHTML += `pointerle.c:${currentRow}:1: note: code compiled successfully (0ms)\n`;
+          output.innerHTML += `pointerle.c:${currentRow}:1: note: expected signature: '${SECRET_CODE.join(" ")}'\n`;
+          output.innerHTML += `pointerle.c:${currentRow}:1: note: signature description: '${SECRET_DESCRIPTION}'\n`;
+          output.innerHTML += `Build Success. Status: 0 errors, 0 warnings. C++ Master!`;
+          currentRow = MAX_ROWS;
+		  return;
+		} 
+		
+        if (currentRow >= MAX_ROWS) {
+          output.className = "console-output error"
+          output.innerHTML += `pointerle.c:6:1: fatal error: internal compiler error: Segmentation fault (exit code 139)\n`;
+          output.innerHTML += `pointerle.c:6:1: note: expected signature: '${SECRET_CODE.join(" ")}'\n`;
+          output.innerHTML += `pointerle.c:6:1: note: signature description: '${SECRET_DESCRIPTION}'\n`;
+          output.innerHTML += `Build Success. Status: 1 errors, 0 warnings.\n`;
+          return;
+        }
+        
+        output.className = "console-output warning";
+        
+        const codeLine = guess.join(" ");
+        let offset = 0;
+        let count = 0;
+        for (let i = 0; i < ROW_SIZE; i++) {
+          if (statuses[i] === "absent") {
+            const headerText = `pointerle.c:${currentRow}:${offset + 1}: `;
+            output.innerHTML += `${headerText}unused specifier '${guess[i]}' in declaration context [-Wunused-modifier]\n`;
+            output.innerHTML += `${" ".repeat(headerText.length)}${codeLine} p;\n`;
+            output.innerHTML += `${" ".repeat(headerText.length)}${"~".repeat(offset)}^${"~".repeat(codeLine.length - offset - 1)}\n`;
+            output.innerHTML += "\n";
+            ++count;
+          }
+          
+          offset += guess[i].length + 1;
+        }
+        
+        if(count !== 0) output.innerHTML += `${count} warning generated.\n`;
+        
+	  }, ROW_SIZE * 200);
+	}
+    
+  </script>
+</body>
+</html>
