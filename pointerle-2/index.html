@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pointerle - C Wordle Game</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Pointerle</h1>
+    <p>Угадайте спецификацию типа C за 6 попыток</p>
+  </header>
+
+  <!-- Поле -->
+  <div class="board" id="board">
+    <!-- Строка 1 -->
+    <div class="row-wrapper">
+      <div class="row">
+        <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      </div>
+      <div class="code-tail">p;</div>
+    </div>
+    <!-- Строка 2 -->
+    <div class="row-wrapper">
+      <div class="row">
+        <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      </div>
+      <div class="code-tail">p;</div>
+    </div>
+    <!-- Строка 3 -->
+    <div class="row-wrapper">
+      <div class="row">
+        <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      </div>
+      <div class="code-tail">p;</div>
+    </div>
+    <!-- Строка 4 -->
+    <div class="row-wrapper">
+      <div class="row">
+        <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      </div>
+      <div class="code-tail">p;</div>
+    </div>
+    <!-- Строка 5 -->
+    <div class="row-wrapper">
+      <div class="row">
+        <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      </div>
+      <div class="code-tail">p;</div>
+    </div>
+    <!-- Строка 6 -->
+    <div class="row-wrapper">
+      <div class="row">
+        <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      </div>
+      <div class="code-tail">p;</div>
+    </div>
+  </div>
+  
+  <!-- Консоль -->
+  <pre class="console-output" id="console-output"></pre>
+  
+  <!-- Клавиатура -->
+  <div class="keyboard" id="keyboard">
+    <!-- Строка 1: Квалификаторы -->
+    <div class="keyboard-row">
+      <button class="key" data-token="inline">inline</button>
+      <button class="key" data-token="const">const</button>
+      <button class="key" data-token="volatile">volatile</button>
+      <!-- <button class="key" data-token="constexpr">constexpr</button> -->
+      <!-- <button class="key" data-token="constinit">constinit</button> -->
+    </div>
+    <!-- Строка 2: Типы -->
+    <div class="keyboard-row">
+      <button class="key" data-token="int">int</button>
+      <button class="key" data-token="char">char</button>
+      <button class="key" data-token="float">float</button>
+      <!-- <button class="key" data-token="double">double</button> -->
+      <button class="key" data-token="void">void</button>
+      <!-- <button class="key" data-token="auto">auto</button> -->
+    </div>
+    <!-- Строка 3: Указатели и Служебные действия -->
+    <div class="keyboard-row">
+      <button class="key" data-token="*">*</button>
+      <!-- <button class="key" data-token="&">&</button> -->
+      <!-- <button class="key" data-token="&&">&&</button> -->
+      <button class="key action" data-action="backspace"><--</button>
+    </div>
+  </div>
+
+  <script src="script-c.js"></script>
+  <script src="script-cpp.js"></script>
+  <script src="script-rust.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
