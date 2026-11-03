@@ -21,7 +21,8 @@
           ["<b>0x000B</b>", "PSE_MESH_DOOR_FRAME", "<img src=\"assets/enums_h/mesh/PSE_MESH_DOOR_FRAME.png\">"],
           ["<b>0x000C</b>", "PSE_MESH_LASER_FRAME", "<img src=\"assets/enums_h/mesh/PSE_MESH_LASER_FRAME.png\">"],
           ["<b>0x000D</b>", "PSE_MESH_LASER_FRAME_SHIFTED", "<img src=\"assets/enums_h/mesh/PSE_MESH_LASER_FRAME_SHIFTED.png\">"],
-          ["<b>0x000E</b>", "PSE_MESH_PLANE_Z_SHIFTED", "<img src=\"assets/enums_h/mesh/PSE_MESH_PLANE_Z_SHIFTED.png\">"]
+          ["<b>0x000E</b>", "PSE_MESH_PLANE_Z_SHIFTED", "<img src=\"assets/enums_h/mesh/PSE_MESH_PLANE_Z_SHIFTED.png\">"],
+		  ["<b>0x000F</b>", "PSE_MESH_CUBE_DROPPER_FRAME", "<img src=\"assets/enums_h/mesh/PSE_MESH_CUBE_DROPPER_FRAME.png\">"]
         ]
       }
     ]
@@ -48,7 +49,8 @@
           ["<b>0x000B</b>", "PSE_MESH_DOOR_FRAME", "<img src=\"assets/enums_h/mesh/PSE_MESH_DOOR_FRAME.png\">"],
           ["<b>0x000C</b>", "PSE_MESH_LASER_FRAME", "<img src=\"assets/enums_h/mesh/PSE_MESH_LASER_FRAME.png\">"],
           ["<b>0x000D</b>", "PSE_MESH_LASER_FRAME_SHIFTED", "<img src=\"assets/enums_h/mesh/PSE_MESH_LASER_FRAME_SHIFTED.png\">"],
-          ["<b>0x000E</b>", "PSE_MESH_PLANE_Z_SHIFTED", "<img src=\"assets/enums_h/mesh/PSE_MESH_PLANE_Z_SHIFTED.png\">"]
+          ["<b>0x000E</b>", "PSE_MESH_PLANE_Z_SHIFTED", "<img src=\"assets/enums_h/mesh/PSE_MESH_PLANE_Z_SHIFTED.png\">"],
+		  ["<b>0x000F</b>", "PSE_MESH_CUBE_DROPPER_FRAME", "<img src=\"assets/enums_h/mesh/PSE_MESH_CUBE_DROPPER_FRAME.png\">"]
         ]
       }
     ]
