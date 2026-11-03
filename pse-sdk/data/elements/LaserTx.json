@@ -1,0 +1,44 @@
+{
+  "ru": {
+    "title": "Laser Tx",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_LASER_TX.png", "alt": "PSE_CLASS_LASER_TX" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_LASER_TX</code> <i>(0x0008)</i>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Лазерный излучатель, который излучает лазер определенного цвета при активации" },
+      { "type": "text", "html": "<b>Set State:</b> Активирует лазер при <b>State != 0</b>" },
+      { "type": "text", "html": "<b>Get State:</b> Не используется <i>(возвращает <b>State</b>, изначально равный <code>0</code>)</i>" },
+      { "type": "text", "html": "<b>Разметка регистров:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Индекс", "Наименование", "Формат данных", "Описание"], "rows": [
+        ["<code>[0]</code>", "<b>Flags</b>", "<code>_______________________________S</code>", "<code>S</code> - Бит, который переключает версию модели на смещенную вниз"],
+        ["<code>[1]</code>", "<b>Laser Color</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Цвет лазера"],
+        ["<code>[2]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[3]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]}
+    ]
+  },
+  "en": {
+    "title": "Laser Tx",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_LASER_TX.png", "alt": "PSE_CLASS_LASER_TX" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_LASER_TX</code> <i>(0x0008)</i>" },
+      { "type": "text", "html": "<b>Element Description:</b> A laser emitter that emits a laser of a specific color when activated" },
+      { "type": "text", "html": "<b>Set State:</b> Activates the laser when <b>State != 0</b>" },
+      { "type": "text", "html": "<b>Get State:</b> Not used <i>(returns <b>State</b>, initially equal to <code>0</code>)</i>" },
+      { "type": "text", "html": "<b>Register layout:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Index", "Name", "Data format", "Description"], "rows": [
+        ["<code>[0]</code>", "<b>Flags</b>", "<code>_______________________________S</code>", "<code>S</code> - Bit that switches the model version to the one shifted downward"],
+        ["<code>[1]</code>", "<b>Laser Color</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Laser color"],
+        ["<code>[2]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[3]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]}
+    ]
+  }
+}

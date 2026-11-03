@@ -1,0 +1,44 @@
+{
+  "ru": {
+    "title": "Flashlight",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_FLASHLIGHT.png", "alt": "PSE_CLASS_FLASHLIGHT" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_FLASHLIGHT</code> <i>(0x0013)</i>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Фонарик, который можно заспавнить и подобрать игроком" },
+      { "type": "text", "html": "<b>Set State:</b> Не используется <i>(нет логики)</i>" },
+      { "type": "text", "html": "<b>Get State:</b> Не используется <i>(возвращает <b>State</b>, изначально равный <code>0</code>)</i>" },
+      { "type": "text", "html": "<b>Разметка регистров:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Индекс", "Наименование", "Формат данных", "Описание"], "rows": [
+        ["<code>[0]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[1]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[2]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[3]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]}
+    ]
+  },
+  "en": {
+    "title": "Flashlight",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_FLASHLIGHT.png", "alt": "PSE_CLASS_FLASHLIGHT" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_FLASHLIGHT</code> <i>(0x0013)</i>" },
+      { "type": "text", "html": "<b>Element Description:</b> A flashlight that can be spawned and picked up by the player" },
+      { "type": "text", "html": "<b>Set State:</b> Not used <i>(no logic)</i>" },
+      { "type": "text", "html": "<b>Get State:</b> Not used <i>(returns <b>State</b>, initially equal to <code>0</code>)</i>" },
+      { "type": "text", "html": "<b>Register layout:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Index", "Name", "Data format", "Description"], "rows": [
+        ["<code>[0]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[1]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[2]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[3]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]}
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "ru": {
+    "title": "PseMesh",
+    "blocks": [
+      {
+        "type": "table",
+        "align": ["center", "left", "center"],
+        "head": ["Значение HEX", "Название", "Фотография"],
+        "rows": [
+          ["<b>0x0000</b>", "PSE_MESH_PLANE", "<img src=\"assets/enums_h/mesh/PSE_MESH_PLANE.png\">"],
+          ["<b>0x0001</b>", "PSE_MESH_FACE", "<img src=\"assets/enums_h/mesh/PSE_MESH_FACE.png\">"],
+          ["<b>0x0002</b>", "PSE_MESH_CUBE", "<img src=\"assets/enums_h/mesh/PSE_MESH_CUBE.png\">"],
+          ["<b>0x0003</b>", "PSE_MESH_CUP_INNER", "<img src=\"assets/enums_h/mesh/PSE_MESH_CUP_INNER.png\">"],
+          ["<b>0x0004</b>", "PSE_MESH_CUP_OUTER", "<img src=\"assets/enums_h/mesh/PSE_MESH_CUP_OUTER.png\">"],
+          ["<b>0x0005</b>", "PSE_MESH_II_INNER", "<img src=\"assets/enums_h/mesh/PSE_MESH_II_INNER.png\">"],
+          ["<b>0x0006</b>", "PSE_MESH_II_OUTER", "<img src=\"assets/enums_h/mesh/PSE_MESH_II_OUTER.png\">"],
+          ["<b>0x0007</b>", "PSE_MESH_O_INNER", "<img src=\"assets/enums_h/mesh/PSE_MESH_O_INNER.png\">"],
+          ["<b>0x0008</b>", "PSE_MESH_O_OUTER", "<img src=\"assets/enums_h/mesh/PSE_MESH_O_OUTER.png\">"],
+          ["<b>0x0009</b>", "PSE_MESH_U_INNER", "<img src=\"assets/enums_h/mesh/PSE_MESH_U_INNER.png\">"],
+          ["<b>0x000A</b>", "PSE_MESH_U_OUTER", "<img src=\"assets/enums_h/mesh/PSE_MESH_U_OUTER.png\">"],
+          ["<b>0x000B</b>", "PSE_MESH_DOOR_FRAME", "<img src=\"assets/enums_h/mesh/PSE_MESH_DOOR_FRAME.png\">"],
+          ["<b>0x000C</b>", "PSE_MESH_LASER_FRAME", "<img src=\"assets/enums_h/mesh/PSE_MESH_LASER_FRAME.png\">"],
+          ["<b>0x000D</b>", "PSE_MESH_LASER_FRAME_SHIFTED", "<img src=\"assets/enums_h/mesh/PSE_MESH_LASER_FRAME_SHIFTED.png\">"],
+          ["<b>0x000E</b>", "PSE_MESH_PLANE_Z_SHIFTED", "<img src=\"assets/enums_h/mesh/PSE_MESH_PLANE_Z_SHIFTED.png\">"]
+        ]
+      }
+    ]
+  },
+  "en": {
+    "title": "PseMesh",
+    "blocks": [
+      {
+        "type": "table",
+        "align": ["center", "left", "center"],
+        "head": ["Value HEX", "Name", "Photo"],
+        "rows": [
+          ["<b>0x0000</b>", "PSE_MESH_PLANE", "<img src=\"assets/enums_h/mesh/PSE_MESH_PLANE.png\">"],
+          ["<b>0x0001</b>", "PSE_MESH_FACE", "<img src=\"assets/enums_h/mesh/PSE_MESH_FACE.png\">"],
+          ["<b>0x0002</b>", "PSE_MESH_CUBE", "<img src=\"assets/enums_h/mesh/PSE_MESH_CUBE.png\">"],
+          ["<b>0x0003</b>", "PSE_MESH_CUP_INNER", "<img src=\"assets/enums_h/mesh/PSE_MESH_CUP_INNER.png\">"],
+          ["<b>0x0004</b>", "PSE_MESH_CUP_OUTER", "<img src=\"assets/enums_h/mesh/PSE_MESH_CUP_OUTER.png\">"],
+          ["<b>0x0005</b>", "PSE_MESH_II_INNER", "<img src=\"assets/enums_h/mesh/PSE_MESH_II_INNER.png\">"],
+          ["<b>0x0006</b>", "PSE_MESH_II_OUTER", "<img src=\"assets/enums_h/mesh/PSE_MESH_II_OUTER.png\">"],
+          ["<b>0x0007</b>", "PSE_MESH_O_INNER", "<img src=\"assets/enums_h/mesh/PSE_MESH_O_INNER.png\">"],
+          ["<b>0x0008</b>", "PSE_MESH_O_OUTER", "<img src=\"assets/enums_h/mesh/PSE_MESH_O_OUTER.png\">"],
+          ["<b>0x0009</b>", "PSE_MESH_U_INNER", "<img src=\"assets/enums_h/mesh/PSE_MESH_U_INNER.png\">"],
+          ["<b>0x000A</b>", "PSE_MESH_U_OUTER", "<img src=\"assets/enums_h/mesh/PSE_MESH_U_OUTER.png\">"],
+          ["<b>0x000B</b>", "PSE_MESH_DOOR_FRAME", "<img src=\"assets/enums_h/mesh/PSE_MESH_DOOR_FRAME.png\">"],
+          ["<b>0x000C</b>", "PSE_MESH_LASER_FRAME", "<img src=\"assets/enums_h/mesh/PSE_MESH_LASER_FRAME.png\">"],
+          ["<b>0x000D</b>", "PSE_MESH_LASER_FRAME_SHIFTED", "<img src=\"assets/enums_h/mesh/PSE_MESH_LASER_FRAME_SHIFTED.png\">"],
+          ["<b>0x000E</b>", "PSE_MESH_PLANE_Z_SHIFTED", "<img src=\"assets/enums_h/mesh/PSE_MESH_PLANE_Z_SHIFTED.png\">"]
+        ]
+      }
+    ]
+  }
+}

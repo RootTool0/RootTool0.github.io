@@ -1,0 +1,46 @@
+{
+  "ru": {
+    "title": "Data",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "<h2>pse::Data::</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Пространство имен <code>pse::Data::</code> содержит набор <b>шаблонных утилит</b> <i>(хелперов)</i>, предназначенных для быстрой и безопасной работы со структурами <code>PseData</code>. Они позволяют безопасно читать и записывать данные произвольных типов в <code>PseData</code> <i>(в поле <code>uint8_t data[60]</code>)</i>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Сигнатура", "Тип возвращаемого значения", "Описание"],
+        "rows": [
+          ["<code>template&lt;uint8_t offset, typename T&gt; set(PseData&amp; outData, const T&amp; inValue)</code>", "<code>void</code>", "Изменяет объект <code>outData</code>, копируя в него значение <code>inValue</code> типа <code>T</code> по указанному смещению <code>offset</code>"],
+          ["<code>template&lt;uint8_t offset, typename T&gt; get(const PseData&amp; inData)</code>", "<code>T</code>", "Считывает объект <code>inData</code>, извлекает и возвращает из него значение типа <code>T</code> по указанному смещению <code>offset</code>"]
+        ]
+      }
+    ]
+  },
+  "en": {
+    "title": "Data",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "<h2>pse::Data::</h2>"
+      },
+      {
+        "type": "text",
+        "html": "The <code>pse::Data::</code> namespace contains a set of <b>template utilities</b> <i>(helpers)</i> designed for fast and safe work with <code>PseData</code> structures. They allow safe reading and writing of data of arbitrary types into <code>PseData</code> <i>(into the <code>uint8_t data[60]</code> field)</i>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Signature", "Return type", "Description"],
+        "rows": [
+          ["<code>template&lt;uint8_t offset, typename T&gt; set(PseData&amp; outData, const T&amp; inValue)</code>", "<code>void</code>", "Modifies the <code>outData</code> object, copying the <code>inValue</code> value of type <code>T</code> into it at the specified <code>offset</code>"],
+          ["<code>template&lt;uint8_t offset, typename T&gt; get(const PseData&amp; inData)</code>", "<code>T</code>", "Reads the <code>inData</code> object, extracts and returns a value of type <code>T</code> from it at the specified <code>offset</code>"]
+        ]
+      }
+    ]
+  }
+}

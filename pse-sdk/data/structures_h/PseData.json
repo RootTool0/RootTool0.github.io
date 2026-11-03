@@ -1,0 +1,62 @@
+{
+  "ru": {
+    "title": "PseData",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "Универсальная <b>64-байтовая структура</b> для <b>Shared Memory</b>"
+      },
+      {
+        "type": "text",
+        "html": "Безымянна, не имеет своей логики и выступает в роли транспортера <i>(\"рабочей лошадки\")</i> данных между <b>игрой</b> и <b>SDK</b>"
+      },
+      {
+        "type": "text",
+        "html": "Размер атомарен и оптимизирован под размер <b>кэш линии <i>(64 байта)</i></b> для <b>кольцевого буфера</b>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Поля</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "center", "left"],
+        "head": ["Поле", "Смещение (в байтах)", "Размер (в байтах)", "Описание"],
+        "rows": [
+          ["<b>uint32_t header</b>", "<code>0</code>", "<code>4</code>", "Заголовок пакета. Определяет тип сообщения и контекст для интерпретации данных в <code>data</code>"],
+          ["<b>uint8_t data[60]</b>", "<code>4</code>", "<code>60</code>", "Сырой массив для полезной нагрузки <i>(payload)</i>, куда упаковываются параметры"]
+        ]
+      }
+    ]
+  },
+  "en": {
+    "title": "PseData",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "Universal <b>64-byte structure</b> for <b>Shared Memory</b>"
+      },
+      {
+        "type": "text",
+        "html": "Nameless, has no logic of its own, and acts as a transporter <i>(\"workhorse\")</i> of data between <b>game</b> and <b>SDK</b>"
+      },
+      {
+        "type": "text",
+        "html": "The size is atomic and optimized for the <b>cache line <i>(64 bytes)</i></b> size for the <b>ring buffer</b>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Fields</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "center", "left"],
+        "head": ["Field", "Offset (in bytes)", "Size (in bytes)", "Description"],
+        "rows": [
+          ["<b>uint32_t header</b>", "<code>0</code>", "<code>4</code>", "Packet header. Determines the message type and the context for interpreting data in <code>data</code>"],
+          ["<b>uint8_t data[60]</b>", "<code>4</code>", "<code>60</code>", "Raw array for the payload <i>(payload)</i>, where parameters are packed"]
+        ]
+      }
+    ]
+  }
+}

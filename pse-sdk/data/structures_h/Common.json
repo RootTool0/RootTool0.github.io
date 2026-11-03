@@ -1,0 +1,82 @@
+{
+  "ru": {
+    "title": "Common",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "Краткий справочник базовых типов данных и структур, используемых в <b>SDK</b>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Алиасы</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "left", "center", "left"],
+        "head": ["Имя алиаса", "Тип", "Размер (в байтах)", "Описание"],
+        "rows": [
+          ["<b>PseGUID</b>", "<code>uint64_t</code>", "8", "Глобальный уникальный идентификатор"],
+          ["<b>PseRegister</b>", "<code>uint32_t</code>", "4", "Регистр внутри элементов <i>(Для удобной есть хелпер-функции в <code>pse::Register::</code>, см. <b>Reference &gt; Pse.hpp &gt; Register</b>)</i>"],
+          ["<b>PseState</b>", "<code>int8_t</code>", "1", "Сквозная переменная состояния. Связывает элементы друг с другом <i>(главная нить судьбы)</i>"],
+          ["<b>PseCallback</b>", "<code>uint64_t</code>", "8", "Анонимный маркер пользовательского контекста <i>(хранит адрес функции в памяти элементов в игре)</i>. Игра сохраняет его и возвращает обратно при наступлении события с элементом без каких-либо изменений"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h2>Структуры</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "left", "center", "left"],
+        "head": ["Имя структуры", "Поля", "Размер (в байтах)", "Описание"],
+        "rows": [
+          ["<b>PseVector2</b>", "<code>float x</code>, <code>float y</code>", "8", "Двухмерный вектор"],
+          ["<b>PseVector3</b>", "<code>float x</code>, <code>float y</code>, <code>float z</code>", "12", "Трехмерный вектор"],
+          ["<b>PseQuat</b>", "<code>float x</code>, <code>float y</code>, <code>float z</code>, <code>float w</code>", "16", "Кватернион"],
+          ["<b>PseTransform</b>", "<code>PseQuat quat</code>, <code>PseVector3 location</code>, <code>PseVector3 scale</code>", "40", "Трансформ объекта"],
+          ["<b>PseColor</b>", "<code>uint8_t r</code>, <code>uint8_t g</code>, <code>uint8_t b</code>,", "3", "Цвет в формате RGB888 (0-255)"]
+        ]
+      }
+    ]
+  },
+  "en": {
+    "title": "Common",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "A brief reference of base data types and structures used in the <b>SDK</b>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Aliases</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "left", "center", "left"],
+        "head": ["Alias name", "Type", "Size (in bytes)", "Description"],
+        "rows": [
+          ["<b>PseGUID</b>", "<code>uint64_t</code>", "8", "Global unique identifier"],
+          ["<b>PseRegister</b>", "<code>uint32_t</code>", "4", "Register inside elements <i>(For convenience there are helper functions in <code>pse::Register::</code>, see <b>Reference &gt; Pse.hpp &gt; Register</b>)</i>"],
+          ["<b>PseState</b>", "<code>int8_t</code>", "1", "End-to-end state variable. Links elements to each other <i>(the main thread of fate)</i>"],
+          ["<b>PseCallback</b>", "<code>uint64_t</code>", "8", "Anonymous user context marker <i>(stores the function address in the memory of elements in the game)</i>. The game stores it and returns it back when an event with the element occurs without any changes"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h2>Structures</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "left", "center", "left"],
+        "head": ["Structure name", "Fields", "Size (in bytes)", "Description"],
+        "rows": [
+          ["<b>PseVector2</b>", "<code>float x</code>, <code>float y</code>", "8", "Two-dimensional vector"],
+          ["<b>PseVector3</b>", "<code>float x</code>, <code>float y</code>, <code>float z</code>", "12", "Three-dimensional vector"],
+          ["<b>PseQuat</b>", "<code>float x</code>, <code>float y</code>, <code>float z</code>, <code>float w</code>", "16", "Quaternion"],
+          ["<b>PseTransform</b>", "<code>PseQuat quat</code>, <code>PseVector3 location</code>, <code>PseVector3 scale</code>", "40", "Object transform"],
+          ["<b>PseColor</b>", "<code>uint8_t r</code>, <code>uint8_t g</code>, <code>uint8_t b</code>,", "3", "Color in RGB888 format (0-255)"]
+        ]
+      }
+    ]
+  }
+}

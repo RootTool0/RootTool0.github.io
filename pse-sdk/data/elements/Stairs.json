@@ -1,0 +1,44 @@
+{
+  "ru": {
+    "title": "Stairs",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_STAIRS.png", "alt": "PSE_CLASS_STAIRS" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_STAIRS</code> <i>(0x0010)</i>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Обычная лестница, что еще сказать?" },
+      { "type": "text", "html": "<b>Set State:</b> Лестница поднимается при <b>State != 0</b>" },
+      { "type": "text", "html": "<b>Get State:</b> Не используется <i>(возвращает <b>State</b>, изначально равный <code>0</code>)</i>" },
+      { "type": "text", "html": "<b>Разметка регистров:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Индекс", "Наименование", "Формат данных", "Описание"], "rows": [
+        ["<code>[0]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[1]</code>", "<b>Color Activated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Цвет подсветки лестницы в активированном состоянии"],
+        ["<code>[2]</code>", "<b>Color Deactivated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Цвет подсветки лестницы в деактивированном состоянии"],
+        ["<code>[3]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]}
+    ]
+  },
+  "en": {
+    "title": "Stairs",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_STAIRS.png", "alt": "PSE_CLASS_STAIRS" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_STAIRS</code> <i>(0x0010)</i>" },
+      { "type": "text", "html": "<b>Element Description:</b> A regular staircase, what else is there to say?" },
+      { "type": "text", "html": "<b>Set State:</b> The stairs rise when <b>State != 0</b>" },
+      { "type": "text", "html": "<b>Get State:</b> Not used <i>(returns <b>State</b>, initially equal to <code>0</code>)</i>" },
+      { "type": "text", "html": "<b>Register layout:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Index", "Name", "Data format", "Description"], "rows": [
+        ["<code>[0]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[1]</code>", "<b>Color Activated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Stairs highlight color in the activated state"],
+        ["<code>[2]</code>", "<b>Color Deactivated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Stairs highlight color in the deactivated state"],
+        ["<code>[3]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]}
+    ]
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "ru": {
+    "title": "Register",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "<h2>pse::Register::</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Пространство имен <code>pse::Register::</code> содержит набор <b>шаблонных утилит</b> <i>(хелперов)</i>, предназначенных для быстрой и безопасной работы с битовыми полями и данными внутри <b>регистров</b> <code>PseRegister</code>"
+      },
+      {
+        "type": "text",
+        "html": "<h3>Bit</h3>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Сигнатура", "Тип возвращаемого значения", "Описание"],
+        "rows": [
+          ["<code>setBit(PseRegister&amp; outRegister, const uint8_t inOffset, const bool inValue)</code>", "<code>void</code>", "Изменяет регистр <code>outRegister</code>, записывает в него один бит с значением <code>inValue</code> по указанному смещению <code>inOffset</code>"],
+          ["<code>getBit(const PseRegister inRegister, const uint8_t inOffset)</code>", "<code>bool</code>", "Считывает регистр <code>inRegister</code>, возвращает значение одного бита по указанному смещению <code>inOffset</code>"],
+          ["<code>updateBit(const bool toRegister, PseRegister&amp; outRegister, const uint8_t inOffset, bool&amp; outValue)</code>", "<code>void</code>", "Если флаг <code>toRegister</code> равен <code>true</code>, то записывает значение <code>outValue</code> в бит по смещению <code>inOffset</code> регистра <code>outRegister</code>, иначе считывает этот бит и сохраняет его в <code>outValue</code><br><br><i>(по сути флаг <code>toRegister</code> определяет какую команду выполнить: <code>setBit</code> или <code>getBit</code>)</i>"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h3>Int</h3>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Сигнатура", "Тип возвращаемого значения", "Описание"],
+        "rows": [
+          ["<code>getInt(const PseRegister inRegister, const uint8_t inOffset)</code>", "<code>T</code>", "Считывает регистр <code>inRegister</code>, возвращает целочисленное значение типа <code>T</code> по указанному смещению <code>inOffset</code><br><br><i>(размер типа <code>T</code> не должен превышать <b>32 бит</b>)</i>"],
+          ["<code>template&lt;typename T&gt; setInt(PseRegister&amp; outRegister, const uint8_t inOffset, const T inValue)</code>", "<code>void</code>", "Изменяет регистр <code>outRegister</code>, записывает в него целочисленное значение inValue типа <code>T</code> по указанному смещению <code>inOffset</code><br><br><i>(размер типа <code>T</code> не должен превышать <b>32 бит</b>)</i>"],
+          ["<code>template&lt;typename T, typename Q&gt; updateInt(const bool toRegister, PseRegister&amp; outRegister, const uint8_t inOffset, Q&amp; outValue)</code>", "<code>void</code>", "Если флаг <code>toRegister</code> равен <code>true</code>, то записывает значение <code>outValue</code> <i>(приведенное к типу <code>T</code>)</i> по смещению inOffset регистра <code>outRegister</code>, иначе считывает это значение и сохраняет его в <code>outValue</code> <i>(приведенное к типу <code>Q</code>)</i><br><br><i>(размер типа <code>T</code> не должен превышать <b>32 бит</b>)</i>"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h3>BitAs</h3>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Сигнатура", "Тип возвращаемого значения", "Описание"],
+        "rows": [
+          ["<code>template&lt;typename T, uint8_t bitCount&gt; getBitsAs(const PseRegister inRegister, const uint8_t inOffset)</code>", "<code>T</code>", "Считывает регистр <code>inRegister</code>, возвращает значение заданной длины <code>bitCount</code>, приведенное к типу <code>T</code>, по указанному смещению <code>inOffset</code>"],
+          ["<code>template&lt;typename T, uint8_t bitCount&gt; setBitsAs(PseRegister&amp; outRegister, const uint8_t inOffset, const T inValue)</code>", "<code>void</code>", "Изменяет регистр <code>outRegister</code>, записывает в него значение <code>inValue</code> заданной длины bitCount по указанному смещению <code>inOffset</code><br><br><i>(параметр <code>bitCount</code> должен быть в диапазоне <b>от 1 до 32 включительно</b>)</i>"],
+          ["<code>template&lt;typename T, uint8_t bitCount, typename Q&gt; updateBitsAs(const bool toRegister, PseRegister&amp; outRegister, const uint8_t inOffset, Q&amp; outValue)</code>", "<code>void</code>", "Если флаг <code>toRegister</code> равен <code>true</code>, то записывает значение <code>outValue</code> <i>(длиной <code>bitCount</code>)</i> по смещению <code>inOffset</code> регистра <code>outRegister</code>, иначе считывает его и сохраняет в <code>outValue</code><br><br><i>(параметр <code>bitCount</code> должен быть в диапазоне <b>от 1 до 32 включительно</b>)</i>"]
+        ]
+      }
+    ]
+  },
+  "en": {
+    "title": "Register",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "<h2>pse::Register::</h2>"
+      },
+      {
+        "type": "text",
+        "html": "The <code>pse::Register::</code> namespace contains a set of <b>template utilities</b> <i>(helpers)</i> designed for fast and safe work with bit fields and data inside <b>registers</b> <code>PseRegister</code>"
+      },
+      {
+        "type": "text",
+        "html": "<h3>Bit</h3>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Signature", "Return type", "Description"],
+        "rows": [
+          ["<code>setBit(PseRegister&amp; outRegister, const uint8_t inOffset, const bool inValue)</code>", "<code>void</code>", "Modifies the <code>outRegister</code> register, writing a single bit with the value <code>inValue</code> at the specified <code>inOffset</code>"],
+          ["<code>getBit(const PseRegister inRegister, const uint8_t inOffset)</code>", "<code>bool</code>", "Reads the <code>inRegister</code> register, returns the value of a single bit at the specified <code>inOffset</code>"],
+          ["<code>updateBit(const bool toRegister, PseRegister&amp; outRegister, const uint8_t inOffset, bool&amp; outValue)</code>", "<code>void</code>", "If the <code>toRegister</code> flag is <code>true</code>, writes the <code>outValue</code> value into the bit at the <code>inOffset</code> of the <code>outRegister</code> register, otherwise reads this bit and stores it in <code>outValue</code><br><br><i>(essentially the <code>toRegister</code> flag determines which command to execute: <code>setBit</code> or <code>getBit</code>)</i>"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h3>Int</h3>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Signature", "Return type", "Description"],
+        "rows": [
+          ["<code>getInt(const PseRegister inRegister, const uint8_t inOffset)</code>", "<code>T</code>", "Reads the <code>inRegister</code> register, returns an integer value of type <code>T</code> at the specified <code>inOffset</code><br><br><i>(the size of type <code>T</code> must not exceed <b>32 bits</b>)</i>"],
+          ["<code>template&lt;typename T&gt; setInt(PseRegister&amp; outRegister, const uint8_t inOffset, const T inValue)</code>", "<code>void</code>", "Modifies the <code>outRegister</code> register, writing the integer value inValue of type <code>T</code> at the specified <code>inOffset</code><br><br><i>(the size of type <code>T</code> must not exceed <b>32 bits</b>)</i>"],
+          ["<code>template&lt;typename T, typename Q&gt; updateInt(const bool toRegister, PseRegister&amp; outRegister, const uint8_t inOffset, Q&amp; outValue)</code>", "<code>void</code>", "If the <code>toRegister</code> flag is <code>true</code>, writes the <code>outValue</code> value <i>(cast to type <code>T</code>)</i> at the inOffset of the <code>outRegister</code> register, otherwise reads this value and stores it in <code>outValue</code> <i>(cast to type <code>Q</code>)</i><br><br><i>(the size of type <code>T</code> must not exceed <b>32 bits</b>)</i>"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h3>BitAs</h3>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Signature", "Return type", "Description"],
+        "rows": [
+          ["<code>template&lt;typename T, uint8_t bitCount&gt; getBitsAs(const PseRegister inRegister, const uint8_t inOffset)</code>", "<code>T</code>", "Reads the <code>inRegister</code> register, returns a value of the specified length <code>bitCount</code>, cast to type <code>T</code>, at the specified <code>inOffset</code>"],
+          ["<code>template&lt;typename T, uint8_t bitCount&gt; setBitsAs(PseRegister&amp; outRegister, const uint8_t inOffset, const T inValue)</code>", "<code>void</code>", "Modifies the <code>outRegister</code> register, writing the <code>inValue</code> value of the specified length bitCount at the specified <code>inOffset</code><br><br><i>(the <code>bitCount</code> parameter must be in the range <b>from 1 to 32 inclusive</b>)</i>"],
+          ["<code>template&lt;typename T, uint8_t bitCount, typename Q&gt; updateBitsAs(const bool toRegister, PseRegister&amp; outRegister, const uint8_t inOffset, Q&amp; outValue)</code>", "<code>void</code>", "If the <code>toRegister</code> flag is <code>true</code>, writes the <code>outValue</code> value <i>(of length <code>bitCount</code>)</i> at the <code>inOffset</code> of the <code>outRegister</code> register, otherwise reads it and stores it in <code>outValue</code><br><br><i>(the <code>bitCount</code> parameter must be in the range <b>from 1 to 32 inclusive</b>)</i>"]
+        ]
+      }
+    ]
+  }
+}

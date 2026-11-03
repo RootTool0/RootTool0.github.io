@@ -1,0 +1,25 @@
+{
+  "ru": {
+    "title": "Laser Panel",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_LASER_PANEL.png", "alt": "PSE_CLASS_LASER_PANEL" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_LASER_PANEL</code> <i>(0x000B)</i>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Панель с лазерной пластиной, способная переотражать лазеры" },
+      { "type": "text", "html": "<b>Set State:</b> Не используется <i>(нет логики)</i>" },
+      { "type": "text", "html": "<b>Get State:</b> Возвращает <code>1</code> если было любое касание с лазером, иначе <code>0</code> <i>(только если включен бит <code>B</code> в регистре <code>0</code>. Глянь дополнительную информацию!)</i>" },
+      { "type": "text", "html": "<b>Разметка регистров:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Индекс", "Наименование", "Формат данных", "Описание"], "rows": [
+        ["<code>[0]</code>", "<b>Flags</b>", "<code>_______BHHHHHHHHLLLLLLLLAAAAAAAA</code>", "<code>B</code> - Бит, меняющий визуал панели и заставляющий ее включаться <i>(генерировать события <b>State</b>)</i> при касании хотя бы с 1 лазером <code>H...H</code> - Максимальный угол наклона<br><code>L...L</code> - Минимальный угол наклона<br><code>A...A</code> - Заданный угол наклона в промежутке [<code>L...L</code>; <code>H...H</code>]"],
+        ["<code>[1]</code>", "<b>Color Activated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Цвет элемента в активированном (включенном) состоянии"],
+        ["<code>[2]</code>", "<b>Color Deactivated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Цвет элемента в деактивированном (выключенном) состоянии"],
+        ["<code>[3]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]},
+      { "type": "text", "html": "<b>Дополнительная информация</b>:" },
+      { "type": "text", "html": "<ul><li>В регистре <code>[0]</code> биты <code>H...H</code>, <code>L...L</code> и <code>A...A</code> являются <code>uint8_t</code>, но:<ul><li>Биты <code>H...H</code> и <code>L...L</code> округляются в целочисленном диапазоне от <b>0</b> до <b>180</b> <b>включительно!</b> <i>([0; 180])</i></li><li>Биты <code>L...L</code> жестко ограничены сверху значением <code>H...H</code> и не могут превышать его</li><li>Биты <code>A...A</code> целочисленно округляются включительно между <code>L...L</code> и <code>H...H</code> и не может выходить за диапазон</li><li>Также есть особое поведение: Если <code>L...L</code> и <code>H...H</code> равны, то <b>Панель блокируется и Солвер Ган при наводке на панель не подсвечивает ее!</b></li></ul></li><li>В регистре <code>[0]</code> бит <code>B</code> полностью меняет визуал панели:<ul><li>Края панели меняются с черного на цвет из регистра <code>[1]</code> <i>(<b>Color Activated</b>)</i> и <code>[2]</code> <i>(<b>Color Deactivated</b>)</i></li><li>Активация происходит если на панель попадает <b>хотя бы</b> 1 лазер</li></ul></li></ul>" }
+    ]
+  }
+}

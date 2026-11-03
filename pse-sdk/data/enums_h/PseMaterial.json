@@ -1,0 +1,54 @@
+{
+  "ru": {
+    "title": "PseMaterial",
+    "blocks": [
+      {
+        "type": "table",
+        "align": ["center", "left", "center"],
+        "head": ["Значение (HEX)", "Название", "Фотография"],
+        "rows": [
+          ["<b>0x0000</b>", "PSE_MATERIAL_WALL_WHITE_SMALL", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WALL_WHITE_SMALL.png\">"],
+          ["<b>0x0001</b>", "PSE_MATERIAL_WALL_WHITE_MEDIUM", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WALL_WHITE_MEDIUM.png\">"],
+          ["<b>0x0002</b>", "PSE_MATERIAL_WALL_WHITE_DOUBLE", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WALL_WHITE_DOUBLE.png\">"],
+          ["<b>0x0003</b>", "PSE_MATERIAL_WALL_WHITE_BIG", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WALL_WHITE_BIG.png\">"],
+          ["<b>0x0004</b>", "PSE_MATERIAL_WALL_WHITE_ABSOLUTE_SCIENCE", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WALL_WHITE_ABSOLUTE_SCIENCE.png\">"],
+          ["<b>0x0005</b>", "PSE_MATERIAL_WALL_BLACK_SMALL", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WALL_BLACK_SMALL.png\">"],
+          ["<b>0x0006</b>", "PSE_MATERIAL_WALL_BLACK_MEDIUM", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WALL_BLACK_MEDIUM.png\">"],
+          ["<b>0x0007</b>", "PSE_MATERIAL_WALL_BLACK_BIG", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WALL_BLACK_BIG.png\">"],
+          ["<b>0x0008</b>", "PSE_MATERIAL_FLOOR_WHITE", "<img src=\"assets/enums_h/material/PSE_MATERIAL_FLOOR_WHITE.png\">"],
+          ["<b>0x0009</b>", "PSE_MATERIAL_FLOOR_BLACK", "<img src=\"assets/enums_h/material/PSE_MATERIAL_FLOOR_BLACK.png\">"],
+          ["<b>0x000A</b>", "PSE_MATERIAL_WINDOW_METAL_GRID", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WINDOW_METAL_GRID.png\">"],
+          ["<b>0x000B</b>", "PSE_MATERIAL_WINDOW_GLASS_METAL_GRID", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WINDOW_GLASS_METAL_GRID.png\">"],
+          ["<b>0x000C</b>", "PSE_MATERIAL_WALL_YELLOW_1_0", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WALL_YELLOW_1_0.png\">"],
+          ["<b>0x000D</b>", "PSE_MATERIAL_WALL_YELLOW_1_5", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WALL_YELLOW_1_5.png\">"]
+        ]
+      }
+    ]
+  },
+  "en": {
+    "title": "PseMaterial",
+    "blocks": [
+      {
+        "type": "table",
+        "align": ["center", "left", "center"],
+        "head": ["Value (HEX)", "Name", "Photo"],
+        "rows": [
+          ["<b>0x0000</b>", "PSE_MATERIAL_WALL_WHITE_SMALL", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WALL_WHITE_SMALL.png\">"],
+          ["<b>0x0001</b>", "PSE_MATERIAL_WALL_WHITE_MEDIUM", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WALL_WHITE_MEDIUM.png\">"],
+          ["<b>0x0002</b>", "PSE_MATERIAL_WALL_WHITE_DOUBLE", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WALL_WHITE_DOUBLE.png\">"],
+          ["<b>0x0003</b>", "PSE_MATERIAL_WALL_WHITE_BIG", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WALL_WHITE_BIG.png\">"],
+          ["<b>0x0004</b>", "PSE_MATERIAL_WALL_WHITE_ABSOLUTE_SCIENCE", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WALL_WHITE_ABSOLUTE_SCIENCE.png\">"],
+          ["<b>0x0005</b>", "PSE_MATERIAL_WALL_BLACK_SMALL", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WALL_BLACK_SMALL.png\">"],
+          ["<b>0x0006</b>", "PSE_MATERIAL_WALL_BLACK_MEDIUM", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WALL_BLACK_MEDIUM.png\">"],
+          ["<b>0x0007</b>", "PSE_MATERIAL_WALL_BLACK_BIG", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WALL_BLACK_BIG.png\">"],
+          ["<b>0x0008</b>", "PSE_MATERIAL_FLOOR_WHITE", "<img src=\"assets/enums_h/material/PSE_MATERIAL_FLOOR_WHITE.png\">"],
+          ["<b>0x0009</b>", "PSE_MATERIAL_FLOOR_BLACK", "<img src=\"assets/enums_h/material/PSE_MATERIAL_FLOOR_BLACK.png\">"],
+          ["<b>0x000A</b>", "PSE_MATERIAL_WINDOW_METAL_GRID", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WINDOW_METAL_GRID.png\">"],
+          ["<b>0x000B</b>", "PSE_MATERIAL_WINDOW_GLASS_METAL_GRID", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WINDOW_GLASS_METAL_GRID.png\">"],
+          ["<b>0x000C</b>", "PSE_MATERIAL_WALL_YELLOW_1_0", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WALL_YELLOW_1_0.png\">"],
+          ["<b>0x000D</b>", "PSE_MATERIAL_WALL_YELLOW_1_5", "<img src=\"assets/enums_h/material/PSE_MATERIAL_WALL_YELLOW_1_5.png\">"]
+        ]
+      }
+    ]
+  }
+}

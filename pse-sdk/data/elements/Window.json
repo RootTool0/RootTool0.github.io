@@ -1,0 +1,48 @@
+{
+  "ru": {
+    "title": "Window",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_WINDOW.png", "alt": "PSE_CLASS_WINDOW" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_WINDOW</code> <i>(0x0014)</i>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> " },
+      { "type": "text", "html": "<b>Set State:</b> Не используется <i>(нет логики)</i>" },
+      { "type": "text", "html": "<b>Get State:</b> Не используется <i>(возвращает <b>State</b>, изначально равный <code>0</code>)</i>" },
+      { "type": "text", "html": "<b>Разметка регистров:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Индекс", "Наименование", "Формат данных", "Описание"], "rows": [
+        ["<code>[0]</code>", "<b>Flags</b>", "<code>MMMMMMMMMMMMMMMM_____319764285SL</code>", "<code>M...M</code> - Центральный материал стекла<br><i>Взгляни на Num-pad</i><br><code>3</code> - Видимость <b>нижнего правого угла</b> рамки<br><code>1</code> - Видимость <b>нижнего левого угла</b> рамки<br><code>9</code> - Видимость <b>верхнего правого угла</b> рамки<br><code>7</code> - Видимость <b>верхнего левого угла</b> рамки<br><code>6</code> - Видимость <b>правой части</b> рамки<br><code>4</code> - Видимость <b>левой части</b> рамки<br><code>2</code> - Видимость <b>нижней части</b> рамки<br><code>8</code> - Видимость <b>верхней части</b> рамки<br><code>5</code> - Видимость <b>центральной части</b> <i>(стекла)</i><br><code>S</code> - Пропускает ли лучи <b>Солвер Гана</b>?<br><code>L</code> - Пропускает ли лучи <b>Лазеров</b>?"],
+        ["<code>[1]</code>", "<b>Size</b>", "<code>XXXXXXXXXXXXXXXXYYYYYYYYYYYYYYYY</code>", "<code>X...X</code> - Длина рамки<br><code>Y...Y</code> - Высота рамки"],
+        ["<code>[2]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[3]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]},
+      { "type": "text", "html": "<b>Дополнительная информация</b>:" },
+      { "type": "text", "html": "<ul><li>В регистре <code>[0]</code> биты <code>M...M</code> являются перечислением типа <code>PseMaterial</code> <i>(Подробнее: <b>PseMaterial</b>)</i></li><li>В регистре <code>[1]</code> биты <code>X...X</code> и <code>Y...Y</code> имеют тип <code>uint16_t</code>, то есть <b>беззнаковое 16-битное целое число</b></li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Window",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_WINDOW.png", "alt": "PSE_CLASS_WINDOW" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_WINDOW</code> <i>(0x0014)</i>" },
+      { "type": "text", "html": "<b>Element Description:</b> " },
+      { "type": "text", "html": "<b>Set State:</b> Not used <i>(no logic)</i>" },
+      { "type": "text", "html": "<b>Get State:</b> Not used <i>(returns <b>State</b>, initially equal to <code>0</code>)</i>" },
+      { "type": "text", "html": "<b>Register layout:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Index", "Name", "Data format", "Description"], "rows": [
+        ["<code>[0]</code>", "<b>Flags</b>", "<code>MMMMMMMMMMMMMMMM_____319764285SL</code>", "<code>M...M</code> - Central glass material<br><i>Take a look at the Num-pad</i><br><code>3</code> - Visibility of the <b>bottom-right corner</b> of the frame<br><code>1</code> - Visibility of the <b>bottom-left corner</b> of the frame<br><code>9</code> - Visibility of the <b>top-right corner</b> of the frame<br><code>7</code> - Visibility of the <b>top-left corner</b> of the frame<br><code>6</code> - Visibility of the <b>right part</b> of the frame<br><code>4</code> - Visibility of the <b>left part</b> of the frame<br><code>2</code> - Visibility of the <b>bottom part</b> of the frame<br><code>8</code> - Visibility of the <b>top part</b> of the frame<br><code>5</code> - Visibility of the <b>central part</b> <i>(glass)</i><br><code>S</code> - Does it let <b>Solver Gun</b> rays through?<br><code>L</code> - Does it let <b>Laser</b> rays through?"],
+        ["<code>[1]</code>", "<b>Size</b>", "<code>XXXXXXXXXXXXXXXXYYYYYYYYYYYYYYYY</code>", "<code>X...X</code> - Frame length<br><code>Y...Y</code> - Frame height"],
+        ["<code>[2]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[3]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]},
+      { "type": "text", "html": "<b>Additional information</b>:" },
+      { "type": "text", "html": "<ul><li>In register <code>[0]</code>, the <code>M...M</code> bits are an enumeration of type <code>PseMaterial</code> <i>(More: <b>PseMaterial</b>)</i></li><li>In register <code>[1]</code>, the <code>X...X</code> and <code>Y...Y</code> bits are of type <code>uint16_t</code>, i.e. an <b>unsigned 16-bit integer</b></li></ul>" }
+    ]
+  }
+}

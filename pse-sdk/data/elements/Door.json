@@ -1,0 +1,44 @@
+{
+  "ru": {
+    "title": "Door",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_DOOR.png", "alt": "PSE_CLASS_DOOR" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_DOOR</code> <i>(x0002)</i>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Дверь.... просто дверь" },
+      { "type": "text", "html": "<b>Set State:</b> Дверь открывается при <b>State != 0</b>" },
+      { "type": "text", "html": "<b>Get State:</b> Возвращает <b>State = 1</b> если дверь открыта, иначе <b>State = 0</b>. Также может создавать событие со значением <b>State = 0</b> если бит авто-закрытия <i>(бит <code>A</code> а регистре <code>[0]</code>)</i> включен и игрок прошел через дверь, тем самым закрыв ее" },
+      { "type": "text", "html": "<b>Разметка регистров:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Индекс", "Наименование", "Формат данных", "Описание"], "rows": [
+        ["<code>[0]</code>", "<b>Flags</b>", "<code>______________________________AC</code>", "<code>A</code> - Бит, включающий функцию авто-закрытия двери при прохождении через нее игроком<br><code>C</code> - Бит, переключающий подсветку двери на зеленую при <b>Callback Ping'е</b> <i>(использовалось как выход в <b>Portal: Solver Alpha</b>)</i>"],
+        ["<code>[1]</code>", "<b>Color Activated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Цвет двери в активированном (открытом) состоянии"],
+        ["<code>[2]</code>", "<b>Color Deactivated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Цвет двери в деактивированном (закрытом) состоянии"],
+        ["<code>[3]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]}
+    ]
+  },
+  "en": {
+    "title": "Door",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_DOOR.png", "alt": "PSE_CLASS_DOOR" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_DOOR</code> <i>(x0002)</i>" },
+      { "type": "text", "html": "<b>Element Description:</b> A door.... just a door" },
+      { "type": "text", "html": "<b>Set State:</b> The door opens when <b>State != 0</b>" },
+      { "type": "text", "html": "<b>Get State:</b> Returns <b>State = 1</b> if the door is open, otherwise <b>State = 0</b>. It can also create an event with the value <b>State = 0</b> if the auto-close bit <i>(bit <code>A</code> in register <code>[0]</code>)</i> is enabled and the player has passed through the door, thereby closing it" },
+      { "type": "text", "html": "<b>Register layout:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Index", "Name", "Data format", "Description"], "rows": [
+        ["<code>[0]</code>", "<b>Flags</b>", "<code>______________________________AC</code>", "<code>A</code> - Bit that enables the auto-close function of the door when the player passes through it<br><code>C</code> - Bit that switches the door highlight to green on <b>Callback Ping</b> <i>(used as an exit in <b>Portal: Solver Alpha</b>)</i>"],
+        ["<code>[1]</code>", "<b>Color Activated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Door color in the activated (open) state"],
+        ["<code>[2]</code>", "<b>Color Deactivated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Door color in the deactivated (closed) state"],
+        ["<code>[3]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]}
+    ]
+  }
+}

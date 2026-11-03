@@ -1,0 +1,46 @@
+{
+  "ru": {
+    "title": "Quat",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "<h2>pse::Quat::</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Пространство имен <code>pse::Quat::</code> содержит набор <b>вспомогательных функций</b> <i>(хелперов)</i>, предназначенных для создания и инициализации кватернионов <code>PseQuat</code> на основе <b>углов Эйлера</b> по последовательности вращения <b>ZYX</b> <i>(Unreal Engine: Z - вверх, X - вперед)</i>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Сигнатура", "Тип возвращаемого значения", "Описание"],
+        "rows": [
+          ["<code>fromRadians(const float pitch, const float yaw, const float roll)</code>", "<code>PseQuat</code>", "Вычисляет и возвращает кватернион <code>PseQuat</code> на основе углов Эйлера <i>(Тангаж, Рыскание, Крен)</i>, заданных в <b>радианах</b>"],
+          ["<code>fromDegrees(const float pitch, const float yaw, const float roll)</code>", "<code>PseQuat</code>", "Вычисляет и возвращает кватернион <code>PseQuat</code> на основе углов Эйлера <i>(Тангаж, Рыскание, Крен)</i>, заданных в <b>градусах</b>"]
+        ]
+      }
+    ]
+  },
+  "en": {
+    "title": "Quat",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "<h2>pse::Quat::</h2>"
+      },
+      {
+        "type": "text",
+        "html": "The <code>pse::Quat::</code> namespace contains a set of <b>helper functions</b> <i>(helpers)</i> designed for creating and initializing <code>PseQuat</code> quaternions based on <b>Euler angles</b> in the <b>ZYX</b> rotation order <i>(Unreal Engine: Z - up, X - forward)</i>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Signature", "Return type", "Description"],
+        "rows": [
+          ["<code>fromRadians(const float pitch, const float yaw, const float roll)</code>", "<code>PseQuat</code>", "Computes and returns a <code>PseQuat</code> quaternion based on Euler angles <i>(Pitch, Yaw, Roll)</i> specified in <b>radians</b>"],
+          ["<code>fromDegrees(const float pitch, const float yaw, const float roll)</code>", "<code>PseQuat</code>", "Computes and returns a <code>PseQuat</code> quaternion based on Euler angles <i>(Pitch, Yaw, Roll)</i> specified in <b>degrees</b>"]
+        ]
+      }
+    ]
+  }
+}

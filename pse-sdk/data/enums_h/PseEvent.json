@@ -1,0 +1,32 @@
+{
+  "ru": {
+    "title": "PseEvent",
+    "blocks": [
+      {
+        "type": "table",
+        "align": ["center", "left", "left", "left"],
+        "head": ["Значение (HEX)", "Название", "Описание", "Разметка PseData для результата (PseResult)"],
+        "rows": [
+          ["<b>0x00000000</b>", "PSE_EVENT_ELEMENT_CHANGED", "Любое изменение элемента на карте", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseCallback</b> Callback<br><code>[16]</code> <b>PseState</b> State"],
+          ["<b>0x00000001</b>", "PSE_EVENT_GAME_TICK_OVERFLOW", "Предупреждение при переизбытке SDK-команд за один игровой тик", "<b>-</b>"],
+          ["<b>0xFFFFFFFF</b>", "PSE_EVENT_NONE", "Служебное пустое состояние", "<b>-</b>"]
+        ]
+      }
+    ]
+  },
+  "en": {
+    "title": "PseEvent",
+    "blocks": [
+      {
+        "type": "table",
+        "align": ["center", "left", "left", "left"],
+        "head": ["Value (HEX)", "Name", "Description", "PseData layout for the result (PseResult)"],
+        "rows": [
+          ["<b>0x00000000</b>", "PSE_EVENT_ELEMENT_CHANGED", "Any element change on the map", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseCallback</b> Callback<br><code>[16]</code> <b>PseState</b> State"],
+          ["<b>0x00000001</b>", "PSE_EVENT_GAME_TICK_OVERFLOW", "Warning on SDK command overflow per one game tick", "<b>-</b>"],
+          ["<b>0xFFFFFFFF</b>", "PSE_EVENT_NONE", "Service empty state", "<b>-</b>"]
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "ru": {
+    "title": "PseCommand",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "Перечисление <code>PseCommand</code> определяет уникальные идентификаторы команд для взаимодействия с <b>Portal: Solver</b>"
+      },
+      {
+        "type": "text",
+        "html": "Каждой команде соответствует строго регламентированная структура входных параметров (команда) и выходных данных (результат), передаваемых через объекты <code>PseData</code>"
+      },
+      {
+        "type": "text",
+        "html": "Правила чтения разметки:<ul><li>Маркер <code>[X]</code> в таблице указывает на точное смещение в байтах от начала данных</li><li>Эти смещения напрямую используются в хелпер-функциях <code>pse::Data::set&lt;X, T&gt;()</code> и <code>pse::Data::get&lt;X, T&gt;()</code> для безопасного заполнения и чтения параметров</li><li>Знак <code>-</code> означает, что команда не отправляет входные данные или не возвращает результат</li></ul>"
+      },
+      {
+        "type": "table",
+        "align": ["center", "left", "left", "left", "left"],
+        "head": ["Значение (HEX)", "Название", "Описание", "Разметка PseData для команды (PseCommand)", "Разметка PseData для результата (PseResult)"],
+        "rows": [
+          ["<b>0x00100001</b>", "PSE_COMMAND_GAME_SET_CHEATS_ENABLED", "Изменение состояние чит-режима", "<code>[0]</code> <b>int8_t</b> bEnabled", "<b>-</b>"],
+          ["<b>0x00100002</b>", "PSE_COMMAND_GAME_GET_CHEATS_ENABLED", "Получить состояния чит-режима", "<b>-</b>", "<code>[0]</code> <b>int8_t</b> bEnabled"],
+          ["<b>0x00100003</b>", "PSE_COMMAND_GAME_SET_CHEATS_NOCLIP", "Изменение состояние ноуклипа в чит-режима", "<code>[0]</code> <b>int8_t</b> bNoclipEnabled", "<b>-</b>"],
+          ["<b>0x00100004</b>", "PSE_COMMAND_GAME_GET_CHEATS_NOCLIP", "Получить состояния ноуклипа в чит-режима", "<b>-</b>", "<code>[0]</code> <b>int8_t</b> bNoclipEnabled"],
+          ["<b>0x00100005</b>", "PSE_COMMAND_GAME_SET_GRAVITY", "Изменение значения гравитации", "<code>[0]</code> <b>float</b> Gravity", "<b>-</b>"],
+          ["<b>0x00100006</b>", "PSE_COMMAND_GAME_GET_GRAVITY", "Получить текущее значение гравитации", "<b>-</b>", "<code>[0]</code> <b>float</b> Gravity"],
+          ["<b>0x00100007</b>", "PSE_COMMAND_GAME_CHECK_GUID_IS_VALID", "Проверить существование GUID", "<code>[0]</code> <b>PseGUID</b> GUID", "<b>-</b>"],
+          ["<b>0x00100008</b>", "PSE_COMMAND_GAME_INITIALIZE", "Инициализирует игру (перемещает игрока на уровень SDK)", "<b>-</b>", "<b>-</b>"],
+          ["<b>0x00100009</b>", "PSE_COMMAND_GAME_DEINITIALIZE", "Деинициализирует игру (возврат в главное меню)", "<b>-</b>", "<b>-</b>"],
+          ["<b>0x00200001</b>", "PSE_COMMAND_PLAYER_SET_LOCATION", "Изменить позицию игрока", "<code>[0]</code> <b>PseVector3</b> Location", "<b>-</b>"],
+          ["<b>0x00200002</b>", "PSE_COMMAND_PLAYER_GET_LOCATION", "Получить позицию игрока", "<b>-</b>", "<code>[0]</code> <b>PseVector3</b> Location"],
+          ["<b>0x00200003</b>", "PSE_COMMAND_PLAYER_SET_ROTATION", "Изменить поворот камеры игрока", "<code>[0]</code> <b>PseQuat</b> Quat", "<b>-</b>"],
+          ["<b>0x00200004</b>", "PSE_COMMAND_PLAYER_GET_ROTATION", "Получить поворот камеры игрока", "<b>-</b>", "<code>[0]</code> <b>PseQuat</b> Quat"],
+          ["<b>0x00200005</b>", "PSE_COMMAND_PLAYER_SPAWN", "Возродить игрока", "<b>-</b>", "<b>-</b>"],
+          ["<b>0x00200006</b>", "PSE_COMMAND_PLAYER_KILL", "Убить игрока", "<b>-</b>", "<b>-</b>"],
+          ["<b>0x00300001</b>", "PSE_COMMAND_SOLVER_GUN_SET_ENABLED", "Выдать/Забрать Солвер Ган", "<code>[0]</code> <b>int8_t</b> bEnabled", "<b>-</b>"],
+          ["<b>0x00300002</b>", "PSE_COMMAND_SOLVER_GUN_GET_ENABLED", "Проверить наличие Солвер Гана", "<b>-</b>", "<code>[0]</code> <b>int8_t</b> bEnabled"],
+          ["<b>0x00300003</b>", "PSE_COMMAND_SOLVER_GUN_ACTION_USE", "Симулировать нажатие клавиши \"использовать\"", "<b>-</b>", "<b>-</b>"],
+          ["<b>0x00300004</b>", "PSE_COMMAND_SOLVER_GUN_ACTION_RELEASE", "Симулировать нажатие клавиши \"отпустить\"", "<b>-</b>", "<b>-</b>"],
+          ["<b>0x00300005</b>", "PSE_COMMAND_SOLVER_GUN_ACTION_THROW", "Симулировать нажатие клавиши \"бросить\"", "<b>-</b>", "<b>-</b>"],
+          ["<b>0x00400001</b>", "PSE_COMMAND_FLASHLIGHT_SET_ENABLED", "Выдать/Забрать фонарик", "<code>[0]</code> <b>int8_t</b> bEnabled", "<b>-</b>"],
+          ["<b>0x00400002</b>", "PSE_COMMAND_FLASHLIGHT_GET_ENABLED", "Проверить наличие фонарика", "<b>-</b>", "<code>[0]</code> <b>int8_t</b> bEnabled"],
+          ["<b>0x00400003</b>", "PSE_COMMAND_FLASHLIGHT_SET_STATE", "Включить/Выключить фонарик", "<code>[0]</code> <b>int8_t</b> bState", "<b>-</b>"],
+          ["<b>0x00400004</b>", "PSE_COMMAND_FLASHLIGHT_GET_STATE", "Проверить состояние фонарика", "<b>-</b>", "<code>[0]</code> <b>int8_t</b> bState"],
+          ["<b>0x00500001</b>", "PSE_COMMAND_STATIC_MESH_CREATE", "Создать статический меш", "<code>[0]</code> <b>PseTransform</b> Transform<br><code>[40]</code> <b>PseMesh</b> Mesh<br><code>[42]</code> <b>PseMaterial</b> Material<br>", "<b>-</b>"],
+          ["<b>0x05062025</b>", "PSE_COMMAND_REPLACE", "", "", ""],
+          ["<b>0x00600001</b>", "PSE_COMMAND_DYNAMIC_MESH_CREATE", "Создать динамический меш", "<code>[0]</code> <b>PseTransform</b> Transform<br><code>[40]</code> <b>PseMesh</b> Mesh<br><code>[42]</code> <b>PseMaterial</b> Material<br><code>[44]</code> <b>int8_t</b> bVisibility", "<code>[0]</code> <b>PseGUID</b> GUID"],
+          ["<b>0x00600002</b>", "PSE_COMMAND_DYNAMIC_MESH_SET_MATERIAL", "Изменить материал динамическому мешу", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseMaterial</b> Material", "<b>-</b>"],
+          ["<b>0x00600003</b>", "PSE_COMMAND_DYNAMIC_MESH_SET_MESH", "Изменить меш динамическому мешу", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseMesh</b> Mesh", "<b>-</b>"],
+          ["<b>0x00600004</b>", "PSE_COMMAND_DYNAMIC_MESH_SET_VISIBILITY", "Изменить видимость динамическому мешу", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>int8_t</b> bVisibility", "<b>-</b>"],
+          ["<b>0x00600005</b>", "PSE_COMMAND_DYNAMIC_MESH_GET_VISIBILITY", "Получить видимость динамического меша", "<code>[0]</code> <b>PseGUID</b> GUID", "<code>[0]</code> <b>int8_t</b> bVisibility"],
+          ["<b>0x00600006</b>", "PSE_COMMAND_DYNAMIC_MESH_SET_TRANSFORM", "Изменить трансформацию динамическому мешу", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseTransform</b> Transform", "<b>-</b>"],
+          ["<b>0x00600007</b>", "PSE_COMMAND_DYNAMIC_MESH_GET_TRANSFORM", "Получить трансформацию динамического меша", "<code>[0]</code> <b>PseGUID</b> GUID", "<code>[0]</code> <b>PseTransform</b> Transform"],
+          ["<b>0x00600008</b>", "PSE_COMMAND_DYNAMIC_MESH_DESTROY", "Удалить динамический меш", "<code>[0]</code> <b>PseGUID</b> GUID", "<b>-</b>"],
+          ["<b>0x00700001</b>", "PSE_COMMAND_ELEMENT_CREATE", "Создать элемент", "<code>[0]</code> <b>PseTransform</b> Transform<br><code>[40]</code> <b>PseClass</b> Class<br><code>[42]</code> <b>PseCallback</b> Callback<br><code>[50]</code> <b>PseState</b> State<br><code>[51]</code> <b>int8_t</b> bVisibility", "<code>[0]</code> <b>PseGUID</b> GUID"],
+          ["<b>0x00700002</b>", "PSE_COMMAND_ELEMENT_SET_CALLBACK", "Изменить указатель-значение callback", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseCallback</b> Callback", "<b>-</b>"],
+          ["<b>0x00700003</b>", "PSE_COMMAND_ELEMENT_GET_CALLBACK", "Получить указатель-значение callback", "<code>[0]</code> <b>PseGUID</b> GUID", "<code>[0]</code> <b>PseCallback</b> Callback"],
+          ["<b>0x00700004</b>", "PSE_COMMAND_ELEMENT_SET_STATE", "Изменить State элемента", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseState</b> State", "<b>-</b>"],
+          ["<b>0x00700005</b>", "PSE_COMMAND_ELEMENT_GET_STATE", "Получить State элемента", "<code>[0]</code> <b>PseGUID</b> GUID", "<code>[0]</code> <b>PseState</b> State"],
+          ["<b>0x00700006</b>", "PSE_COMMAND_ELEMENT_SET_VISIBILITY", "Изменить видимость элемента", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>int8_t</b> bVisibility", "<b>-</b>"],
+          ["<b>0x00700007</b>", "PSE_COMMAND_ELEMENT_GET_VISIBILITY", "Получить видимость элемента", "<code>[0]</code> <b>PseGUID</b> GUID", "<code>[0]</code> <b>int8_t</b> bVisibility"],
+          ["<b>0x00700008</b>", "PSE_COMMAND_ELEMENT_SET_TRANSFORM", "Изменить трансформацию элемента", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseTransform</b> Transform", "<b>-</b>"],
+          ["<b>0x00700009</b>", "PSE_COMMAND_ELEMENT_GET_TRANSFORM", "Получить трансформацию элемента", "<code>[0]</code> <b>PseGUID</b> GUID", "<code>[0]</code> <b>PseTransform</b> Transform"],
+          ["<b>0x0070000A</b>", "PSE_COMMAND_ELEMENT_SET_CLASS", "Изменить класс элемента", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseClass</b> Class", "<b>-</b>"],
+          ["<b>0x0070000B</b>", "PSE_COMMAND_ELEMENT_GET_CLASS", "Получить класс элемента", "<code>[0]</code> <b>PseGUID</b> GUID", "<code>[0]</code> <b>PseClass</b> Class"],
+          ["<b>0x0070000C</b>", "PSE_COMMAND_ELEMENT_SET_REGISTER", "Изменить значения регистра по индексу", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseRegister</b> Register<br><code>[16]</code> <b>int8_t</b> Index<br>", "<b>-</b>"],
+          ["<b>0x0070000D</b>", "PSE_COMMAND_ELEMENT_GET_REGISTER", "Получить значения регистра по индексу", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>int8_t</b> Index", "<code>[0]</code> <b>PseRegister</b> Register"],
+          ["<b>0x0070000E</b>", "PSE_COMMAND_ELEMENT_SET_ALL_REGISTERS", "Изменить значения всех регистров за раз", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseRegister</b> Register0<br><code>[12]</code> <b>PseRegister</b> Register1<br><code>[16]</code> <b>PseRegister</b> Register2<br><code>[20]</code> <b>PseRegister</b> Register3<br><code>[24]</code> <b>PseRegister</b> Register4<br><code>[28]</code> <b>PseRegister</b> Register5<br><code>[32]</code> <b>PseRegister</b> Register6<br><code>[36]</code> <b>PseRegister</b> Register7", "<b>-</b>"],
+          ["<b>0x0070000F</b>", "PSE_COMMAND_ELEMENT_GET_ALL_REGISTERS", "Получить значения всех регистров за раз", "<code>[0]</code> <b>PseGUID</b> GUID", "<code>[0]</code> <b>PseRegister</b> Register0<br><code>[4]</code> <b>PseRegister</b> Register1<br><code>[8]</code> <b>PseRegister</b> Register2<br><code>[12]</code> <b>PseRegister</b> Register3<br><code>[16]</code> <b>PseRegister</b> Register4<br><code>[20]</code> <b>PseRegister</b> Register5<br><code>[24]</code> <b>PseRegister</b> Register6<br><code>[28]</code> <b>PseRegister</b> Register7"],
+          ["<b>0x00700010</b>", "PSE_COMMAND_ELEMENT_SET_STATE_AND_CALLBACK_AND_ALL_REGISTERS", "Изменить значения всех регистров, Callback и State за раз", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseRegister</b> Register0<br><code>[12]</code> <b>PseRegister</b> Register1<br><code>[16]</code> <b>PseRegister</b> Register2<br><code>[20]</code> <b>PseRegister</b> Register3<br><code>[24]</code> <b>PseRegister</b> Register4<br><code>[28]</code> <b>PseRegister</b> Register5<br><code>[32]</code> <b>PseRegister</b> Register6<br><code>[36]</code> <b>PseRegister</b> Register7<br><code>[40]</code> <b>PseCallback</b> Callback<br><code>[48]</code> <b>PseState</b> State", "<b>-</b>"],
+          ["<b>0x00700011</b>", "PSE_COMMAND_ELEMENT_GET_STATE_AND_CALLBACK_AND_ALL_REGISTERS", "Получить значения всех регистров, Callback и State за раз", "<code>[0]</code> <b>PseGUID</b> GUID", "<code>[0]</code> <b>PseRegister</b> Register0<br><code>[4]</code> <b>PseRegister</b> Register1<br><code>[8]</code> <b>PseRegister</b> Register2<br><code>[12]</code> <b>PseRegister</b> Register3<br><code>[16]</code> <b>PseRegister</b> Register4<br><code>[20]</code> <b>PseRegister</b> Register5<br><code>[24]</code> <b>PseRegister</b> Register6<br><code>[28]</code> <b>PseRegister</b> Register7<br><code>[32]</code> <b>PseCallback</b> Callback<br><code>[40]</code> <b>PseState</b> State"],
+          ["<b>0x00700012</b>", "PSE_COMMAND_ELEMENT_DESTROY", "Удалить элемент", "<code>[0]</code> <b>PseGUID</b> GUID", "<b>-</b>"],
+          ["<b>0xFFFFFFFF</b>", "PSE_COMMAND_NONE", "Служебное пустое состояние", "<b>-</b>", "<b>-</b>"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h2>Архитектурные особенности</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<h3>Оптимизация булевых параметров <i>(<code>int8_t</code> вместо <code>bool</code>)</i></h3>"
+      },
+      {
+        "type": "text",
+        "html": "В целях обеспечения строгой бинарной совместимости (<b>ABI compliance</b>) между различными компиляторами, языками (<b>C++, C#, Rust, Python</b>) и средами исполнения, все логические параметры (<b>флаги включения/выключения</b>) передаются через тип <code>int8_t</code> вместо стандартного <code>bool</code>:"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b>Проблема встроенного <code>bool</code>:</b> В стандарте <b>C++</b> размер типа <code>bool</code> не зафиксирован жестко и может отличаться в зависимости от платформы и настроек компилятора, что недопустимо при прямой разметке <b>Shared Memory</b> по фиксированным смещениям</li><li><b>Соглашение о валидации:</b> Любое значение <code>bValue != 0</code> интерпретируется обработчиком игры как <b><code>true</code></b>, а <code>bValue == 0</code> наоборот строго эквивалентно <b><code>false</code></b></li><li><b>Как это выражается в документации:</b> Если в названии переменной есть суффикс <code>b-</code> <i>(по венгерской нотации и стилю Unreal Engine)</i>, то значит его тип <code>int8_t</code> нужно интерпретировать так, как описано выше <b>^</b></li></ul>"
+      },
+      {
+        "type": "text",
+        "html": "<h3>Поведение переменных и регистров при смене класса <i>(Команда <code>PSE_COMMAND_ELEMENT_SET_CLASS</code>)</i></h3>"
+      },
+      {
+        "type": "text",
+        "html": "Команда изменения класса элемента <i>(<code>PSE_COMMAND_ELEMENT_SET_CLASS</code>)</i> <b>полностью</b> пересоздает элемент на в том же GUID, сохраняя <b>только:</b> GUID, Трансформацию и Видимость:"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b>Полный сброс данных:</b> Старые значения всех регистров, State и Callback полностью стираются и сбрасываются в дефолтное значение для данного элемента. Новый элемент начинает работу с чистыми данными по умолчанию</li><li><b>Разная интерпретация:</b> Копирование данных между классами лишено смысла, так как каждый элемент интерпретирует одни и те же регистры по-разному. Именно поэтому их значения сбрасываются, да-бы для исключить логические ошибки</li><li><b>Сохранение данных через SDK:</b> Если данные старого элемента нужно перенести на новый, вы должны сделать это самостоятельно в коде своей программы:<ul><li>Получить текущее данные элемента <i>(<code>PSE_COMMAND_ELEMENT_GET_STATE</code> / <code>PSE_COMMAND_ELEMENT_GET_CALLBACK</code> / <code>PSE_COMMAND_ELEMENT_GET_ALL_REGISTERS</code> / <code>PSE_COMMAND_ELEMENT_GET_STATE_AND_CALLBACK_AND_ALL_REGISTERS</code>)</i></li><li>Сменить класс элемента <i>(<code>PSE_COMMAND_ELEMENT_SET_CLASS</code>)</i></li><li>Записать <i>(восстановить)</i> данные элемента <i>(<code>PSE_COMMAND_ELEMENT_SET_STATE</code> / <code>PSE_COMMAND_ELEMENT_SET_CALLBACK</code> / <code>PSE_COMMAND_ELEMENT_SET_ALL_REGISTERS</code> / <code>PSE_COMMAND_ELEMENT_SET_STATE_AND_CALLBACK_AND_ALL_REGISTERS</code>)</i></li></ul></li><li><b>Но будьте осторожны:</b> Не забывайте сверяться с таблицей назначения регистров <i>(см. <b>Concept > Elements</b>)</i> для элементов и проверять, какие именно данные вы переносите, так как для <b>двух разных элементов один и тот же регистр может кардинально отличаться по смыслу и логике работы</b>!</li></ul>"
+      }
+    ]
+  },
+  "en": {
+    "title": "PseCommand",
+    "blocks": [
+      { "type": "text", "html": "The <code>PseCommand</code> enum defines unique command identifiers for interacting with <b>Portal: Solver</b>" },
+      { "type": "text", "html": "Each command has a strictly regulated structure of input parameters (command) and output data (result), passed through <code>PseData</code> objects" },
+      { "type": "text", "html": "Layout reading rules:<ul><li>The <code>[X]</code> marker in the table indicates the exact byte offset from the start of the data</li><li>These offsets are used directly in the helper functions <code>pse::Data::set&lt;X, T&gt;()</code> and <code>pse::Data::get&lt;X, T&gt;()</code> for safe packing and reading of parameters</li><li>The <code>-</code> sign means the command does not send input data or does not return a result</li></ul>" },
+      {
+        "type": "table",
+        "align": ["center", "left", "left", "left", "left"],
+        "head": ["Value (HEX)", "Name", "Description", "PseData layout for the command (PseCommand)", "PseData layout for the result (PseResult)"],
+        "rows": [
+          ["<b>0x00100001</b>", "PSE_COMMAND_GAME_SET_CHEATS_ENABLED", "Change the cheats enabled state", "<code>[0]</code> <b>int8_t</b> bEnabled", "<b>-</b>"],
+          ["<b>0x00100002</b>", "PSE_COMMAND_GAME_GET_CHEATS_ENABLED", "Get the cheats enabled state", "<b>-</b>", "<code>[0]</code> <b>int8_t</b> bEnabled"],
+          ["<b>0x00100003</b>", "PSE_COMMAND_GAME_SET_CHEATS_NOCLIP", "Change the noclip state in cheats mode", "<code>[0]</code> <b>int8_t</b> bNoclipEnabled", "<b>-</b>"],
+          ["<b>0x00100004</b>", "PSE_COMMAND_GAME_GET_CHEATS_NOCLIP", "Get the noclip state in cheats mode", "<b>-</b>", "<code>[0]</code> <b>int8_t</b> bNoclipEnabled"],
+          ["<b>0x00100005</b>", "PSE_COMMAND_GAME_SET_GRAVITY", "Change the gravity value", "<code>[0]</code> <b>float</b> Gravity", "<b>-</b>"],
+          ["<b>0x00100006</b>", "PSE_COMMAND_GAME_GET_GRAVITY", "Get the current gravity value", "<b>-</b>", "<code>[0]</code> <b>float</b> Gravity"],
+          ["<b>0x00100007</b>", "PSE_COMMAND_GAME_CHECK_GUID_IS_VALID", "Check whether a GUID exists", "<code>[0]</code> <b>PseGUID</b> GUID", "<b>-</b>"],
+          ["<b>0x00100008</b>", "PSE_COMMAND_GAME_INITIALIZE", "Initializes the game (moves the player to the SDK level)", "<b>-</b>", "<b>-</b>"],
+          ["<b>0x00100009</b>", "PSE_COMMAND_GAME_DEINITIALIZE", "Deinitializes the game (returns to the main menu)", "<b>-</b>", "<b>-</b>"],
+          ["<b>0x00200001</b>", "PSE_COMMAND_PLAYER_SET_LOCATION", "Change the player position", "<code>[0]</code> <b>PseVector3</b> Location", "<b>-</b>"],
+          ["<b>0x00200002</b>", "PSE_COMMAND_PLAYER_GET_LOCATION", "Get the player position", "<b>-</b>", "<code>[0]</code> <b>PseVector3</b> Location"],
+          ["<b>0x00200003</b>", "PSE_COMMAND_PLAYER_SET_ROTATION", "Change the player camera rotation", "<code>[0]</code> <b>PseQuat</b> Quat", "<b>-</b>"],
+          ["<b>0x00200004</b>", "PSE_COMMAND_PLAYER_GET_ROTATION", "Get the player camera rotation", "<b>-</b>", "<code>[0]</code> <b>PseQuat</b> Quat"],
+          ["<b>0x00200005</b>", "PSE_COMMAND_PLAYER_SPAWN", "Respawn the player", "<b>-</b>", "<b>-</b>"],
+          ["<b>0x00200006</b>", "PSE_COMMAND_PLAYER_KILL", "Kill the player", "<b>-</b>", "<b>-</b>"],
+          ["<b>0x00300001</b>", "PSE_COMMAND_SOLVER_GUN_SET_ENABLED", "Give/Take the Solver Gun", "<code>[0]</code> <b>int8_t</b> bEnabled", "<b>-</b>"],
+          ["<b>0x00300002</b>", "PSE_COMMAND_SOLVER_GUN_GET_ENABLED", "Check whether the Solver Gun is held", "<b>-</b>", "<code>[0]</code> <b>int8_t</b> bEnabled"],
+          ["<b>0x00300003</b>", "PSE_COMMAND_SOLVER_GUN_ACTION_USE", "Simulate pressing the \"use\" key", "<b>-</b>", "<b>-</b>"],
+          ["<b>0x00300004</b>", "PSE_COMMAND_SOLVER_GUN_ACTION_RELEASE", "Simulate pressing the \"release\" key", "<b>-</b>", "<b>-</b>"],
+          ["<b>0x00300005</b>", "PSE_COMMAND_SOLVER_GUN_ACTION_THROW", "Simulate pressing the \"throw\" key", "<b>-</b>", "<b>-</b>"],
+          ["<b>0x00400001</b>", "PSE_COMMAND_FLASHLIGHT_SET_ENABLED", "Give/Take the flashlight", "<code>[0]</code> <b>int8_t</b> bEnabled", "<b>-</b>"],
+          ["<b>0x00400002</b>", "PSE_COMMAND_FLASHLIGHT_GET_ENABLED", "Check whether the flashlight is held", "<b>-</b>", "<code>[0]</code> <b>int8_t</b> bEnabled"],
+          ["<b>0x00400003</b>", "PSE_COMMAND_FLASHLIGHT_SET_STATE", "Turn the flashlight on/off", "<code>[0]</code> <b>int8_t</b> bState", "<b>-</b>"],
+          ["<b>0x00400004</b>", "PSE_COMMAND_FLASHLIGHT_GET_STATE", "Check the flashlight state", "<b>-</b>", "<code>[0]</code> <b>int8_t</b> bState"],
+          ["<b>0x00500001</b>", "PSE_COMMAND_STATIC_MESH_CREATE", "Create a static mesh", "<code>[0]</code> <b>PseTransform</b> Transform<br><code>[40]</code> <b>PseMesh</b> Mesh<br><code>[42]</code> <b>PseMaterial</b> Material<br>", "<b>-</b>"],
+          ["<b>0x05062025</b>", "PSE_COMMAND_REPLACE", "", "", ""],
+          ["<b>0x00600001</b>", "PSE_COMMAND_DYNAMIC_MESH_CREATE", "Create a dynamic mesh", "<code>[0]</code> <b>PseTransform</b> Transform<br><code>[40]</code> <b>PseMesh</b> Mesh<br><code>[42]</code> <b>PseMaterial</b> Material<br><code>[44]</code> <b>int8_t</b> bVisibility", "<code>[0]</code> <b>PseGUID</b> GUID"],
+          ["<b>0x00600002</b>", "PSE_COMMAND_DYNAMIC_MESH_SET_MATERIAL", "Change the dynamic mesh material", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseMaterial</b> Material", "<b>-</b>"],
+          ["<b>0x00600003</b>", "PSE_COMMAND_DYNAMIC_MESH_SET_MESH", "Change the dynamic mesh geometry", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseMesh</b> Mesh", "<b>-</b>"],
+          ["<b>0x00600004</b>", "PSE_COMMAND_DYNAMIC_MESH_SET_VISIBILITY", "Change the dynamic mesh visibility", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>int8_t</b> bVisibility", "<b>-</b>"],
+          ["<b>0x00600005</b>", "PSE_COMMAND_DYNAMIC_MESH_GET_VISIBILITY", "Get the dynamic mesh visibility", "<code>[0]</code> <b>PseGUID</b> GUID", "<code>[0]</code> <b>int8_t</b> bVisibility"],
+          ["<b>0x00600006</b>", "PSE_COMMAND_DYNAMIC_MESH_SET_TRANSFORM", "Change the dynamic mesh transform", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseTransform</b> Transform", "<b>-</b>"],
+          ["<b>0x00600007</b>", "PSE_COMMAND_DYNAMIC_MESH_GET_TRANSFORM", "Get the dynamic mesh transform", "<code>[0]</code> <b>PseGUID</b> GUID", "<code>[0]</code> <b>PseTransform</b> Transform"],
+          ["<b>0x00600008</b>", "PSE_COMMAND_DYNAMIC_MESH_DESTROY", "Destroy the dynamic mesh", "<code>[0]</code> <b>PseGUID</b> GUID", "<b>-</b>"],
+          ["<b>0x00700001</b>", "PSE_COMMAND_ELEMENT_CREATE", "Create an element", "<code>[0]</code> <b>PseTransform</b> Transform<br><code>[40]</code> <b>PseClass</b> Class<br><code>[42]</code> <b>PseCallback</b> Callback<br><code>[50]</code> <b>PseState</b> State<br><code>[51]</code> <b>int8_t</b> bVisibility", "<code>[0]</code> <b>PseGUID</b> GUID"],
+          ["<b>0x00700002</b>", "PSE_COMMAND_ELEMENT_SET_CALLBACK", "Change the callback pointer value", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseCallback</b> Callback", "<b>-</b>"],
+          ["<b>0x00700003</b>", "PSE_COMMAND_ELEMENT_GET_CALLBACK", "Get the callback pointer value", "<code>[0]</code> <b>PseGUID</b> GUID", "<code>[0]</code> <b>PseCallback</b> Callback"],
+          ["<b>0x00700004</b>", "PSE_COMMAND_ELEMENT_SET_STATE", "Change the element State", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseState</b> State", "<b>-</b>"],
+          ["<b>0x00700005</b>", "PSE_COMMAND_ELEMENT_GET_STATE", "Get the element State", "<code>[0]</code> <b>PseGUID</b> GUID", "<code>[0]</code> <b>PseState</b> State"],
+          ["<b>0x00700006</b>", "PSE_COMMAND_ELEMENT_SET_VISIBILITY", "Change the element visibility", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>int8_t</b> bVisibility", "<b>-</b>"],
+          ["<b>0x00700007</b>", "PSE_COMMAND_ELEMENT_GET_VISIBILITY", "Get the element visibility", "<code>[0]</code> <b>PseGUID</b> GUID", "<code>[0]</code> <b>int8_t</b> bVisibility"],
+          ["<b>0x00700008</b>", "PSE_COMMAND_ELEMENT_SET_TRANSFORM", "Change the element transform", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseTransform</b> Transform", "<b>-</b>"],
+          ["<b>0x00700009</b>", "PSE_COMMAND_ELEMENT_GET_TRANSFORM", "Get the element transform", "<code>[0]</code> <b>PseGUID</b> GUID", "<code>[0]</code> <b>PseTransform</b> Transform"],
+          ["<b>0x0070000A</b>", "PSE_COMMAND_ELEMENT_SET_CLASS", "Change the element class", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseClass</b> Class", "<b>-</b>"],
+          ["<b>0x0070000B</b>", "PSE_COMMAND_ELEMENT_GET_CLASS", "Get the element class", "<code>[0]</code> <b>PseGUID</b> GUID", "<code>[0]</code> <b>PseClass</b> Class"],
+          ["<b>0x0070000C</b>", "PSE_COMMAND_ELEMENT_SET_REGISTER", "Change a register value by index", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseRegister</b> Register<br><code>[16]</code> <b>int8_t</b> Index<br>", "<b>-</b>"],
+          ["<b>0x0070000D</b>", "PSE_COMMAND_ELEMENT_GET_REGISTER", "Get a register value by index", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>int8_t</b> Index", "<code>[0]</code> <b>PseRegister</b> Register"],
+          ["<b>0x0070000E</b>", "PSE_COMMAND_ELEMENT_SET_ALL_REGISTERS", "Change all register values at once", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseRegister</b> Register0<br><code>[12]</code> <b>PseRegister</b> Register1<br><code>[16]</code> <b>PseRegister</b> Register2<br><code>[20]</code> <b>PseRegister</b> Register3<br><code>[24]</code> <b>PseRegister</b> Register4<br><code>[28]</code> <b>PseRegister</b> Register5<br><code>[32]</code> <b>PseRegister</b> Register6<br><code>[36]</code> <b>PseRegister</b> Register7", "<b>-</b>"],
+          ["<b>0x0070000F</b>", "PSE_COMMAND_ELEMENT_GET_ALL_REGISTERS", "Get all register values at once", "<code>[0]</code> <b>PseGUID</b> GUID", "<code>[0]</code> <b>PseRegister</b> Register0<br><code>[4]</code> <b>PseRegister</b> Register1<br><code>[8]</code> <b>PseRegister</b> Register2<br><code>[12]</code> <b>PseRegister</b> Register3<br><code>[16]</code> <b>PseRegister</b> Register4<br><code>[20]</code> <b>PseRegister</b> Register5<br><code>[24]</code> <b>PseRegister</b> Register6<br><code>[28]</code> <b>PseRegister</b> Register7"],
+          ["<b>0x00700010</b>", "PSE_COMMAND_ELEMENT_SET_STATE_AND_CALLBACK_AND_ALL_REGISTERS", "Change all registers, Callback and State at once", "<code>[0]</code> <b>PseGUID</b> GUID<br><code>[8]</code> <b>PseRegister</b> Register0<br><code>[12]</code> <b>PseRegister</b> Register1<br><code>[16]</code> <b>PseRegister</b> Register2<br><code>[20]</code> <b>PseRegister</b> Register3<br><code>[24]</code> <b>PseRegister</b> Register4<br><code>[28]</code> <b>PseRegister</b> Register5<br><code>[32]</code> <b>PseRegister</b> Register6<br><code>[36]</code> <b>PseRegister</b> Register7<br><code>[40]</code> <b>PseCallback</b> Callback<br><code>[48]</code> <b>PseState</b> State", "<b>-</b>"],
+          ["<b>0x00700011</b>", "PSE_COMMAND_ELEMENT_GET_STATE_AND_CALLBACK_AND_ALL_REGISTERS", "Get all registers, Callback and State at once", "<code>[0]</code> <b>PseGUID</b> GUID", "<code>[0]</code> <b>PseRegister</b> Register0<br><code>[4]</code> <b>PseRegister</b> Register1<br><code>[8]</code> <b>PseRegister</b> Register2<br><code>[12]</code> <b>PseRegister</b> Register3<br><code>[16]</code> <b>PseRegister</b> Register4<br><code>[20]</code> <b>PseRegister</b> Register5<br><code>[24]</code> <b>PseRegister</b> Register6<br><code>[28]</code> <b>PseRegister</b> Register7<br><code>[32]</code> <b>PseCallback</b> Callback<br><code>[40]</code> <b>PseState</b> State"],
+          ["<b>0x00700012</b>", "PSE_COMMAND_ELEMENT_DESTROY", "Destroy the element", "<code>[0]</code> <b>PseGUID</b> GUID", "<b>-</b>"],
+          ["<b>0xFFFFFFFF</b>", "PSE_COMMAND_NONE", "Service empty state", "<b>-</b>", "<b>-</b>"]
+        ]
+      },
+      { "type": "text", "html": "<h2>Architectural notes</h2>" },
+      { "type": "text", "html": "<h3>Boolean parameter optimization <i>(<code>int8_t</code> instead of <code>bool</code>)</i></h3>" },
+      { "type": "text", "html": "To ensure strict binary compatibility (<b>ABI compliance</b>) between different compilers, languages (<b>C++, C#, Rust, Python</b>) and runtime environments, all logical parameters (<b>enable/disable flags</b>) are passed through the <code>int8_t</code> type instead of the standard <code>bool</code>:" },
+      { "type": "text", "html": "<ul><li><b>The built-in <code>bool</code> problem:</b> In the <b>C++</b> standard, the size of the <code>bool</code> type is not strictly fixed and may differ depending on the platform and compiler settings, which is unacceptable when directly laying out <b>Shared Memory</b> at fixed offsets</li><li><b>Validation convention:</b> Any value <code>bValue != 0</code> is interpreted by the game handler as <b><code>true</code></b>, while <code>bValue == 0</code> is strictly equivalent to <b><code>false</code></b></li><li><b>How this is expressed in the documentation:</b> If a variable name has the <code>b-</code> suffix <i>(per Hungarian notation and Unreal Engine style)</i>, then its <code>int8_t</code> type must be interpreted as described above <b>^</b></li></ul>" },
+      { "type": "text", "html": "<h3>Variable and register behavior on class change <i>(Command <code>PSE_COMMAND_ELEMENT_SET_CLASS</code>)</i></h3>" },
+      { "type": "text", "html": "The element class change command <i>(<code>PSE_COMMAND_ELEMENT_SET_CLASS</code>)</i> <b>completely</b> recreates the element at the same GUID, preserving <b>only:</b> GUID, Transform and Visibility:" },
+      { "type": "text", "html": "<ul><li><b>Full data reset:</b> Old values of all registers, State and Callback are fully wiped and reset to the default value for the given element. The new element starts with clean default data</li><li><b>Different interpretation:</b> Copying data between classes is meaningless, since each element interprets the same registers differently. That is exactly why their values are reset - to exclude logical errors</li><li><b>Preserving data via SDK:</b> If the old element data needs to be transferred to the new one, you must do it yourself in your program code:<ul><li>Get the current element data <i>(<code>PSE_COMMAND_ELEMENT_GET_STATE</code> / <code>PSE_COMMAND_ELEMENT_GET_CALLBACK</code> / <code>PSE_COMMAND_ELEMENT_GET_ALL_REGISTERS</code> / <code>PSE_COMMAND_ELEMENT_GET_STATE_AND_CALLBACK_AND_ALL_REGISTERS</code>)</i></li><li>Change the element class <i>(<code>PSE_COMMAND_ELEMENT_SET_CLASS</code>)</i></li><li>Write <i>(restore)</i> the element data <i>(<code>PSE_COMMAND_ELEMENT_SET_STATE</code> / <code>PSE_COMMAND_ELEMENT_SET_CALLBACK</code> / <code>PSE_COMMAND_ELEMENT_SET_ALL_REGISTERS</code> / <code>PSE_COMMAND_ELEMENT_SET_STATE_AND_CALLBACK_AND_ALL_REGISTERS</code>)</i></li></ul></li><li><b>But be careful:</b> Do not forget to check the register purpose table <i>(see <b>Concept > Elements</b>)</i> for the elements and verify exactly which data you are transferring, since for <b>two different elements the same register may radically differ in meaning and logic</b>!</li></ul>" }
+    ]
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "categories": [
+    {
+      "title": "Pse SDK",
+      "pages": [
+        { "title": "Hello, World!", "path": "pse_sdk/HelloWorld" }
+      ]
+    },
+    {
+      "title": "Pse.h",
+      "pages": [
+        { "title": "API", "path": "pse_h/API" }
+      ]
+    },
+    {
+      "title": "Structures.h",
+      "pages": [
+        { "title": "Common",           "path": "structures_h/Common" },
+        { "title": "PseBuffers",       "path": "structures_h/PseBuffers" },
+        { "title": "PseCommandBuffer", "path": "structures_h/PseCommandBuffer" },
+        { "title": "PseData",          "path": "structures_h/PseData" },
+        { "title": "PseEventBuffer",   "path": "structures_h/PseEventBuffer" }
+      ]
+    },
+    {
+      "title": "Enums.h",
+      "pages": [
+        { "title": "PseClass",    "path": "enums_h/PseClass" },
+        { "title": "PseCommand",  "path": "enums_h/PseCommand" },
+        { "title": "PseEvent",    "path": "enums_h/PseEvent" },
+        { "title": "PseMaterial", "path": "enums_h/PseMaterial" },
+        { "title": "PseMesh",     "path": "enums_h/PseMesh" },
+        { "title": "PseResult",   "path": "enums_h/PseResult" }
+      ]
+    },
+    {
+      "title": "Pse.hpp",
+      "pages": [
+        { "title": "Data",     "path": "pse_hpp/Data" },
+        { "title": "Events",   "path": "pse_hpp/Events" },
+        { "title": "Quat",     "path": "pse_hpp/Quat" },
+        { "title": "Register", "path": "pse_hpp/Register" }
+      ]
+    },
+    {
+      "title": "Elements",
+      "pages": [
+        { "title": "Entry Elevator",           "path": "elements/EntryElevator" },
+        { "title": "Exit Elevator",            "path": "elements/ExitElevator" },
+        { "title": "Door",                     "path": "elements/Door" },
+        { "title": "Button",                   "path": "elements/Button" },
+        { "title": "Anti Expropriation Field", "path": "elements/AntiExpropriationField" },
+        { "title": "Pedestal Button",          "path": "elements/PedestalButton" },
+        { "title": "Solver Button",            "path": "elements/SolverButton" },
+        { "title": "Indicator",                "path": "elements/Indicator" },
+        { "title": "Laser Tx",                 "path": "elements/LaserTx" },
+        { "title": "Laser Rx",                 "path": "elements/LaserRx" },
+        { "title": "Laser Relay",              "path": "elements/LaserRelay" },
+        { "title": "Laser Panel",              "path": "elements/LaserPanel" },
+        { "title": "Laser Cube",               "path": "elements/LaserCube" },
+        { "title": "Weight Cube",              "path": "elements/WeightCube" },
+        { "title": "Faith Plate",              "path": "elements/FaithPlate" },
+        { "title": "Panel",                    "path": "elements/Panel" },
+        { "title": "Stairs",                   "path": "elements/Stairs" },
+        { "title": "Cube Dropper",             "path": "elements/CubeDropper" },
+        { "title": "Solver Gun Pedestal",      "path": "elements/SolverGunPedestal" },
+        { "title": "Flashlight",               "path": "elements/Flashlight" },
+        { "title": "Window",                   "path": "elements/Window" },
+        { "title": "Trigger",                  "path": "elements/Trigger" },
+        { "title": "Lamp",                     "path": "elements/Lamp" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "ru": {
+    "title": "PseEventBuffer",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "Реализация кольцевого буфера событий (<b>Lock-free Ring Buffer</b>) для асинхронного межпроцессного взаимодействия (<b>Shared Memory</b>)"
+      },
+      {
+        "type": "text",
+        "html": "Обеспечивает потоко-безопасную передачу данных между <b>игрой</b> (продюсер) и <b>SDK</b> (консумер) без использования тяжелых системных примитивов синхронизации"
+      },
+      {
+        "type": "text",
+        "html": "Выравнивание по границам <b>кэш-линий</b> гарантирует максимальную пропускную способность шины памяти"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Поля</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "center", "left"],
+        "head": ["Поле", "Смещение (в байтах)", "Размер (в байтах)", "Описание"],
+        "rows": [
+          ["<b>PseData buffer[PSE_EVENT_BUFFER_SIZE]</b>", "<code>0</code>", "<b>16 384</b><br><i>(16 КБ)</i>", "Кольцевой массив атомарных 64-байтовых ячеек данных. Выровнен по кэш-линии (<code>alignas(64)</code>)"],
+          ["<b>uint32_t gameIndex</b>", "<code>16 384</code>", "<b>4</b>", "Атомарный индекс записи <b>игры</b> <i>(Producer Index)</i>. Выровнен независимо (<code>alignas(64)</code>) для предотвращения <b>False Sharing</b>"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h2>Архитектурные особенности</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b>Атомарность полей и совместимость ABI:</b> Для обеспечения строгой <b>кросс-языковой совместимости</b> на уровне <b>C API</b> <i>(в языках C#, Rust, Python и тд.)</i> эти поля намеренно объявлены как <b>базовый системный тип</b> <code>uint32_t</code>, а не <code>std::atomic</code>. Однако на физическом уровне доступ к ним со стороны <b>игры Portal: Solver</b> и <b>PSE SDK</b> осуществляется исключительно как к типам <code>std::atomic&lt;uint32_t&gt;</code>. доступ к этому полю осуществляется <b>исключительно через атомарные операции</b> с использованием явных барьеров памяти <i>(<code>std::memory_order</code>)</i></li><li><b>Потоковая модель <i>(Single-Producer / Single-Consumer)</i>:</b> Функция <code>pseEventBufferTryGet</code> использует упорядочивание памяти <code>std::memory_order_acquire</code>. Оно гарантирует, что все данные, записанные <b>игрой</b> <i>(Producer)</i> до обновления <code>gameIndex</code>, гарантированно валидны на стороне <b>SDK</b> <i>(Consumer)</i> в момент чтения</li></ul>"
+      }
+    ]
+  },
+  "en": {
+    "title": "PseEventBuffer",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "Implementation of an event ring buffer (<b>Lock-free Ring Buffer</b>) for asynchronous inter-process communication (<b>Shared Memory</b>)"
+      },
+      {
+        "type": "text",
+        "html": "Provides thread-safe data transfer between <b>game</b> (producer) and <b>SDK</b> (consumer) without using heavy system synchronization primitives"
+      },
+      {
+        "type": "text",
+        "html": "Alignment to <b>cache-line</b> boundaries guarantees maximum memory bus throughput"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Fields</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "center", "left"],
+        "head": ["Field", "Offset (in bytes)", "Size (in bytes)", "Description"],
+        "rows": [
+          ["<b>PseData buffer[PSE_EVENT_BUFFER_SIZE]</b>", "<code>0</code>", "<b>16 384</b><br><i>(16 KB)</i>", "Ring array of atomic 64-byte data cells. Aligned to a cache line (<code>alignas(64)</code>)"],
+          ["<b>uint32_t gameIndex</b>", "<code>16 384</code>", "<b>4</b>", "Atomic write index of <b>game</b> <i>(Producer Index)</i>. Aligned independently (<code>alignas(64)</code>) to prevent <b>False Sharing</b>"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h2>Architectural notes</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b>Field atomicity and ABI compatibility:</b> To ensure strict <b>cross-language compatibility</b> at the <b>C API</b> level <i>(in languages C#, Rust, Python, etc.)</i>, these fields are intentionally declared as a <b>base system type</b> <code>uint32_t</code> rather than <code>std::atomic</code>. However, at the physical level, access to them from <b>Portal: Solver game</b> and <b>PSE SDK</b> is performed exclusively as <code>std::atomic&lt;uint32_t&gt;</code> types. access to this field is performed <b>exclusively via atomic operations</b> using explicit memory barriers <i>(<code>std::memory_order</code>)</i></li><li><b>Threading model <i>(Single-Producer / Single-Consumer)</i>:</b> The <code>pseEventBufferTryGet</code> function uses the <code>std::memory_order_acquire</code> memory ordering. It guarantees that all data written by the <b>game</b> <i>(Producer)</i> before updating <code>gameIndex</code> is guaranteed to be valid on the <b>SDK</b> side <i>(Consumer)</i> at the moment of reading</li></ul>"
+      }
+    ]
+  }
+}

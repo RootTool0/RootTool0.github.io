@@ -1,0 +1,44 @@
+{
+  "ru": {
+    "title": "Solver Gun Pedestal",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_SOLVER_GUN_PEDESTAL.png", "alt": "PSE_CLASS_SOLVER_GUN_PEDESTAL" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_SOLVER_GUN_PEDESTAL</code> <i>(0x0012)</i>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Пьедестал для взятия <b>Солвер Гана</b>" },
+      { "type": "text", "html": "<b>Set State:</b> Не используется <i>(нет логики)</i>" },
+      { "type": "text", "html": "<b>Get State:</b> Возвращает <code>1</code>, если <b>Солвер Ган</b> был взят <i>(и на стойке его нет)</i>, иначе <code>0</code> <i>(что значит <b>Солвер Ган</b> на стойке)</i>" },
+      { "type": "text", "html": "<b>Разметка регистров:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Индекс", "Наименование", "Форма-т данных", "Описание"], "rows": [
+        ["<code>[0]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[1]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[2]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[3]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]}
+    ]
+  },
+  "en": {
+    "title": "Solver Gun Pedestal",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_SOLVER_GUN_PEDESTAL.png", "alt": "PSE_CLASS_SOLVER_GUN_PEDESTAL" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_SOLVER_GUN_PEDESTAL</code> <i>(0x0012)</i>" },
+      { "type": "text", "html": "<b>Element Description:</b> A pedestal for picking up the <b>Solver Gun</b>" },
+      { "type": "text", "html": "<b>Set State:</b> Not used <i>(no logic)</i>" },
+      { "type": "text", "html": "<b>Get State:</b> Returns <code>1</code> if the <b>Solver Gun</b> has been taken <i>(and it is not on the stand)</i>, otherwise <code>0</code> <i>(meaning the <b>Solver Gun</b> is on the stand)</i>" },
+      { "type": "text", "html": "<b>Register layout:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Index", "Name", "Data format", "Description"], "rows": [
+        ["<code>[0]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[1]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[2]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[3]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]}
+    ]
+  }
+}

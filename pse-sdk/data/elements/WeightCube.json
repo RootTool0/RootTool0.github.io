@@ -1,0 +1,44 @@
+{
+  "ru": {
+    "title": "Weight Cube",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_WEIGHT_CUBE.png", "alt": "PSE_CLASS_WEIGHT_CUBE" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_WEIGHT_CUBE</code> <i>(0x000D)</i>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> <i>Экспериментальный утяжеленный грузовой куб для активации 1500-мегаваттной экспериментальной сверхпрочной сверхударной сверхкнопки</i>" },
+      { "type": "text", "html": "<b>Set State:</b> Меняет цвет подсветки в зависимости от <b>State != 0</b>" },
+      { "type": "text", "html": "<b>Get State:</b> Не используется <i>(возвращает <b>State</b>, изначально равный <code>0</code>)</i>" },
+      { "type": "text", "html": "<b>Разметка регистров:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Индекс", "Наименование", "Формат данных", "Описание"], "rows": [
+        ["<code>[0]</code>", "<b>Flags</b>", "<code>_______________________________C</code>", "<code>C</code> - Бит, который включает фиолетовую подсветку кубика при <b>Callback Ping'е</b> <i>(использовалось в <b>Portal: Solver Alpha</b>, глава 4)</i>"],
+        ["<code>[1]</code>", "<b>Color Activated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Цвет кубика в активированном (включенном) состоянии"],
+        ["<code>[2]</code>", "<b>Color Deactivated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Цвет кубика в деактивированном (выключенном) состоянии"],
+        ["<code>[3]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]}
+    ]
+  },
+  "en": {
+    "title": "Weight Cube",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_WEIGHT_CUBE.png", "alt": "PSE_CLASS_WEIGHT_CUBE" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_WEIGHT_CUBE</code> <i>(0x000D)</i>" },
+      { "type": "text", "html": "<b>Element Description:</b> <i>An experimental weighted cargo cube for activating the 1500-megawatt experimental ultra-durable super-impact super-button</i>" },
+      { "type": "text", "html": "<b>Set State:</b> Changes the highlight color depending on <b>State != 0</b>" },
+      { "type": "text", "html": "<b>Get State:</b> Not used <i>(returns <b>State</b>, initially equal to <code>0</code>)</i>" },
+      { "type": "text", "html": "<b>Register layout:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Index", "Name", "Data format", "Description"], "rows": [
+        ["<code>[0]</code>", "<b>Flags</b>", "<code>_______________________________C</code>", "<code>C</code> - Bit that enables the purple cube highlight on <b>Callback Ping</b> <i>(used in <b>Portal: Solver Alpha</b>, chapter 4)</i>"],
+        ["<code>[1]</code>", "<b>Color Activated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Cube color in the activated (on) state"],
+        ["<code>[2]</code>", "<b>Color Deactivated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Cube color in the deactivated (off) state"],
+        ["<code>[3]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]}
+    ]
+  }
+}

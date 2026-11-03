@@ -1,0 +1,48 @@
+{
+  "ru": {
+    "title": "Solver Button",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_SOLVER_BUTTON.png", "alt": "PSE_CLASS_SOLVER_BUTTON" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_SOLVER_BUTTON</code> <i>(0x0006)</i>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Элемент, по функционалу схожий с <b>пьедестал кнопкой</b>, но активируемый исключительно <b>Солвер Ганом</b>" },
+      { "type": "text", "html": "<b>Set State:</b> Не используется <i>(нет логики)</i>" },
+      { "type": "text", "html": "<b>Get State:</b> Возвращает <code>1</code> при активации, и <code>0</code> при деактивации, но режиме таймера (<b>Timer</b>) при активации возвращает кол-во секунд" },
+      { "type": "text", "html": "<b>Разметка регистров:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Индекс", "Наименование", "Формат данных", "Описание"], "rows": [
+        ["<code>[0]</code>", "<b>Flags + Timer</b>", "<code>_____________________CPSSSSSSSTT</code>", "<code>C</code> - Бит, переключащий подсветку на зеленую при <b>Callback Ping'е</b> <i>(использовалось в <b>Portal: Solver Alpha</b>, глава 4)</i><br><code>P</code> - Бит, переключащий модельку кнопки на плоскую<br><code>S...S</code> - Количество секунд таймера<br><code>TT</code> - Тип Солвер-кнопки"],
+        ["<code>[1]</code>", "<b>Color Activated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Цвет солвер-кнопки в активированном состоянии"],
+        ["<code>[2]</code>", "<b>Color Deactivated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Цвет солвер-кнопки в деактивированном состоянии"],
+        ["<code>[3]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]},
+      { "type": "text", "html": "<b>Дополнительная информация</b>:" },
+      { "type": "text", "html": "<ul><li>В регистре <code>[0]</code> биты <code>TT</code> являются перечислением типа <code>uint2_t</code>, содержащей в себе:<ul><li><b>Switch</b> <i>(= 0)</i> - Переключатель, который меняет состояние (вкл/выкл) при каждом клике</li><li><b>Click</b> <i>(= 1)</i> - Клик, который активируется на небольшое время</li><li><b>Timer</b> <i>(= 2)</i> - Таймер, который активируется на заданное коичество секунд (регистр <code>[0]</code> биты <code>S...S</code>)</li><li><b>Once</b> <i>(= 3)</i> - Одноразово активируется один раз, блокируется, и больше не выключается</li><li><i>Любые другие невалидные значения будут относиться к <b>Switch</b></i></li></ul></li><li>В регистре <code>[0]</code> биты <code>S...S</code> является 7-битным беззнаковым числом <code>uint7_t</code> - и нет это не ошибка</li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Solver Button",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_SOLVER_BUTTON.png", "alt": "PSE_CLASS_SOLVER_BUTTON" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_SOLVER_BUTTON</code> <i>(0x0006)</i>" },
+      { "type": "text", "html": "<b>Element Description:</b> An element functionally similar to the <b>pedestal button</b>, but activated exclusively by the <b>Solver Gun</b>" },
+      { "type": "text", "html": "<b>Set State:</b> Not used <i>(no logic)</i>" },
+      { "type": "text", "html": "<b>Get State:</b> Returns <code>1</code> when activated, and <code>0</code> when deactivated, but in timer mode (<b>Timer</b>) it returns the number of seconds when activated" },
+      { "type": "text", "html": "<b>Register layout:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Index", "Name", "Data format", "Description"], "rows": [
+        ["<code>[0]</code>", "<b>Flags + Timer</b>", "<code>_____________________CPSSSSSSSTT</code>", "<code>C</code> - Bit that switches the highlight to green on <b>Callback Ping</b> <i>(used in <b>Portal: Solver Alpha</b>, chapter 4)</i><br><code>P</code> - Bit that switches the button model to a flat one<br><code>S...S</code> - Number of timer seconds<br><code>TT</code> - Solver button type"],
+        ["<code>[1]</code>", "<b>Color Activated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Solver button color in the activated state"],
+        ["<code>[2]</code>", "<b>Color Deactivated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Solver button color in the deactivated state"],
+        ["<code>[3]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]},
+      { "type": "text", "html": "<b>Additional information</b>:" },
+      { "type": "text", "html": "<ul><li>In register <code>[0]</code>, the <code>TT</code> bits are an enumeration of type <code>uint2_t</code>, containing:<ul><li><b>Switch</b> <i>(= 0)</i> - A switch that toggles the state (on/off) on each click</li><li><b>Click</b> <i>(= 1)</i> - A click that activates for a short time</li><li><b>Timer</b> <i>(= 2)</i> - A timer that activates for the specified number of seconds (register <code>[0]</code> bits <code>S...S</code>)</li><li><b>Once</b> <i>(= 3)</i> - Activates once, becomes locked, and never turns off again</li><li><i>Any other invalid values will be treated as <b>Switch</b></i></li></ul></li><li>In register <code>[0]</code>, the <code>S...S</code> bits are a 7-bit unsigned number <code>uint7_t</code> - and no, this is not a mistake</li></ul>" }
+    ]
+  }
+}

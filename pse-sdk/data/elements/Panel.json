@@ -1,0 +1,46 @@
+{
+  "ru": {
+    "title": "Panel",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_PANEL.png", "alt": "PSE_CLASS_PANEL" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_PANEL</code> <i>(0x000F)</i>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Панель, на которой можно сидеть, стоять, прыгать, бегать, падать, приземляться, ударяться..." },
+      { "type": "text", "html": "<b>Set State:</b> Активирует анимацию панели при <b>State != 0</b>" },
+      { "type": "text", "html": "<b>Get State:</b> Не используется <i>(возвращает <b>State</b>, изначально равный <code>0</code>)</i>" },
+      { "type": "text", "html": "<b>Разметка регистров:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Индекс", "Наименование", "Формат данных", "Описание"], "rows": [
+        ["<code>[0]</code>", "<b>Enums</b>", "<code>________________________AAAAAAAA</code>", "<code>AAAAAAAA</code> - Тип анимации для панели"],
+        ["<code>[1]</code>", "<b>Color Activated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Цвет подсветки лестницы в активированном состоянии"],
+        ["<code>[2]</code>", "<b>Color Deactivated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Цвет подсветки лестницы в деактивированном состоянии"],
+        ["<code>[3]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]},
+      { "type": "text", "html": "<ul><li>В регистре <code>[0]</code> биты <code>AAAAAAAA</code> являются перечислением типа <code>uint8_t</code>, содержащей в себе:<ul><li><b>None</b> <i>(= 0)</i> - Анимация: Нет анимации <i>(Idle)</i></li><li><b>Front</b> = 1 - Анимация: Тип <b>Front</b></li><li><b>FrontFront</b> = 2 - Анимация: Тип <b>Front Front</b></li><li><b>FrontBack</b> = 3 - Анимация: Тип <b>Front Back</b></li><li><b>Up</b> = 4 - Анимация: Тип <b>Up</b></li><li><b>UpFront</b> = 5 - Анимация: Тип <b>Up Front</b></li><li><b>UpBack</b> = 6 - Анимация: Тип <b>Up Back</b></li><li><i>Любые другие невалидные значения будут относиться к <b>None</b></i></li></ul></li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Panel",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_PANEL.png", "alt": "PSE_CLASS_PANEL" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_PANEL</code> <i>(0x000F)</i>" },
+      { "type": "text", "html": "<b>Element Description:</b> A panel you can sit, stand, jump, run, fall, land, and bump on..." },
+      { "type": "text", "html": "<b>Set State:</b> Activates the panel animation when <b>State != 0</b>" },
+      { "type": "text", "html": "<b>Get State:</b> Not used <i>(returns <b>State</b>, initially equal to <code>0</code>)</i>" },
+      { "type": "text", "html": "<b>Register layout:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Index", "Name", "Data format", "Description"], "rows": [
+        ["<code>[0]</code>", "<b>Enums</b>", "<code>________________________AAAAAAAA</code>", "<code>AAAAAAAA</code> - Animation type for the panel"],
+        ["<code>[1]</code>", "<b>Color Activated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Stairs highlight color in the activated state"],
+        ["<code>[2]</code>", "<b>Color Deactivated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Stairs highlight color in the deactivated state"],
+        ["<code>[3]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]},
+      { "type": "text", "html": "<ul><li>In register <code>[0]</code>, the <code>AAAAAAAA</code> bits are an enumeration of type <code>uint8_t</code>, containing:<ul><li><b>None</b> <i>(= 0)</i> - Animation: No animation <i>(Idle)</i></li><li><b>Front</b> = 1 - Animation: Type <b>Front</b></li><li><b>FrontFront</b> = 2 - Animation: Type <b>Front Front</b></li><li><b>FrontBack</b> = 3 - Animation: Type <b>Front Back</b></li><li><b>Up</b> = 4 - Animation: Type <b>Up</b></li><li><b>UpFront</b> = 5 - Animation: Type <b>Up Front</b></li><li><b>UpBack</b> = 6 - Animation: Type <b>Up Back</b></li><li><i>Any other invalid values will be treated as <b>None</b></i></li></ul></li></ul>" }
+    ]
+  }
+}

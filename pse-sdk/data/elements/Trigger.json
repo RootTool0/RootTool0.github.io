@@ -1,0 +1,48 @@
+{
+  "ru": {
+    "title": "Trigger",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_TRIGGER.png", "alt": "PSE_CLASS_TRIGGER" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_TRIGGER</code> <i>(0x0015)</i>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Очень функциональный триггер, правда. Функциональней МФЦ" },
+      { "type": "text", "html": "<b>Set State:</b> Не используется <i>(нет логики)</i>" },
+      { "type": "text", "html": "<b>Get State:</b> Возвращает <code>1</code>, если объект <b>вошел в триггер</b>, и <code>0</code> если объект <b>вышел из триггера</b> <i>(но само событие создаются по отдельным условиям, прочитай <b>Дополнительную информацию!</b>)</i>" },
+      { "type": "text", "html": "<b>Разметка регистров:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Индекс", "Наименование", "Формат данных", "Описание"], "rows": [
+        ["<code>[0]</code>", "<b>Flags</b>", "<code>____________________TTTTCCCCAAAA</code>", "<code>TTTT</code> - Цель, по которой триггер среагирует<br><code>CCCC</code> - Условие, по которой триггер среагирует<br><code>AAAA</code> - Какое действие должен сделать триггер"],
+        ["<code>[1]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[2]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[3]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]},
+      { "type": "text", "html": "<b>Дополнительная информация</b>:" },
+      { "type": "text", "html": "<ul><li>В регистре <code>[0]</code> биты <code>TTTT</code> являются перечисление <i>(с функцией битовых флагов)</i> с типом <code>uint4_t</code>, содержащей в себе:<ul><li><b>None</b> <i>(= 0b0000)</i> - Цель: Триггер ни на что не реагирует</li><li><b>Player</b> <i>(= 0b0001)</i> - Цель: Триггер реагирует на игрока</li><li><b>Cubes</b> <i>(= 0b0010)</i> - Цель: Триггер реагирует на кубики</li><li><i>(биты можно совмещать операцией, например: 0b0011 - Триггер среагирует на игрока или на кубики)</i></li></ul></li><li>В регистре <code>[0]</code> биты <code>CCCC</code> являются перечисление <i>(с функцией битовых флагов)</i> с типом <code>uint4_t</code>, содержащей в себе:<ul><li><b>None</b> <i>(= 0b0000)</i> - Условие: Триггер никак сработает <i>(вернет <code>0</code>)</i></li><li><b>On Overlap In</b> <i>(= 0b0001)</i> - Условие: Триггер сработает при входе <i>(и вернет <code>1</code>)</i></li><li><b>On Overlap Out</b> <i>(= 0b0010)</i> - Условие: Триггер сработает при выходе <i>(и вернет <code>1</code>)</i></li><li><i>(биты можно совмещать, например: 0b0011 - Триггер среагирует при входе или выходе из него)</i></li></ul></li><li>В регистре <code>[0]</code> биты <code>AAAA</code> являются перечисление <i>(с функцией битовых флагов)</i> с типом <code>uint4_t</code>, содержащей в себе:<ul><li><b>None</b> <i>(= 0b0000)</i> - Действие: Триггер ничего не сделает</li><li><b>Call</b> <i>(= 0b0001)</i> - Действие: Триггер вызовет событие <b>State</b></li><li><b>Destroy</b> <i>(= 0b0010)</i> - Действие: Триггер уничтожит объект <i>(уничтожит кубик или убьет игрока)</i></li><li><i>(биты можно совмещать, например: 0b0011 - Триггер создаст событие + уничтожит объект)</i></li></ul></li><li>Комментарии к логике работы <b>Триггера</b>:<ul><li>Зависимость <b>Действия</b> от <b>Условия</b>: <b>Действия</b> <i>(например Destroy)</i> выполняются только при совпадении текущего события <i>(Вход в/Выход из триггера)</i> с заданным <b>Условием</b> <i>(On Overlap In/On Overlap Out)</i></li><li>Обновленной переменной <b>State</b>: Даже если <b>Условие</b> не сработает, или <b>действие Call</b> будет выключено, то переменная <b>State</b> внутри триггера все равно будет молча обновляться и всегда будет доступна <i>(=то есть ее всегда можно будет прочитать прямой командой <b>Get State</b>)</i></li></ul></li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Trigger",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_TRIGGER.png", "alt": "PSE_CLASS_TRIGGER" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_TRIGGER</code> <i>(0x0015)</i>" },
+      { "type": "text", "html": "<b>Element Description:</b> A very functional trigger, indeed. More functional than a public service center" },
+      { "type": "text", "html": "<b>Set State:</b> Not used <i>(no logic)</i>" },
+      { "type": "text", "html": "<b>Get State:</b> Returns <code>1</code> if an object <b>entered the trigger</b>, and <code>0</code> if an object <b>left the trigger</b> <i>(but the event itself is created by separate conditions, read the <b>Additional information!</b>)</i>" },
+      { "type": "text", "html": "<b>Register layout:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Index", "Name", "Data format", "Description"], "rows": [
+        ["<code>[0]</code>", "<b>Flags</b>", "<code>____________________TTTTCCCCAAAA</code>", "<code>TTTT</code> - Target the trigger reacts to<br><code>CCCC</code> - Condition under which the trigger reacts<br><code>AAAA</code> - Action the trigger should perform"],
+        ["<code>[1]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[2]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[3]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]},
+      { "type": "text", "html": "<b>Additional information</b>:" },
+      { "type": "text", "html": "<ul><li>In register <code>[0]</code>, the <code>TTTT</code> bits are an enumeration <i>(with bit flag functionality)</i> of type <code>uint4_t</code>, containing:<ul><li><b>None</b> <i>(= 0b0000)</i> - Target: The trigger does not react to anything</li><li><b>Player</b> <i>(= 0b0001)</i> - Target: The trigger reacts to the player</li><li><b>Cubes</b> <i>(= 0b0010)</i> - Target: The trigger reacts to cubes</li><li><i>(bits can be combined with an operation, for example: 0b0011 - The trigger will react to the player or to cubes)</i></li></ul></li><li>In register <code>[0]</code>, the <code>CCCC</code> bits are an enumeration <i>(with bit flag functionality)</i> of type <code>uint4_t</code>, containing:<ul><li><b>None</b> <i>(= 0b0000)</i> - Condition: The trigger will not fire <i>(returns <code>0</code>)</i></li><li><b>On Overlap In</b> <i>(= 0b0001)</i> - Condition: The trigger fires on enter <i>(and returns <code>1</code>)</i></li><li><b>On Overlap Out</b> <i>(= 0b0010)</i> - Condition: The trigger fires on exit <i>(and returns <code>1</code>)</i></li><li><i>(bits can be combined, for example: 0b0011 - The trigger will react on enter or exit)</i></li></ul></li><li>In register <code>[0]</code>, the <code>AAAA</code> bits are an enumeration <i>(with bit flag functionality)</i> of type <code>uint4_t</code>, containing:<ul><li><b>None</b> <i>(= 0b0000)</i> - Action: The trigger will do nothing</li><li><b>Call</b> <i>(= 0b0001)</i> - Action: The trigger will fire a <b>State</b> event</li><li><b>Destroy</b> <i>(= 0b0010)</i> - Action: The trigger will destroy the object <i>(destroy the cube or kill the player)</i></li><li><i>(bits can be combined, for example: 0b0011 - The trigger will fire an event + destroy the object)</i></li></ul></li><li>Notes on the <b>Trigger</b> logic:<ul><li>Dependency of <b>Action</b> on <b>Condition</b>: <b>Actions</b> <i>(e.g. Destroy)</i> are performed only when the current event <i>(Enter/Exit of the trigger)</i> matches the specified <b>Condition</b> <i>(On Overlap In/On Overlap Out)</i></li><li>Updated <b>State</b> variable: Even if the <b>Condition</b> does not fire, or the <b>Call action</b> is disabled, the <b>State</b> variable inside the trigger will still be silently updated and will always be available <i>(= meaning it can always be read with a direct <b>Get State</b> command)</i></li></ul></li></ul>" }
+    ]
+  }
+}

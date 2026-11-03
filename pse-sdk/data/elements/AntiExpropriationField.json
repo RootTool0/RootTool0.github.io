@@ -1,0 +1,48 @@
+{
+  "ru": {
+    "title": "Anti Expropriation Field",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_ANTI_EXPROPRIATION_FIELD.png", "alt": "PSE_CLASS_ANTI_EXPROPRIATION_FIELD" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_ANTI_EXPROPRIATION_FIELD</code> <i>(0x0004)</i>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Поле анти-экспроприации, способное уничтожать вещи, убивать игрока, или переключать состяния <b>Солвер Гана</b>" },
+      { "type": "text", "html": "<b>Set State:</b> Включает поле при <b>State != 0</b>" },
+      { "type": "text", "html": "<b>Get State:</b> Не используется <i>(нет логики)</i>" },
+      { "type": "text", "html": "<b>Разметка регистров:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Индекс", "Наименование", "Формат данных", "Описание"], "rows": [
+        ["<code>[0]</code>", "<b>Flags</b>", "<code>__________________________SSSSPO</code>", "<code>SSSS</code> - Режим действия с <b>Солвер Ганом</b><br><code>P</code> - Бит, убивающий игрока<br><code>O</code> - Бит, уничтожающий объекты"],
+        ["<code>[1]</code>", "<b>Color</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Цвет поля"],
+        ["<code>[2]</code>", "<b>Size</b>", "<code>XXXXXXXXXXXXXXXXYYYYYYYYYYYYYYYY</code>", "<code>X...X</code> - Длина поля<br><code>Y...Y</code> - Высота поля"],
+        ["<code>[3]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]},
+      { "type": "text", "html": "<b>Дополнительная информация</b>:" },
+      { "type": "text", "html": "<ul><li>В регистре <code>[0]</code> биты <code>SSSS</code> являются перечислением типа <code>uint4_t</code>, содержащей в себе:<ul><li><b>None</b> <i>(= 0)</i> - Ничего не делает с <b>Солвер Ганом</b></li><li><b>Switch</b> <i>(= 1)</i> - Переключает состояние <b>Солвер Гана</b></li><li><b>Enable</b> <i>(= 2)</i> - Активирует <b>Солвер Ган</b></li><li><b>Disable</b> <i>(= 3)</i> - Деактивирует <b>Солвер Ган</b></li><li><b>Release</b> <i>(= 4)</i> - Отпускает объект из <b>Солвер Гана</b></li><li><i>Любые другие невалидные значения будут относиться к <b>None</b></i></li></ul></li><li>В регистре <code>[2]</code> биты <code>X...X</code> и <code>Y...Y</code> имеют тип <code>uint16_t</code>, то есть <b>знаковое 16-битное целое число</b></li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Anti Expropriation Field",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_ANTI_EXPROPRIATION_FIELD.png", "alt": "PSE_CLASS_ANTI_EXPROPRIATION_FIELD" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_ANTI_EXPROPRIATION_FIELD</code> <i>(0x0004)</i>" },
+      { "type": "text", "html": "<b>Element Description:</b> An anti-expropriation field capable of destroying things, killing the player, or toggling the <b>Solver Gun</b> states" },
+      { "type": "text", "html": "<b>Set State:</b> Enables the field when <b>State != 0</b>" },
+      { "type": "text", "html": "<b>Get State:</b> Not used <i>(no logic)</i>" },
+      { "type": "text", "html": "<b>Register layout:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Index", "Name", "Data format", "Description"], "rows": [
+        ["<code>[0]</code>", "<b>Flags</b>", "<code>__________________________SSSSPO</code>", "<code>SSSS</code> - Action mode with the <b>Solver Gun</b><br><code>P</code> - Bit that kills the player<br><code>O</code> - Bit that destroys objects"],
+        ["<code>[1]</code>", "<b>Color</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Field color"],
+        ["<code>[2]</code>", "<b>Size</b>", "<code>XXXXXXXXXXXXXXXXYYYYYYYYYYYYYYYY</code>", "<code>X...X</code> - Field length<br><code>Y...Y</code> - Field height"],
+        ["<code>[3]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[4]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[5]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]},
+      { "type": "text", "html": "<b>Additional information</b>:" },
+      { "type": "text", "html": "<ul><li>In register <code>[0]</code>, the <code>SSSS</code> bits are an enumeration of type <code>uint4_t</code>, containing:<ul><li><b>None</b> <i>(= 0)</i> - Does nothing to the <b>Solver Gun</b></li><li><b>Switch</b> <i>(= 1)</i> - Toggles the <b>Solver Gun</b> state</li><li><b>Enable</b> <i>(= 2)</i> - Activates the <b>Solver Gun</b></li><li><b>Disable</b> <i>(= 3)</i> - Deactivates the <b>Solver Gun</b></li><li><b>Release</b> <i>(= 4)</i> - Releases the object from the <b>Solver Gun</b></li><li><i>Any other invalid values will be treated as <b>None</b></i></li></ul></li><li>In register <code>[2]</code>, the <code>X...X</code> and <code>Y...Y</code> bits are of type <code>uint16_t</code>, i.e. a <b>signed 16-bit integer</b></li></ul>" }
+    ]
+  }
+}

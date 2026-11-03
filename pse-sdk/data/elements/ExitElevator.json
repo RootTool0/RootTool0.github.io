@@ -1,0 +1,26 @@
+{
+  "ru": {
+    "title": "Exit Elevator",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_EXIT_ELEVATOR.png", "alt": "PSE_CLASS_EXIT_ELEVATOR" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_EXIT_ELEVATOR</code> <i>(0x0001)</i>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Ванильный лифт для выхода с уровня" },
+      { "type": "text", "html": "<b>Set State:</b> Поведение <b>Set State</b> точь-в-точь как у элемента <b>Door!</b>" },
+      { "type": "text", "html": "<b>Get State:</b> Поведение <b>Get State</b> точь-в-точь как у элемента <b>Door</b>!" },
+      { "type": "text", "html": "<b>Разметка регистров:</b>" },
+      { "type": "text", "html": "Вся разметка регистров точь-в-точь как у элемента <b>Door!</b>" }
+    ]
+  },
+  "en": {
+    "title": "Exit Elevator",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_EXIT_ELEVATOR.png", "alt": "PSE_CLASS_EXIT_ELEVATOR" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_EXIT_ELEVATOR</code> <i>(0x0001)</i>" },
+      { "type": "text", "html": "<b>Element Description:</b> A vanilla elevator for exiting the level" },
+      { "type": "text", "html": "<b>Set State:</b> The <b>Set State</b> behavior is exactly the same as for the <b>Door!</b> element" },
+      { "type": "text", "html": "<b>Get State:</b> The <b>Get State</b> behavior is exactly the same as for the <b>Door</b> element!" },
+      { "type": "text", "html": "<b>Register layout:</b>" },
+      { "type": "text", "html": "The entire register layout is exactly the same as for the <b>Door!</b> element" }
+    ]
+  }
+}

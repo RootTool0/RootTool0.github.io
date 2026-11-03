@@ -1,0 +1,72 @@
+{
+  "ru": {
+    "title": "PseClass",
+    "blocks": [
+      {
+        "type": "table",
+        "align": ["center", "left", "center"],
+        "head": ["Значение (HEX)", "Название", "Фотография"],
+        "rows": [
+          ["<b>0x0000</b>", "PSE_CLASS_ENTRY_ELEVATOR", "<img src=\"assets/enums_h/class/PSE_CLASS_ENTRY_ELEVATOR.png\">"],
+          ["<b>0x0001</b>", "PSE_CLASS_EXIT_ELEVATOR", "<img src=\"assets/enums_h/class/PSE_CLASS_EXIT_ELEVATOR.png\">"],
+          ["<b>0x0002</b>", "PSE_CLASS_DOOR", "<img src=\"assets/enums_h/class/PSE_CLASS_DOOR.png\">"],
+          ["<b>0x0003</b>", "PSE_CLASS_BUTTON", "<img src=\"assets/enums_h/class/PSE_CLASS_BUTTON.png\">"],
+          ["<b>0x0004</b>", "PSE_CLASS_ANTI_EXPROPRIATION_FIELD", "<img src=\"assets/enums_h/class/PSE_CLASS_ANTI_EXPROPRIATION_FIELD.png\">"],
+          ["<b>0x0005</b>", "PSE_CLASS_PEDESTAL_BUTTON", "<img src=\"assets/enums_h/class/PSE_CLASS_PEDESTAL_BUTTON.png\">"],
+          ["<b>0x0006</b>", "PSE_CLASS_SOLVER_BUTTON", "<img src=\"assets/enums_h/class/PSE_CLASS_SOLVER_BUTTON.png\">"],
+          ["<b>0x0007</b>", "PSE_CLASS_INDICATOR", "<img src=\"assets/enums_h/class/PSE_CLASS_INDICATOR.png\">"],
+          ["<b>0x0008</b>", "PSE_CLASS_LASER_TX", "<img src=\"assets/enums_h/class/PSE_CLASS_LASER_TX.png\">"],
+          ["<b>0x0009</b>", "PSE_CLASS_LASER_RX", "<img src=\"assets/enums_h/class/PSE_CLASS_LASER_RX.png\">"],
+          ["<b>0x000A</b>", "PSE_CLASS_LASER_RELAY", "<img src=\"assets/enums_h/class/PSE_CLASS_LASER_RELAY.png\">"],
+          ["<b>0x000B</b>", "PSE_CLASS_LASER_PANEL", "<img src=\"assets/enums_h/class/PSE_CLASS_LASER_PANEL.png\">"],
+          ["<b>0x000C</b>", "PSE_CLASS_LASER_CUBE", "<img src=\"assets/enums_h/class/PSE_CLASS_LASER_CUBE.png\">"],
+          ["<b>0x000D</b>", "PSE_CLASS_WEIGHT_CUBE", "<img src=\"assets/enums_h/class/PSE_CLASS_WEIGHT_CUBE.png\">"],
+          ["<b>0x000E</b>", "PSE_CLASS_FAITH_PLATE", "<img src=\"assets/enums_h/class/PSE_CLASS_FAITH_PLATE.png\">"],
+          ["<b>0x000F</b>", "PSE_CLASS_PANEL", "<img src=\"assets/enums_h/class/PSE_CLASS_PANEL.png\">"],
+          ["<b>0x0010</b>", "PSE_CLASS_STAIRS", "<img src=\"assets/enums_h/class/PSE_CLASS_STAIRS.png\">"],
+          ["<b>0x0011</b>", "PSE_CLASS_CUBE_DROPPER", "<img src=\"assets/enums_h/class/PSE_CLASS_CUBE_DROPPER.png\">"],
+          ["<b>0x0012</b>", "PSE_CLASS_SOLVER_GUN_PEDESTAL", "<img src=\"assets/enums_h/class/PSE_CLASS_SOLVER_GUN_PEDESTAL.png\">"],
+          ["<b>0x0013</b>", "PSE_CLASS_FLASHLIGHT", "<img src=\"assets/enums_h/class/PSE_CLASS_FLASHLIGHT.png\">"],
+          ["<b>0x0014</b>", "PSE_CLASS_WINDOW", "<img src=\"assets/enums_h/class/PSE_CLASS_WINDOW.png\">"],
+          ["<b>0x0015</b>", "PSE_CLASS_TRIGGER", "<img src=\"assets/enums_h/class/PSE_CLASS_TRIGGER.png\">"],
+          ["<b>0x0016</b>", "PSE_CLASS_LAMP", "<img src=\"assets/enums_h/class/PSE_CLASS_LAMP.png\">"]
+        ]
+      }
+    ]
+  },
+  "en": {
+    "title": "PseClass",
+    "blocks": [
+      {
+        "type": "table",
+        "align": ["center", "left", "center"],
+        "head": ["Value (HEX)", "Name", "Photo"],
+        "rows": [
+          ["<b>0x0000</b>", "PSE_CLASS_ENTRY_ELEVATOR", "<img src=\"assets/enums_h/class/PSE_CLASS_ENTRY_ELEVATOR.png\">"],
+          ["<b>0x0001</b>", "PSE_CLASS_EXIT_ELEVATOR", "<img src=\"assets/enums_h/class/PSE_CLASS_EXIT_ELEVATOR.png\">"],
+          ["<b>0x0002</b>", "PSE_CLASS_DOOR", "<img src=\"assets/enums_h/class/PSE_CLASS_DOOR.png\">"],
+          ["<b>0x0003</b>", "PSE_CLASS_BUTTON", "<img src=\"assets/enums_h/class/PSE_CLASS_BUTTON.png\">"],
+          ["<b>0x0004</b>", "PSE_CLASS_ANTI_EXPROPRIATION_FIELD", "<img src=\"assets/enums_h/class/PSE_CLASS_ANTI_EXPROPRIATION_FIELD.png\">"],
+          ["<b>0x0005</b>", "PSE_CLASS_PEDESTAL_BUTTON", "<img src=\"assets/enums_h/class/PSE_CLASS_PEDESTAL_BUTTON.png\">"],
+          ["<b>0x0006</b>", "PSE_CLASS_SOLVER_BUTTON", "<img src=\"assets/enums_h/class/PSE_CLASS_SOLVER_BUTTON.png\">"],
+          ["<b>0x0007</b>", "PSE_CLASS_INDICATOR", "<img src=\"assets/enums_h/class/PSE_CLASS_INDICATOR.png\">"],
+          ["<b>0x0008</b>", "PSE_CLASS_LASER_TX", "<img src=\"assets/enums_h/class/PSE_CLASS_LASER_TX.png\">"],
+          ["<b>0x0009</b>", "PSE_CLASS_LASER_RX", "<img src=\"assets/enums_h/class/PSE_CLASS_LASER_RX.png\">"],
+          ["<b>0x000A</b>", "PSE_CLASS_LASER_RELAY", "<img src=\"assets/enums_h/class/PSE_CLASS_LASER_RELAY.png\">"],
+          ["<b>0x000B</b>", "PSE_CLASS_LASER_PANEL", "<img src=\"assets/enums_h/class/PSE_CLASS_LASER_PANEL.png\">"],
+          ["<b>0x000C</b>", "PSE_CLASS_LASER_CUBE", "<img src=\"assets/enums_h/class/PSE_CLASS_LASER_CUBE.png\">"],
+          ["<b>0x000D</b>", "PSE_CLASS_WEIGHT_CUBE", "<img src=\"assets/enums_h/class/PSE_CLASS_WEIGHT_CUBE.png\">"],
+          ["<b>0x000E</b>", "PSE_CLASS_FAITH_PLATE", "<img src=\"assets/enums_h/class/PSE_CLASS_FAITH_PLATE.png\">"],
+          ["<b>0x000F</b>", "PSE_CLASS_PANEL", "<img src=\"assets/enums_h/class/PSE_CLASS_PANEL.png\">"],
+          ["<b>0x0010</b>", "PSE_CLASS_STAIRS", "<img src=\"assets/enums_h/class/PSE_CLASS_STAIRS.png\">"],
+          ["<b>0x0011</b>", "PSE_CLASS_CUBE_DROPPER", "<img src=\"assets/enums_h/class/PSE_CLASS_CUBE_DROPPER.png\">"],
+          ["<b>0x0012</b>", "PSE_CLASS_SOLVER_GUN_PEDESTAL", "<img src=\"assets/enums_h/class/PSE_CLASS_SOLVER_GUN_PEDESTAL.png\">"],
+          ["<b>0x0013</b>", "PSE_CLASS_FLASHLIGHT", "<img src=\"assets/enums_h/class/PSE_CLASS_FLASHLIGHT.png\">"],
+          ["<b>0x0014</b>", "PSE_CLASS_WINDOW", "<img src=\"assets/enums_h/class/PSE_CLASS_WINDOW.png\">"],
+          ["<b>0x0015</b>", "PSE_CLASS_TRIGGER", "<img src=\"assets/enums_h/class/PSE_CLASS_TRIGGER.png\">"],
+          ["<b>0x0016</b>", "PSE_CLASS_LAMP", "<img src=\"assets/enums_h/class/PSE_CLASS_LAMP.png\">"]
+        ]
+      }
+    ]
+  }
+}

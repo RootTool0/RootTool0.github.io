@@ -1,0 +1,80 @@
+{
+  "ru": {
+    "title": "PseCommandBuffer",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "Однонаправленный <b>lock-free</b> кольцевой буфер команд с транзакционным возвратом результатов (<b>In-place RPC Ring Buffer</b>) в том же слоте памяти и поддержкой активного ожидания (<b>Spin-lock</b>/<code>_mm_pause</code>)"
+      },
+      {
+        "type": "text",
+        "html": "Обеспечивает передачу запросов от <b>SDK</b> (Writer/Producer) к <b>игре</b> (Reader/Consumer)"
+      },
+      {
+        "type": "text",
+        "html": "Все критические индексы атомарны и аппаратно изолированы друг от друга на уровне кэш-линий процессора, предотвращая деградацию производительности (<b>False Sharing</b>)"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Поля</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "center", "left"],
+        "head": ["Поле", "Смещение (в байтах)", "Размер (в байтах)", "Описание"],
+        "rows": [
+          ["<b>PseData buffer[PSE_COMMAND_BUFFER_SIZE]</b>", "<code>0</code>", "<b>131 072</b>, <i>(128 КБ)</i>", "Статический кольцевой массив из <b>2048 ячеек</b>. Выровнен по кэш-линии (<code>alignas(64)</code>). Каждый слот сначала хранит команду, а затем результат игры"],
+          ["<b>uint32_t pseIndex</b>", "<code>131 072</code>", "<b>4</b>", "Атомарный индекс записи <b>SDK</b> (Producer Index). Изолирован на отдельной кэш-линии (<code>alignas(64)</code>)"],
+          ["<b>uint32_t gameIndex</b>", "<code>131 136</code>", "<b>4</b>", "Атомарный индекс чтения и подтверждения <b>игры</b> (Consumer Index). Показывает, до какого индекса игра выполнила команды и вернула результаты. Изолирован (<code>alignas(64)</code>)"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h2>Архитектурные особенности</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b>Атомарность полей и совместимость ABI:</b> Для обеспечения строгой <b>кросс-языковой совместимости</b> на уровне <b>C API</b> <i>(в языках C#, Rust, Python и тд.)</i> эти поля намеренно объявлены как <b>базовый системный тип</b> <code>uint32_t</code>, а не <code>std::atomic</code>. Однако на физическом уровне доступ к ним со стороны <b>игры Portal: Solver</b> и <b>PSE SDK</b> осуществляется исключительно как к типам <code>std::atomic&lt;uint32_t&gt;</code>. доступ к этому полю осуществляется <b>исключительно через атомарные операции</b> с использованием явных барьеров памяти <i>(<code>std::memory_order</code>)</i></li><li><b>Переиспользование слотов <i>(Zero-Allocation RPC)</i>:</b> Конвейер обработки спроектирован по принципу \"одна транзакция - одна ячейка памяти\", что исключает необходимость дублирования кольцевых буферов (под запросы и ответы отдельно) и генерации сквозных Message ID:<ul><li><b>Разделение владения во времени:</b> В каждый момент времени у конкретного индекса <code>buffer[i]</code> есть строго один хозяин. До момента публикации слотом <b>владеет SDK</b>. После обновления <code>pseIndex</code> право на запись монопольно <b>переходит к игре</b>. Как только игра обновляет <code>gameIndex</code>, право на чтение и повторную запись <b>возвращается к SDK</b></li><li><b>Перезапись результата:</b> Игра считывает структуру <code>PseCommand</code>, исполняет логику и сразу же затирает ее в том же слоте структуры памяти, записывая на ее место <code>PseResult</code> и выходную полезную нагрузку. <b>SDK</b>, находясь в режиме активного ожидания (Spin-wait), забирает результат без промежуточных аллокаций памяти</li></ul></li><li><b>Lock-Free топология и барьеры памяти:</b> Взаимодействие между <b>игрой</b> и <b>SDK</b> полностью свободно от системных блокировок <i>(<b>мьютексов, критических секций</b>)</i> и построено на <b>атомарных индексах</b> с точечным управлением видимостью памяти на CPU:<ul><li><b>Асимметричные индексы:</b> Потоки модифицируют только свои переменные. <b>SDK</b> всегда инкрементирует <code>pseIndex</code>, а игра - <code>gameIndex</code>. Это предотвращает гонки данных (Data Races) при обновлении указателей кольца</li><li><b>Барьеры видимости <i>(Acquire-Release Semantics)</i>:</b><ul><li>Писатель использует <code>std::memory_order_release</code> при сохранении индекса. Это гарантирует, что процессор не переставит инструкции записи данных в буфер <i>после</i> обновления индекса</li><li>Читатель использует <code>std::memory_order_acquire</code>. Это гарантирует, что CPU не начнет читать данные из ячейки буфера <i>до</i> того, как считает обновленный противоположный индекс</li></ul></li></ul></li><li><b>Устранение ложного разделения кэша (False Sharing):</b> Все три ключевых компонента структуры принудительно разнесены по разным кэш-линиям процессора с помощью спецификатора <code>alignas(64)</code>:<ul><li>Изменение массива <code>buffer</code> на одном процессорном ядре не приводит к инвалидации строк кэша <i>(<b>Cache-line invalidation</b>)</i>, в которых хранятся атомарные индексы <code>pseIndex</code> и <code>gameIndex</code> на других ядрах</li><li>Это минимизирует <b>\"пинг-понг\"</b> кэш-линий <i>(<b>Cache bounce</b>)</i> между <b>CPU игры</b> и <b>CPU SDK</b>, сохраняя аппаратную пропускную способность шины памяти на максимуме</li></ul></li><li><b>Аппаратная разгрузка CPU <i>(<code>_mm_pause</code>)</i>:</b> Во всех циклах ожидания результатов (<code>singleWait</code>, <code>batchWait</code>, <code>rawWait</code>) используется интринсик <code>_mm_pause</code>:<ul><li>Он сообщает процессору, что поток находится в <b>плотном spin-lock цикле</b>, оптимизируя конвейер инструкций на архитектурах <b>x86/x64</b></li><li>Это снижает энергопотребление ядра процессора во время ожидания игры и предотвращает ложное срабатывание спекулятивного выполнения команд процессора (<b>Pipeline Flush</b>), когда цикл ожидания наконец завершается</li></ul></li></ul>"
+      }
+    ]
+  },
+  "en": {
+    "title": "PseCommandBuffer",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "Unidirectional <b>lock-free</b> command ring buffer with transactional result return (<b>In-place RPC Ring Buffer</b>) in the same memory slot and active-wait support (<b>Spin-lock</b>/<code>_mm_pause</code>)"
+      },
+      {
+        "type": "text",
+        "html": "Provides request transfer from <b>SDK</b> (Writer/Producer) to <b>game</b> (Reader/Consumer)"
+      },
+      {
+        "type": "text",
+        "html": "All critical indices are atomic and hardware-isolated from each other at the CPU cache-line level, preventing performance degradation (<b>False Sharing</b>)"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Fields</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "center", "left"],
+        "head": ["Field", "Offset (in bytes)", "Size (in bytes)", "Description"],
+        "rows": [
+          ["<b>PseData buffer[PSE_COMMAND_BUFFER_SIZE]</b>", "<code>0</code>", "<b>131 072</b>, <i>(128 KB)</i>", "Static ring array of <b>2048 cells</b>. Aligned to a cache line (<code>alignas(64)</code>). Each slot first holds a command, then the game result"],
+          ["<b>uint32_t pseIndex</b>", "<code>131 072</code>", "<b>4</b>", "Atomic write index of <b>SDK</b> (Producer Index). Isolated on a separate cache line (<code>alignas(64)</code>)"],
+          ["<b>uint32_t gameIndex</b>", "<code>131 136</code>", "<b>4</b>", "Atomic read and acknowledgement index of <b>game</b> (Consumer Index). Shows up to which index the game has executed commands and returned results. Isolated (<code>alignas(64)</code>)"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h2>Architectural notes</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b>Field atomicity and ABI compatibility:</b> To ensure strict <b>cross-language compatibility</b> at the <b>C API</b> level <i>(in languages C#, Rust, Python, etc.)</i>, these fields are intentionally declared as a <b>base system type</b> <code>uint32_t</code> rather than <code>std::atomic</code>. However, at the physical level, access to them from <b>Portal: Solver game</b> and <b>PSE SDK</b> is performed exclusively as <code>std::atomic&lt;uint32_t&gt;</code> types. access to this field is performed <b>exclusively via atomic operations</b> using explicit memory barriers <i>(<code>std::memory_order</code>)</i></li><li><b>Slot reuse <i>(Zero-Allocation RPC)</i>:</b> The processing pipeline is designed on the principle of \"one transaction - one memory cell\", which eliminates the need to duplicate ring buffers (for requests and responses separately) and to generate end-to-end Message IDs:<ul><li><b>Ownership separation over time:</b> At any given moment, a specific index <code>buffer[i]</code> has strictly one owner. Until publication, the slot is <b>owned by SDK</b>. After <code>pseIndex</code> is updated, write access monopolistically <b>passes to the game</b>. As soon as the game updates <code>gameIndex</code>, read and re-write access <b>returns to SDK</b></li><li><b>Result overwrite:</b> The game reads the <code>PseCommand</code> structure, executes the logic, and immediately overwrites it in the same memory slot, writing <code>PseResult</code> and the output payload in its place. <b>SDK</b>, being in active-wait mode (Spin-wait), picks up the result without intermediate memory allocations</li></ul></li><li><b>Lock-Free topology and memory barriers:</b> Interaction between <b>game</b> and <b>SDK</b> is completely free of system locks <i>(<b>mutexes, critical sections</b>)</i> and is built on <b>atomic indices</b> with pinpoint control of memory visibility on the CPU:<ul><li><b>Asymmetric indices:</b> Threads modify only their own variables. <b>SDK</b> always increments <code>pseIndex</code>, and the game - <code>gameIndex</code>. This prevents data races (Data Races) when updating ring pointers</li><li><b>Visibility barriers <i>(Acquire-Release Semantics)</i>:</b><ul><li>The writer uses <code>std::memory_order_release</code> when storing the index. This guarantees that the CPU will not reorder data write instructions into the buffer <i>after</i> the index update</li><li>The reader uses <code>std::memory_order_acquire</code>. This guarantees that the CPU will not start reading data from the buffer cell <i>before</i> it reads the updated opposite index</li></ul></li></ul></li><li><b>Eliminating false cache sharing (False Sharing):</b> All three key components of the structure are forcibly spread across different CPU cache lines using the <code>alignas(64)</code> specifier:<ul><li>Modifying the <code>buffer</code> array on one CPU core does not cause cache-line invalidation <i>(<b>Cache-line invalidation</b>)</i> of the lines holding the atomic indices <code>pseIndex</code> and <code>gameIndex</code> on other cores</li><li>This minimizes cache-line <b>\"ping-pong\"</b> <i>(<b>Cache bounce</b>)</i> between <b>game CPU</b> and <b>SDK CPU</b>, keeping the hardware memory bus throughput at maximum</li></ul></li><li><b>Hardware CPU offload <i>(<code>_mm_pause</code>)</i>:</b> All result-wait loops (<code>singleWait</code>, <code>batchWait</code>, <code>rawWait</code>) use the <code>_mm_pause</code> intrinsic:<ul><li>It tells the CPU that the thread is in a <b>tight spin-lock loop</b>, optimizing the instruction pipeline on <b>x86/x64</b> architectures</li><li>This reduces CPU core power consumption while waiting for the game and prevents false triggering of speculative command execution (<b>Pipeline Flush</b>) when the wait loop finally completes</li></ul></li></ul>"
+      }
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "ru": {
+    "title": "Faith Plate",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_FAITH_PLATE.png", "alt": "PSE_CLASS_FAITH_PLATE" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_FAITH_PLATE</code> <i>(0x000E)</i>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Ванильная панель веры like Portal 2" },
+      { "type": "text", "html": "<b>Set State:</b> Включает панель веры при <b>State != 0</b>" },
+      { "type": "text", "html": "<b>Get State:</b> Не используется <i>(возвращает <b>State</b>, изначально равный <code>0</code>)</i>" },
+      { "type": "text", "html": "<b>Разметка регистров:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Индекс", "Наименование", "Формат данных", "Описание"], "rows": [
+        ["<code>[0]</code>", "<b>Flags</b>", "<code>______________________________RG</code>", "<code>R</code> - Отпускать объект из рук если тот упал на <b>панель веры</b><br><code>G</code> - Использовать глобальные координаты для <b>Target Location</b>"],
+        ["<code>[1]</code>", "<b>Color Activated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Цвет подсветки панели веры в активированном состоянии"],
+        ["<code>[2]</code>", "<b>Color Deactivated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Цвет подсветки панели веры в деактивированном состоянии"],
+        ["<code>[3]</code>", "<b>Target Location</b>", "<code>XXXXXXXXXXXXXXXXYYYYYYYYYYYYYYYY</code>", "<code>X...X</code> - Компонента <b>X</b> у <b>Target Location</b><br><code>Y...Y</code> - Компонента <b>Y</b> у <b>Target Location</b>"],
+        ["<code>[4]</code>", "<b>Target Location + Height</b>", "<code>ZZZZZZZZZZZZZZZZHHHHHHHHHHHHHHHH</code>", "<code>Z...Z</code> - Компонента <b>Z</b> у <b>Target Location</b><br><code>H...H</code> - Высота пика <i>(верхушки)</i> параболы траектории полета"],
+        ["<code>[5]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]},
+      { "type": "text", "html": "<b>Дополнительная информация</b>:" },
+      { "type": "text", "html": "<ul><li>В регистре <code>[3]</code> и <code>[4]</code> биты <code>X...X</code>, <code>Y...Y</code>, <code>Z...Z</code> и <code>H...H</code> имеют тип <code>int16_t</code>, то есть <b>знаковое 16-битное целое число</b></li><li>Объект перемещается по <b>параболической баллистической траектории</b> к конечной точке приземления <b>Target Location</b> <i>(X, Y, Z)</i>, достигая в <b>апогее максимальной высоты</b> на высоте <b>Height</b> <i>(H)</i></li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Faith Plate",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_FAITH_PLATE.png", "alt": "PSE_CLASS_FAITH_PLATE" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_FAITH_PLATE</code> <i>(0x000E)</i>" },
+      { "type": "text", "html": "<b>Element Description:</b> A vanilla faith plate like in Portal 2" },
+      { "type": "text", "html": "<b>Set State:</b> Enables the faith plate when <b>State != 0</b>" },
+      { "type": "text", "html": "<b>Get State:</b> Not used <i>(returns <b>State</b>, initially equal to <code>0</code>)</i>" },
+      { "type": "text", "html": "<b>Register layout:</b>" },
+      { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Index", "Name", "Data format", "Description"], "rows": [
+        ["<code>[0]</code>", "<b>Flags</b>", "<code>______________________________RG</code>", "<code>R</code> - Release the object from hands if it falls on the <b>faith plate</b><br><code>G</code> - Use global coordinates for the <b>Target Location</b>"],
+        ["<code>[1]</code>", "<b>Color Activated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Faith plate highlight color in the activated state"],
+        ["<code>[2]</code>", "<b>Color Deactivated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Faith plate highlight color in the deactivated state"],
+        ["<code>[3]</code>", "<b>Target Location</b>", "<code>XXXXXXXXXXXXXXXXYYYYYYYYYYYYYYYY</code>", "<code>X...X</code> - <b>X</b> component of the <b>Target Location</b><br><code>Y...Y</code> - <b>Y</b> component of the <b>Target Location</b>"],
+        ["<code>[4]</code>", "<b>Target Location + Height</b>", "<code>ZZZZZZZZZZZZZZZZHHHHHHHHHHHHHHHH</code>", "<code>Z...Z</code> - <b>Z</b> component of the <b>Target Location</b><br><code>H...H</code> - Peak <i>(top)</i> height of the flight trajectory parabola"],
+        ["<code>[5]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[6]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
+        ["<code>[7]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"]
+      ]},
+      { "type": "text", "html": "<b>Additional information</b>:" },
+      { "type": "text", "html": "<ul><li>In registers <code>[3]</code> and <code>[4]</code>, the <code>X...X</code>, <code>Y...Y</code>, <code>Z...Z</code> and <code>H...H</code> bits are of type <code>int16_t</code>, i.e. a <b>signed 16-bit integer</b></li><li>The object moves along a <b>parabolic ballistic trajectory</b> to the landing point <b>Target Location</b> <i>(X, Y, Z)</i>, reaching <b>maximum height at the apex</b> at the height <b>Height</b> <i>(H)</i></li></ul>" }
+    ]
+  }
+}

@@ -1,0 +1,270 @@
+{
+  "ru": {
+    "title": "Hello, World!",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "Добро пожаловать в документацию <b>Portal Solver Editor (PSE) SDK</b> - низкоуровневого <b>C SDK</b>, разработанного для прямого и высокопроизводительного взаимодействия с игрой <b>Portal: Solver</b>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Концепция и архитектура SDK</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<b>Portal Solver Editor SDK</b> реализует <b>Stateless</b> <i>(не хранящую состояние)</i> модель <b>межпроцессного взаимодействия</b> <i>(IPC)</i>"
+      },
+      {
+        "type": "text",
+        "html": "<h3>Что это значит на практике?</h3>"
+      },
+      {
+        "type": "text",
+        "html": "<b>SDK</b> является чистым транспортным и интерфейсным слоем. Он не владеет информацией о текущем игровом контексте: ему неизвестно, какие объекты сейчас активны, какие триггеры сработали или в каком состоянии находятся элементы игры"
+      },
+      {
+        "type": "text",
+        "html": "<b>SDK</b> не кэширует данные, не хранит внутренние переменные состояния и не ведет учет игровых сущностей"
+      },
+      {
+        "type": "text",
+        "html": "Управление состоянием, выполнение, и вся прикладная логика выполняются исключительно на стороне хоста - игры <b>Portal: Solver</b>"
+      },
+      {
+        "type": "text",
+        "html": "<h3>Ключевая задача SDK</h3>"
+      },
+      {
+        "type": "text",
+        "html": "Абстрагировать архитектурную сложность прямой работы с разделяемой памятью <i>(Shared Memory)</i> и кольцевыми буферами <i>(Ring Buffers)</i>"
+      },
+      {
+        "type": "text",
+        "html": "Также <b>SDK</b> предоставляет разработчику готовые типизированные инструменты: структуры <i>(struct)</i>, перечисления <i>(enum)</i> и вспомогательные функции <i>(хелперы)</i> для безопасного и удобного чтения и записи"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b>SDK:</b> Предоставляет API для низкоуровневого обмена данными. Он берет на себя атомарную синхронизацию и разметку памяти</li><li><b>Разработчик:</b> Проектирует логику интеграции. Вы самостоятельно определяете, когда, в какой последовательности и на основе каких игровых событий отправлять команды или считывать буферы</li></ul>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Но не пугайтесь этого!</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Да, на первый взгляд идея \"у нас нет кнопок и дверей, у нас есть только сырые байты\" звучит дико и даже пугающе. Кажется, что придется вручную высчитывать каждый бит"
+      },
+      {
+        "type": "text",
+        "html": "Но на самом деле все гораздо проще, логичнее и красивее!"
+      },
+      {
+        "type": "text",
+        "html": "<b>SDK</b> берет на себя всю грязную работу по синхронизации потоков, барьерам памяти и работе с операционной системой"
+      },
+      {
+        "type": "text",
+        "html": "А для удобства сборки пакетов у вас будут структурами с перечисления, и хелпер-функции"
+      },
+      {
+        "type": "text",
+        "html": "Также в документации будут расписаны все смещения и индексы"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Быстрый старт</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Давайте посмотрим, как выглядит классический цикл <b>\"Hello, World!\"</b> на живом примере!"
+      },
+      {
+        "type": "text",
+        "html": "Взаимодействие с игрой всегда строится по одному сценарию: мы берем универсальную <b>64-байтовую структуру PseData</b>, задаем в нее команду <i>(заголовок)</i>, заполняем оставшиеся 60 байт полезными данными и отправляем в <b>SDK</b> <i>(в кольцевой буфер)</i>"
+      },
+      {
+        "type": "text",
+        "html": "Вот как выглядит минимальный рабочий код на <b>C++</b>, который подключается к игре, создает кнопку, затем отключается:"
+      },
+      {
+        "type": "code",
+        "lang": "cpp",
+        "code": "#include <stdio.h>\n#include <stdint.h>\n\n#include \"pse/pse.h\"\n#include \"pse/pse.hpp\"\n\nint main() {\n  printf(\"[SDK] Запуск и инициализация...\\n\");\n  \n  // 1. Подключаемся к Shared Memory, которую для нас уже создала игра\n  // Если игра не запущена, функция вернет ошибку\n  if (pseInitializeBuffers() != 0) { \n      printf(\"[SDK] Ошибка: Игра не запущена или Shared Memory недоступна!\\n\");\n      return -1;\n  }\n  printf(\"[SDK] Успешно инициализировали память игры!\\n\");\n  \n  // 1: Инициализация игры\n  {\n      // Создаем пустую 64-байтовую структуру на стеке\n      PseData data{};\n      \n      // [Команда] Инициализация игры\n      data.header = PSE_COMMAND_GAME_INITIALIZE;\n      \n      printf(\"[SDK] Отправляем запрос на инициализацию...\\n\");\n      \n      // Отправляем команду и блокируем поток, пока игра не выполнит ее\n      // Игра сотрет нашу команду и запишет результат прямо в эту же переменную data!\n      pseCommandBufferSinglePushAndWait(&data);\n      \n      if (data.header != PSE_RESULT_SUCCESS) \n      {\n          printf(\"[SDK] Ошибка инициализации игры! Код ошибки: 0x%08X\\n\", data.header);\n          pseDeinitializeBuffers();\n          return -1;\n      }\n      printf(\"[SDK] Игра успешно инициализирована!\\n\");\n  }\n  \n  // 2: Создание динамического меша (плоскости)\n  {\n      // Создаем пустую 64-байтовую структуру на стеке\n      PseData data{};\n      \n      // [Команда] Создать динамический меш\n      data.header = PSE_COMMAND_DYNAMIC_MESH_CREATE;\n      \n      // Шаблон pse::Data::set<Смещение, Тип> красиво и безопасно упаковывает данные в сырые 60 байт полезной нагрузки\n      // Никакого ручного сдвига байт - хелпер сам знает размеры типов\n      \n      // [Смещение  0] Позиция, поворот и масштаб объекта на сцене\n      // Занимает первые 40 байт полезной нагрузки\n      pse::Data::set<0, PseTransform>(\n          data, \n          PseTransform{\n              PseQuat{},                             // Поворот\n              PseVector3{-400.0f, -400.0f, -100.0f}, // Координаты X, Y, Z\n              PseVector3{1.0f, 1.0f, 1.0f}           // Масштаб\n          }\n      );\n      \n      // [Смещение 40] Задаем геометрию меша\n      pse::Data::set<40, PseMesh>(data, PSE_MESH_FACE);\n      \n      // [Смещение 42] Задаем материал (текстуру пола)\n      pse::Data::set<42, PseMaterial>(data, PSE_MATERIAL_FLOOR_WHITE);\n      \n      // [Смещение 44] Флаг видимости (Visibility). 1 - объект сразу отображается в игре\n      pse::Data::set<44, int8_t>(data, 1);\n      \n      printf(\"[SDK] Отправляем команду на создание меша...\\n\");\n      \n      // Снова отправляем пакет в буфер и ждем ответа от игры\n      pseCommandBufferSinglePushAndWait(&data);\n      \n      if (data.header != PSE_RESULT_SUCCESS)\n      {\n          printf(\"[SDK] Не удалось создать меш! Код ошибки: 0x%08X\\n\", data.header);\n          pseDeinitializeBuffers();\n          return -1;\n      }\n      printf(\"[SDK] Динамический меш успешно создан и отображен на сцене!\\n\");\n  }\n  \n  // 3. Чистим за собой и корректно закрываем дескрипторы памяти перед выходом\n  pseDeinitializeBuffers();\n  printf(\"[SDK] Работа завершена. Отключено\\n\");\n  return 0;\n}"
+      },
+      {
+        "type": "text",
+        "html": "<i>P.S. Можно использовать и чистый C, просто тогда нужно будет заменить шаблонные хелпер-функции <code>pse::Data::set</code> на <code>memcpy</code> аналоги и самому считать размер и смещения байт</i>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Что дальше?</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Вы успешно освоили базовый принцип работы <b>Portal Solver Editor SDK</b>!"
+      },
+      {
+        "type": "text",
+        "html": "Теперь перед вами открыты все дороги, и выбор направления зависит от ваших текущих целей и желаний:"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b>Хотите изучить теорию и разметку?</b> Переходите к изучению Концепций и элементов в разделе <b>Concept</b>. Там подробно расписано, какие битовые маски и смещения нужны для управления конкретными элементами в игре - от простых дверей до панелей веры</li><li><b>Нужен строгий справочник по коду?</b> Загляните в раздел <b>Reference</b>. Это полный технический паспорт проекта, где собраны все структуры, перечисления, сигнатуры функций</li><li><b>Хотите сразу посмотреть живой рабочий код?</b> Отправляйтесь в папку <code>examples/</code> в корне репозитория. Там лежат готовые, компилируемые примеры под разные сценарии использования - от простых одиночных команд до сложного <b>Raw-управления</b> кольцевым буфером</li><li><b>Пишете не на C/C++?</b> Вернитесь в главный <b>README.md</b> проекта. Там вы найдете постоянно обновляемый список биндингов и оберток от сообщества под другие языки программирования <i>(Rust, C#, Go и др.)</i>. Возможно, кто-то уже написал удобный инструмент для вашего любимого языка!</li></ul>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Пару слов от автора</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Я пишу и поддерживаю весь этот <b>SDK</b> один, поэтому сделать обертки под все языки сразу у меня просто не хватит времени и рук <i>(хоть я и немного знаком с другими языками)</i>"
+      },
+      {
+        "type": "text",
+        "html": "Если вам вдруг захочется написать биндинг для своего любимого языка <i>(будь-то C#, Rust, Go или что-то еще)</i> - будет супер!"
+      },
+      {
+        "type": "text",
+        "html": "Вам не придется ковыряться вслепую: я открыт к любой инициативе и готов \"побыть рядом\", подробно объяснить всю внутреннюю кухню <b>Shared Memory</b>, <b>IPC</b>, или самого <b>Portal: Solver</b>, подсказать по архитектуре и помочь довести биндинг до релиза"
+      },
+      {
+        "type": "text",
+        "html": "<i>(Единственное - чтобы у вас тоже был реальный интерес доделать это до конца, так как мое время как одного разработчика довольно ограничено, и хочется вкладывать его в те проекты, которые точно увидят свет)</i>"
+      }
+    ]
+  },
+  "en": {
+    "title": "Hello, World!",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "Welcome to the <b>Portal Solver Editor (PSE) SDK</b> documentation - a low-level <b>C SDK</b> designed for direct and high-performance interaction with the <b>Portal: Solver</b> game"
+      },
+      {
+        "type": "text",
+        "html": "<h2>SDK concept and architecture</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<b>Portal Solver Editor SDK</b> implements a <b>Stateless</b> <i>(does not store state)</i> <b>inter-process communication</b> <i>(IPC)</i> model"
+      },
+      {
+        "type": "text",
+        "html": "<h3>What does this mean in practice?</h3>"
+      },
+      {
+        "type": "text",
+        "html": "<b>SDK</b> is a pure transport and interface layer. It does not own information about the current game context: it does not know which objects are currently active, which triggers fired, or what state the game elements are in"
+      },
+      {
+        "type": "text",
+        "html": "<b>SDK</b> does not cache data, does not store internal state variables, and does not keep track of game entities"
+      },
+      {
+        "type": "text",
+        "html": "State management, execution, and all application logic are performed exclusively on the host side - the <b>Portal: Solver</b> game"
+      },
+      {
+        "type": "text",
+        "html": "<h3>Key SDK goal</h3>"
+      },
+      {
+        "type": "text",
+        "html": "To abstract away the architectural complexity of working directly with shared memory <i>(Shared Memory)</i> and ring buffers <i>(Ring Buffers)</i>"
+      },
+      {
+        "type": "text",
+        "html": "The <b>SDK</b> also provides the developer with ready-made typed tools: structures <i>(struct)</i>, enumerations <i>(enum)</i> and helper functions <i>(helpers)</i> for safe and convenient reading and writing"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b>SDK:</b> Provides an API for low-level data exchange. It takes care of atomic synchronization and memory layout</li><li><b>Developer:</b> Designs the integration logic. You determine on your own when, in what order, and based on which game events to send commands or read buffers</li></ul>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>But don't be scared of this!</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Yes, at first glance the idea \"we have no buttons and doors, we only have raw bytes\" sounds wild and even scary. It seems you will have to manually calculate every bit"
+      },
+      {
+        "type": "text",
+        "html": "But in reality everything is much simpler, more logical and more beautiful!"
+      },
+      {
+        "type": "text",
+        "html": "The <b>SDK</b> takes care of all the dirty work of thread synchronization, memory barriers and operating system interaction"
+      },
+      {
+        "type": "text",
+        "html": "And for convenient packet assembly you will have structures with enumerations, and helper functions"
+      },
+      {
+        "type": "text",
+        "html": "The documentation will also describe all offsets and indices"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Quick start</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Let's look at the classic <b>\"Hello, World!\"</b> cycle with a live example!"
+      },
+      {
+        "type": "text",
+        "html": "Interaction with the game is always built according to one scenario: we take the universal <b>64-byte PseData structure</b>, set a command <i>(header)</i> in it, fill the remaining 60 bytes with useful data and send it to the <b>SDK</b> <i>(into the ring buffer)</i>"
+      },
+      {
+        "type": "text",
+        "html": "Here is what the minimal working <b>C++</b> code looks like that connects to the game, creates a button, then disconnects:"
+      },
+      {
+        "type": "code",
+        "lang": "cpp",
+        "code": "#include <stdio.h>\n#include <stdint.h>\n\n#include \"pse/pse.h\"\n#include \"pse/pse.hpp\"\n\nint main() {\n  printf(\"[SDK] Starting and initializing...\\n\");\n  \n  // 1. Connect to the Shared Memory that the game has already created for us\n  // If the game is not running, the function will return an error\n  if (pseInitializeBuffers() != 0) { \n      printf(\"[SDK] Error: The game is not running or Shared Memory is unavailable!\\n\");\n      return -1;\n  }\n  printf(\"[SDK] Successfully initialized the game memory!\\n\");\n  \n  // 1: Game initialization\n  {\n      // Create an empty 64-byte structure on the stack\n      PseData data{};\n      \n      // [Command] Game initialization\n      data.header = PSE_COMMAND_GAME_INITIALIZE;\n      \n      printf(\"[SDK] Sending the initialization request...\\n\");\n      \n      // Send the command and block the thread until the game executes it\n      // The game will overwrite our command and write the result directly into this same data variable!\n      pseCommandBufferSinglePushAndWait(&data);\n      \n      if (data.header != PSE_RESULT_SUCCESS) \n      {\n          printf(\"[SDK] Game initialization failed! Error code: 0x%08X\\n\", data.header);\n          pseDeinitializeBuffers();\n          return -1;\n      }\n      printf(\"[SDK] Game successfully initialized!\\n\");\n  }\n  \n  // 2: Creating a dynamic mesh (plane)\n  {\n      // Create an empty 64-byte structure on the stack\n      PseData data{};\n      \n      // [Command] Create a dynamic mesh\n      data.header = PSE_COMMAND_DYNAMIC_MESH_CREATE;\n      \n      // The pse::Data::set<Offset, Type> template nicely and safely packs data into the raw 60 bytes of payload\n      // No manual byte shifting - the helper knows the type sizes itself\n      \n      // [Offset  0] Position, rotation and scale of the object on the scene\n      // Occupies the first 40 bytes of payload\n      pse::Data::set<0, PseTransform>(\n          data, \n          PseTransform{\n              PseQuat{},                             // Rotation\n              PseVector3{-400.0f, -400.0f, -100.0f}, // X, Y, Z coordinates\n              PseVector3{1.0f, 1.0f, 1.0f}           // Scale\n          }\n      );\n      \n      // [Offset 40] Set the mesh geometry\n      pse::Data::set<40, PseMesh>(data, PSE_MESH_FACE);\n      \n      // [Offset 42] Set the material (floor texture)\n      pse::Data::set<42, PseMaterial>(data, PSE_MATERIAL_FLOOR_WHITE);\n      \n      // [Offset 44] Visibility flag. 1 - the object is immediately displayed in the game\n      pse::Data::set<44, int8_t>(data, 1);\n      \n      printf(\"[SDK] Sending the mesh creation command...\\n\");\n      \n      // Again send the packet to the buffer and wait for the game response\n      pseCommandBufferSinglePushAndWait(&data);\n      \n      if (data.header != PSE_RESULT_SUCCESS)\n      {\n          printf(\"[SDK] Failed to create the mesh! Error code: 0x%08X\\n\", data.header);\n          pseDeinitializeBuffers();\n          return -1;\n      }\n      printf(\"[SDK] Dynamic mesh successfully created and displayed on the scene!\\n\");\n  }\n  \n  // 3. Clean up after ourselves and correctly close the memory handles before exiting\n  pseDeinitializeBuffers();\n  printf(\"[SDK] Work finished. Disconnected\\n\");\n  return 0;\n}"
+      },
+      {
+        "type": "text",
+        "html": "<i>P.S. You can also use pure C, but then you will need to replace the template helper functions <code>pse::Data::set</code> with <code>memcpy</code> analogues and calculate the size and byte offsets yourself</i>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>What's next?</h2>"
+      },
+      {
+        "type": "text",
+        "html": "You have successfully mastered the basic principle of the <b>Portal Solver Editor SDK</b>!"
+      },
+      {
+        "type": "text",
+        "html": "Now all roads are open before you, and the choice of direction depends on your current goals and desires:"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b>Want to study the theory and layout?</b> Move on to studying Concepts and elements in the <b>Concept</b> section. There you will find a detailed description of which bit masks and offsets are needed to control specific elements in the game - from simple doors to faith plates</li><li><b>Need a strict code reference?</b> Take a look at the <b>Reference</b> section. This is the full technical passport of the project, where all structures, enumerations and function signatures are collected</li><li><b>Want to see live working code right away?</b> Go to the <code>examples/</code> folder in the repository root. There you will find ready-made, compilable examples for various usage scenarios - from simple single commands to complex <b>Raw control</b> of the ring buffer</li><li><b>Not writing in C/C++?</b> Return to the main <b>README.md</b> of the project. There you will find a constantly updated list of bindings and wrappers from the community for other programming languages <i>(Rust, C#, Go, etc.)</i>. Perhaps someone has already written a convenient tool for your favorite language!</li></ul>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>A few words from the author</h2>"
+      },
+      {
+        "type": "text",
+        "html": "I write and maintain this entire <b>SDK</b> alone, so I simply do not have enough time and hands to make wrappers for all languages at once <i>(although I am somewhat familiar with other languages)</i>"
+      },
+      {
+        "type": "text",
+        "html": "If you ever feel like writing a binding for your favorite language <i>(whether it's C#, Rust, Go or something else)</i> - that would be great!"
+      },
+      {
+        "type": "text",
+        "html": "You won't have to fumble in the dark: I am open to any initiative and ready to \"be around\", explain in detail the entire inner kitchen of <b>Shared Memory</b>, <b>IPC</b>, or <b>Portal: Solver</b> itself, advise on architecture and help bring the binding to release"
+      },
+      {
+        "type": "text",
+        "html": "<i>(The only thing - so that you also have a real interest in finishing this to the end, since my time as a single developer is quite limited, and I want to invest it in projects that will definitely see the light)</i>"
+      }
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "ru": {
+    "title": "Events",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "<h2>pse::Events::</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Пространство имен <code>pse::Events::</code> содержит набор <b>шаблонных утилит</b> <i>(хелперов)</i>, предназначенных для быстрой и безопасной работы с <b>Event-буфером</b> <i>(см. <b>Reference &gt; Pse.h</b> и <b>Reference &gt; Structures.h &gt; PseEventBuffer</b>)</i>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Сигнатура", "Тип возвращаемого значения", "Описание"],
+        "rows": [
+          ["<code>poll(PseData&amp; outData)</code>", "<code>int32_t</code>", "Извлекает событие из Event-буфера. Автоматически парсит и вызывает колбэки для известных типов событий <i>(реализовано для: <code>PSE_EVENT_ELEMENT_CHANGED</code>)</i>. Записывает полученное событие в <code>outData</code><br><br><b>Коды возврата:</b><br><code>1</code> - Успешно обработано<br><code>2</code> - Неизвестное событие <i>(не удалось обработать)</i><br><code>-1</code> - Буфер событий пуст <i>(событие не было получено)</i>"],
+          ["<code>poll()</code>", "<code>int32_t</code>", "Облегченная перегрузка. Вызывает <code>poll(PseData&amp; outData)</code> внутри себя со временным пустым буфером. Удобна для циклов, где не требуется ручной перехват неизвестных событий"]
+        ]
+      }
+    ]
+  },
+  "en": {
+    "title": "Events",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "<h2>pse::Events::</h2>"
+      },
+      {
+        "type": "text",
+        "html": "The <code>pse::Events::</code> namespace contains a set of <b>template utilities</b> <i>(helpers)</i> designed for fast and safe work with the <b>Event buffer</b> <i>(see <b>Reference &gt; Pse.h</b> and <b>Reference &gt; Structures.h &gt; PseEventBuffer</b>)</i>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Signature", "Return type", "Description"],
+        "rows": [
+          ["<code>poll(PseData&amp; outData)</code>", "<code>int32_t</code>", "Extracts an event from the Event buffer. Automatically parses and invokes callbacks for known event types <i>(implemented for: <code>PSE_EVENT_ELEMENT_CHANGED</code>)</i>. Writes the received event into <code>outData</code><br><br><b>Return codes:</b><br><code>1</code> - Successfully processed<br><code>2</code> - Unknown event <i>(failed to process)</i><br><code>-1</code> - Event buffer is empty <i>(no event was received)</i>"],
+          ["<code>poll()</code>", "<code>int32_t</code>", "Lightweight overload. Calls <code>poll(PseData&amp; outData)</code> internally with a temporary empty buffer. Convenient for loops where manual interception of unknown events is not required"]
+        ]
+      }
+    ]
+  }
+}

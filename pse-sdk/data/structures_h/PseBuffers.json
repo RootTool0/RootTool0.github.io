@@ -1,0 +1,88 @@
+{
+  "ru": {
+    "title": "PseBuffers",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "Для организации единого сегмента разделяемой памяти (<b>Shared Memory</b>) оба кольцевых буфера упакованы в монолитную структуру <code>PseBuffers</code>"
+      },
+      {
+        "type": "text",
+        "html": "Упаковка структуры гарантирует жесткое фиксирование адресов в памяти без скрытых вставок (<b>padding</b>) со стороны компилятора"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Поля</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "left", "center", "center", "left"],
+        "head": ["Поле", "Тип", "Смещение (в байтах)", "Размер (в байтах)", "Описание / Документация"],
+        "rows": [
+          ["<b><code>commandBuffer</code></b>", "<code>PseCommandBuffer</code>", "<code>0</code>", "<b>131 140</b><br><i>(128 КБ)</i>", "Конвейер команд от <b>SDK</b> к <b>игре</b> <i>(см. <b>Structures.h &gt; PseCommandBuffer</b>)</i>"],
+          ["<b><code>eventBuffer</code></b>", "<code>PseEventBuffer</code>", "<code>131 200</code>", "<b>16 388</b><br><i>(16 КБ)</i>", "Конвейер асинхронных событий от <b>игры</b> к <b>SDK</b> <i>(см. <b>Structures.h &gt; PseEventBuffer</b>)</i>"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h2>Константы</h2>"
+      },
+      {
+        "type": "code",
+        "lang": "c",
+        "code": "#define PSE_COMMAND_BUFFER_SIZE 2048\n#define PSE_EVENT_BUFFER_SIZE 256"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Архитектурные особенности</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li>Размеры буферов строго являются <b>степенью двойки</b>, что позволяет использовать быструю битовую маску вместо медленной операции деления (<code>%</code>) на процессоре</li></ul>"
+      }
+    ]
+  },
+  "en": {
+    "title": "PseBuffers",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "To organize a single shared memory segment (<b>Shared Memory</b>), both ring buffers are packed into a monolithic <code>PseBuffers</code> structure"
+      },
+      {
+        "type": "text",
+        "html": "Packing the structure guarantees rigid address fixation in memory with no hidden inserts (<b>padding</b>) from the compiler"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Fields</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "left", "center", "center", "left"],
+        "head": ["Field", "Type", "Offset (in bytes)", "Size (in bytes)", "Description / Documentation"],
+        "rows": [
+          ["<b><code>commandBuffer</code></b>", "<code>PseCommandBuffer</code>", "<code>0</code>", "<b>131 140</b><br><i>(128 KB)</i>", "Command pipeline from <b>SDK</b> to <b>game</b> <i>(see <b>Structures.h &gt; PseCommandBuffer</b>)</i>"],
+          ["<b><code>eventBuffer</code></b>", "<code>PseEventBuffer</code>", "<code>131 200</code>", "<b>16 388</b><br><i>(16 KB)</i>", "Asynchronous event pipeline from <b>game</b> to <b>SDK</b> <i>(see <b>Structures.h &gt; PseEventBuffer</b>)</i>"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h2>Constants</h2>"
+      },
+      {
+        "type": "code",
+        "lang": "c",
+        "code": "#define PSE_COMMAND_BUFFER_SIZE 2048\n#define PSE_EVENT_BUFFER_SIZE 256"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Architectural notes</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li>Buffer sizes are strictly <b>powers of two</b>, which allows using a fast bitmask instead of the slow division operation (<code>%</code>) on the CPU</li></ul>"
+      }
+    ]
+  }
+}

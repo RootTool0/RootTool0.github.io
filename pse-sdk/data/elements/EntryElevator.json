@@ -1,0 +1,24 @@
+{
+  "ru": {
+    "title": "Entry Elevator",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_ENTRY_ELEVATOR.png", "alt": "PSE_CLASS_ENTRY_ELEVATOR" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_ENTRY_ELEVATOR</code> <i>(0x0000)</i>" },
+      { "type": "text", "html": "<b>Set State:</b> Поведение <b>Set State</b> точь-в-точь как у элемента <b>Door!</b>" },
+      { "type": "text", "html": "<b>Get State:</b> Поведение <b>Get State</b> точь-в-точь как у элемента <b>Door</b>! Дополнительно: Возвращает <code>1</code>, когда игрок выходит из комнаты лифта" },
+      { "type": "text", "html": "<b>Разметка регистров:</b>" },
+      { "type": "text", "html": "Вся разметка регистров точь-в-точь как у элемента <b>Door!</b>" }
+    ]
+  },
+  "en": {
+    "title": "Entry Elevator",
+    "blocks": [
+      { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_ENTRY_ELEVATOR.png", "alt": "PSE_CLASS_ENTRY_ELEVATOR" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_ENTRY_ELEVATOR</code> <i>(0x0000)</i>" },
+      { "type": "text", "html": "<b>Set State:</b> The <b>Set State</b> behavior is exactly the same as for the <b>Door!</b> element" },
+      { "type": "text", "html": "<b>Get State:</b> The <b>Get State</b> behavior is exactly the same as for the <b>Door</b> element! Additionally: Returns <code>1</code> when the player leaves the elevator room" },
+      { "type": "text", "html": "<b>Register layout:</b>" },
+      { "type": "text", "html": "The entire register layout is exactly the same as for the <b>Door!</b> element" }
+    ]
+  }
+}

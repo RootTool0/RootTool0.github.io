@@ -1,0 +1,54 @@
+{
+  "ru": {
+    "title": "PseResult",
+    "blocks": [
+      {
+        "type": "table",
+        "align": ["center", "left", "left"],
+        "head": ["Значение (HEX)", "Название", "Описание"],
+        "rows": [
+          ["<b>0x00000000</b>", "PSE_RESULT_SUCCESS", "Команда успешно выполнена игрой"],
+          ["<b>0x00000001</b>", "PSE_RESULT_ERROR_COMMAND_NOT_FOUND", "Переданный код команды не распознан игрой"],
+          ["<b>0x00000002</b>", "PSE_RESULT_ERROR_COMMAND_NOT_IMPLEMENTED", "Команда найдена, но логика ее выполнения еще не реализована в игре"],
+          ["<b>0x00000003</b>", "PSE_RESULT_ERROR_EXECUTION_FAILED", "Неизвестная критическая ошибка во время выполнения команды в игре"],
+          ["<b>0x00000004</b>", "PSE_RESULT_ERROR_ARRAY_INDEX_OUT_OF_RANGE", "Выход за пределы массива при обработке команды"],
+          ["<b>0x00000005</b>", "PSE_RESULT_ERROR_GUID_NOT_FOUND", "Указанный GUID (<b>PseGUID</b>) объекта не найден в текущем мире игры"],
+          ["<b>0x00000006</b>", "PSE_RESULT_ERROR_INVALID_OBJECT_TYPE", "Ошибка приведения типов (<b>Cast failed</b>). Объект с данным GUID имеет другой класс"],
+          ["<b>0x00000007</b>", "PSE_RESULT_ERROR_GAME_NOT_INITIALIZED", "Игра не проинициализирована (игрок не находится на уровне SDK). Вызовите команду <code>PSE_COMMAND_GAME_INITIALIZE</code> (Подробнее: <a href=\"?page=reference/enums_h/PseCommand\">PseCommand</a>)"],
+          ["<b>0xFFFFFFFF</b>", "PSE_RESULT_NONE", "Служебное пустое состояние"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h2>Архитектурные особенности</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li>Код ошибки <code>ARRAY_INDEX_OUT_OF_RANGE</code> является <b>универсальным</b> для любых запросов к внутренним ресурсам игры. Если передан невалидный индекс или игра не может найти <b>класс</b>, <b>материал</b> или <b>меш</b>, то <b>игра вернет</b> именно <b>этот код ошибки</b>, так как на низком уровне это всегда приводит к неудачной попытке доступа по индексу во внутренние статические массивы <b>игрового движка</b></li></ul>"
+      }
+    ]
+  },
+  "en": {
+    "title": "PseResult",
+    "blocks": [
+      {
+        "type": "table",
+        "align": ["center", "left", "left"],
+        "head": ["Value (HEX)", "Name", "Description"],
+        "rows": [
+          ["<b>0x00000000</b>", "PSE_RESULT_SUCCESS", "The command was executed successfully by the game"],
+          ["<b>0x00000001</b>", "PSE_RESULT_ERROR_COMMAND_NOT_FOUND", "The passed command code is not recognized by the game"],
+          ["<b>0x00000002</b>", "PSE_RESULT_ERROR_COMMAND_NOT_IMPLEMENTED", "The command was found, but its execution logic is not yet implemented in the game"],
+          ["<b>0x00000003</b>", "PSE_RESULT_ERROR_EXECUTION_FAILED", "Unknown critical error during command execution in the game"],
+          ["<b>0x00000004</b>", "PSE_RESULT_ERROR_ARRAY_INDEX_OUT_OF_RANGE", "Array index out of range while processing the command"],
+          ["<b>0x00000005</b>", "PSE_RESULT_ERROR_GUID_NOT_FOUND", "The specified object GUID (<b>PseGUID</b>) was not found in the current game world"],
+          ["<b>0x00000006</b>", "PSE_RESULT_ERROR_INVALID_OBJECT_TYPE", "Type cast error (<b>Cast failed</b>). The object with this GUID has a different class"],
+          ["<b>0x00000007</b>", "PSE_RESULT_ERROR_GAME_NOT_INITIALIZED", "The game is not initialized (the player is not on the SDK level). Call the <code>PSE_COMMAND_GAME_INITIALIZE</code> command (More: <a href=\"?page=reference/enums_h/PseCommand\">PseCommand</a>)"],
+          ["<b>0xFFFFFFFF</b>", "PSE_RESULT_NONE", "Service empty state"]
+        ]
+      },
+      { "type": "text", "html": "<h2>Architectural notes</h2>" },
+      { "type": "text", "html": "<ul><li>The <code>ARRAY_INDEX_OUT_OF_RANGE</code> error code is <b>universal</b> for any requests to the game's internal resources. If an invalid index is passed or the game cannot find a <b>class</b>, <b>material</b> or <b>mesh</b>, the <b>game will return</b> exactly <b>this error code</b>, since at a low level it always results in a failed attempt to access the internal static arrays of the <b>game engine</b> by index</li></ul>" }
+    ]
+  }
+}

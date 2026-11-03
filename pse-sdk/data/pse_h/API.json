@@ -1,0 +1,280 @@
+{
+  "ru": {
+    "title": "API",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "<h2>C-API Справочник функций</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Экспортируемый C-интерфейс <i>(<code>extern \"C\"</code>)</i> для интеграции <b>SDK</b> с <b>другими языками программирования</b> и обеспечения <b>бинарной совместимости</b> <i>(ABI)</i>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Buffers / Core</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Сигнатура", "Тип возвращаемого значения", "Описание"],
+        "rows": [
+          ["<b>pseInitializeBuffers(void)</b>", "<code>int32_t</code>", "Инициализирует и аллоцирует <b>Shared Memory</b>"],
+          ["<b>pseDeinitializeBuffers(void)</b>", "<code>void</code>", "Освобождает дескрипторы и закрывает сегмент разделяемой памяти"]
+        ]
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Сигнатура", "Тип возвращаемого значения", "Описание"],
+        "rows": [
+          ["<b>pseGetBuffersAddress(void)</b>", "<code>PseBuffers*</code>", "Возвращает указатель на корень структуры <b>PseBuffers</b>"],
+          ["<b>pseGetCommandBufferAddress(void)</b>", "<code>PseCommandBuffer*</code>", "Возвращает прямой указатель на <b>командный буфер</b>"],
+          ["<b>pseGetEventBufferAddress(void)</b>", "<code>PseEventBuffer*</code>", "Возвращает прямой указатель на <b>событийный буфер</b>"],
+          ["<b>pseGetSharedMemoryHandle(void)</b>", "<code>void*</code>", "Возвращает системный дескриптор (<b>Handle</b>) созданного сегмента <b>ОС</b>"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h2>Command Buffer / Methods</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<h3>Базовые функции</h3>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Сигнатура", "Тип возвращаемого значения", "Описание"],
+        "rows": [
+          ["<b>pseCommandBufferSynchronize(void)</b>", "<code>void</code>", "Блокирует поток (<b>Spin-wait</b>), пока игра не выполнит все отправленные команды"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h3>Поштучный режим <i>(SINGLE - Immediate Access)</i></h3>"
+      },
+      {
+        "type": "text",
+        "html": "Синхронный <b>RPC-механизм</b>: \"запрос-ответ\" через одну ячейку памяти"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Сигнатура", "Тип возвращаемого значения", "Описание"],
+        "rows": [
+          ["<b>pseCommandBufferSinglePush(const PseData* pInData)</b>", "<code>uint32_t</code>", "Запись одной команды. Возвращает абсолютный индекс слота"],
+          ["<b>pseCommandBufferSingleWait(uint32_t absoluteIndex, PseData* pOutData)</b>", "<code>void</code>", "Ожидает завершения на индексе и копирует результат в <b>pOutData</b>"],
+          ["<b>pseCommandBufferSinglePushAndWait(PseData* pOutData)</b>", "<code>void</code>", "Синхронный вызов: отправляет команду и блокирует поток, а результат записывает обратно в <b>pOutData</b>"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h3>Пакетный режим <i>(BATCH - Copying)</i></h3>"
+      },
+      {
+        "type": "text",
+        "html": "Групповой конвейер команд: Результаты возвращаются в тот же самый исходный массив данных"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Сигнатура", "Тип возвращаемого значения", "Описание"],
+        "rows": [
+          ["<b>pseCommandBufferBatchPush(const PseData* pInData, uint32_t count)</b>", "<code>uint32_t</code>", "Копирует пакет из <b>count</b>-количество команд в кольцо. Возвращает стартовый индекс"],
+          ["<b>pseCommandBufferBatchWait(uint32_t absoluteIndex, PseData* pOutData, uint32_t count)</b>", "<code>void</code>", "Блокирует поток до выполнения пакета игрой и заменяет массив <b>pOutData</b> результатами"],
+          ["<b>pseCommandBufferBatchPushAndWait(PseData* pOutData, uint32_t count)</b>", "<code>void</code>", "Синхронно отправляет пакет и ожидает перезаписи <b>pOutData</b> выходными результатами игры"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h3>Режим прямого доступа <i>(RAW - In-Place / Zero-Copy)</i></h3>"
+      },
+      {
+        "type": "text",
+        "html": "Максимально производительный режим: <b>SDK</b> пишет команду прямо в кэш-линию <b>Shared Memory</b>, а затем там же дожидается результата игры"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Сигнатура", "Тип возвращаемого значения", "Описание"],
+        "rows": [
+          ["<b>pseCommandBufferRawAt(uint32_t absoluteIndex)</b>", "<code>PseData*</code>", "Возвращает прямой указатель на <b>PseData</b> ячейку по абсолютному индексу в кольцевом буфере для <b>raw чтения/записи</b>"],
+          ["<b>pseCommandBufferRawReserve(uint32_t count)</b>", "<code>uint32_t</code>", "Резервирует count-количество слотов под Zero-Copy запись. Возвращает стартовый индекс"],
+          ["<b>pseCommandBufferRawCommit(uint32_t startAbsoluteIndex, uint32_t count)</b>", "<code>void</code>", "Публикует (передает игре) зарезервированные in-place команды"],
+          ["<b>pseCommandBufferRawWait(uint32_t absoluteIndex, uint32_t count)</b>", "<code>void</code>", "Ожидает, пока игра отработает count-количество зарезервированных команд и вернет результаты"],
+          ["<b>pseCommandBufferRawCommitAndWait(uint32_t startAbsoluteIndex, uint32_t count)</b>", "<code>void</code>", "Записывает RAW-команды и сразу переходит в режим ожидания ответов игры в этих слотах"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h2>Event Buffer / Methods</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Сигнатура", "Тип возвращаемого значения", "Описание"],
+        "rows": [
+          ["<b>pseEventBufferTryGet(PseData* pOutData)</b>", "<code>int32_t</code>", "Неблокирующая попытка забрать событие. Если событие есть, копирует его в <b>pOutData</b> и возвращает 1 (<b>true</b>), иначе 0 (<b>false</b>)"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h2>Архитектурные особенности</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<h3>Коды возврата <code>pseInitializeBuffers()</code></h3>"
+      },
+      {
+        "type": "table",
+        "align": ["center", "left", "left", "left"],
+        "head": ["Значение", "Статус", "Причина", "Действия системы"],
+        "rows": [
+          ["<b>0</b>", "<b>Успех</b>", "Подключение выполнено штатно", "Память спроецирована, вызвана <b>C++</b> инициализация, <b>SDK</b> готов к работе"],
+          ["<b>-1</b>", "<b>Ошибка открытия</b>", "Не удалось открыть объект File Mapping", "<code>OpenFileMappingA</code> вернул <code>NULL</code>. Скорее всего, хост-процесс (игра) еще не запущен или не создал сегмент"],
+          ["<b>-2</b>", "<b>Ошибка маппинга</b>", "Не удалось спроецировать представление файла", "<code>MapViewOfFile</code> вернул <code>NULL</code>. Выделенный <code>HANDLE</code> автоматически закрывается (<code>CloseHandle</code>), указатель сбрасывается в <code>nullptr</code>"]
+        ]
+      }
+    ]
+  },
+  "en": {
+    "title": "API",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "<h2>C-API Function Reference</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Exported C interface <i>(<code>extern \"C\"</code>)</i> for integrating the <b>SDK</b> with <b>other programming languages</b> and ensuring <b>binary compatibility</b> <i>(ABI)</i>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Buffers / Core</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Signature", "Return type", "Description"],
+        "rows": [
+          ["<b>pseInitializeBuffers(void)</b>", "<code>int32_t</code>", "Initializes and allocates <b>Shared Memory</b>"],
+          ["<b>pseDeinitializeBuffers(void)</b>", "<code>void</code>", "Releases the handles and closes the shared memory segment"]
+        ]
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Signature", "Return type", "Description"],
+        "rows": [
+          ["<b>pseGetBuffersAddress(void)</b>", "<code>PseBuffers*</code>", "Returns a pointer to the root of the <b>PseBuffers</b> structure"],
+          ["<b>pseGetCommandBufferAddress(void)</b>", "<code>PseCommandBuffer*</code>", "Returns a direct pointer to the <b>command buffer</b>"],
+          ["<b>pseGetEventBufferAddress(void)</b>", "<code>PseEventBuffer*</code>", "Returns a direct pointer to the <b>event buffer</b>"],
+          ["<b>pseGetSharedMemoryHandle(void)</b>", "<code>void*</code>", "Returns the system handle (<b>Handle</b>) of the created <b>OS</b> segment"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h2>Command Buffer / Methods</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<h3>Base functions</h3>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Signature", "Return type", "Description"],
+        "rows": [
+          ["<b>pseCommandBufferSynchronize(void)</b>", "<code>void</code>", "Blocks the thread (<b>Spin-wait</b>) until the game has executed all sent commands"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h3>Single mode <i>(SINGLE - Immediate Access)</i></h3>"
+      },
+      {
+        "type": "text",
+        "html": "Synchronous <b>RPC mechanism</b>: \"request-response\" through a single memory cell"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Signature", "Return type", "Description"],
+        "rows": [
+          ["<b>pseCommandBufferSinglePush(const PseData* pInData)</b>", "<code>uint32_t</code>", "Writes a single command. Returns the absolute slot index"],
+          ["<b>pseCommandBufferSingleWait(uint32_t absoluteIndex, PseData* pOutData)</b>", "<code>void</code>", "Waits for completion at the index and copies the result into <b>pOutData</b>"],
+          ["<b>pseCommandBufferSinglePushAndWait(PseData* pOutData)</b>", "<code>void</code>", "Synchronous call: sends the command and blocks the thread, then writes the result back into <b>pOutData</b>"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h3>Batch mode <i>(BATCH - Copying)</i></h3>"
+      },
+      {
+        "type": "text",
+        "html": "Group command pipeline: Results are returned into the same source data array"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Signature", "Return type", "Description"],
+        "rows": [
+          ["<b>pseCommandBufferBatchPush(const PseData* pInData, uint32_t count)</b>", "<code>uint32_t</code>", "Copies a batch of <b>count</b> commands into the ring. Returns the start index"],
+          ["<b>pseCommandBufferBatchWait(uint32_t absoluteIndex, PseData* pOutData, uint32_t count)</b>", "<code>void</code>", "Blocks the thread until the game executes the batch and replaces the <b>pOutData</b> array with the results"],
+          ["<b>pseCommandBufferBatchPushAndWait(PseData* pOutData, uint32_t count)</b>", "<code>void</code>", "Synchronously sends the batch and waits for <b>pOutData</b> to be overwritten with the game's output results"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h3>Direct access mode <i>(RAW - In-Place / Zero-Copy)</i></h3>"
+      },
+      {
+        "type": "text",
+        "html": "Maximum-performance mode: <b>SDK</b> writes the command directly into the <b>Shared Memory</b> cache line, then waits for the game result in the same place"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Signature", "Return type", "Description"],
+        "rows": [
+          ["<b>pseCommandBufferRawAt(uint32_t absoluteIndex)</b>", "<code>PseData*</code>", "Returns a direct pointer to the <b>PseData</b> cell by absolute index in the ring buffer for <b>raw read/write</b>"],
+          ["<b>pseCommandBufferRawReserve(uint32_t count)</b>", "<code>uint32_t</code>", "Reserves count slots for Zero-Copy writing. Returns the start index"],
+          ["<b>pseCommandBufferRawCommit(uint32_t startAbsoluteIndex, uint32_t count)</b>", "<code>void</code>", "Publishes (hands over to the game) the reserved in-place commands"],
+          ["<b>pseCommandBufferRawWait(uint32_t absoluteIndex, uint32_t count)</b>", "<code>void</code>", "Waits until the game processes count reserved commands and returns the results"],
+          ["<b>pseCommandBufferRawCommitAndWait(uint32_t startAbsoluteIndex, uint32_t count)</b>", "<code>void</code>", "Writes RAW commands and immediately enters the wait mode for the game responses in those slots"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h2>Event Buffer / Methods</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Signature", "Return type", "Description"],
+        "rows": [
+          ["<b>pseEventBufferTryGet(PseData* pOutData)</b>", "<code>int32_t</code>", "Non-blocking attempt to grab an event. If an event exists, copies it into <b>pOutData</b> and returns 1 (<b>true</b>), otherwise 0 (<b>false</b>)"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h2>Architectural notes</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<h3>Return codes of <code>pseInitializeBuffers()</code></h3>"
+      },
+      {
+        "type": "table",
+        "align": ["center", "left", "left", "left"],
+        "head": ["Value", "Status", "Reason", "System actions"],
+        "rows": [
+          ["<b>0</b>", "<b>Success</b>", "Connection completed normally", "Memory is mapped, <b>C++</b> initialization is called, the <b>SDK</b> is ready to work"],
+          ["<b>-1</b>", "<b>Open error</b>", "Failed to open the File Mapping object", "<code>OpenFileMappingA</code> returned <code>NULL</code>. Most likely the host process (game) is not running yet or did not create the segment"],
+          ["<b>-2</b>", "<b>Mapping error</b>", "Failed to map the file view", "<code>MapViewOfFile</code> returned <code>NULL</code>. The allocated <code>HANDLE</code> is automatically closed (<code>CloseHandle</code>), the pointer is reset to <code>nullptr</code>"]
+        ]
+      }
+    ]
+  }
+}
