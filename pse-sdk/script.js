@@ -93,6 +93,34 @@ async function loadPage() {
   }
 }
 
+function initLightbox() {
+  const overlay = document.createElement('div');
+  overlay.className = 'lightbox';
+  overlay.innerHTML = '<img alt="">';
+  document.body.appendChild(overlay);
+
+  const overlayImg = overlay.querySelector('img');
+
+  function close() {
+    overlay.classList.remove('open');
+    overlayImg.src = '';
+  }
+
+  overlay.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
+  });
+
+  document.getElementById('content').addEventListener('click', (e) => {
+    const img = e.target.closest('td img, figure img');
+    if (!img) return;
+    overlayImg.src = img.src;
+    overlayImg.alt = img.alt || '';
+    overlay.classList.add('open');
+  });
+}
+
 renderLangs();
 buildNav();
 loadPage();
+initLightbox();
