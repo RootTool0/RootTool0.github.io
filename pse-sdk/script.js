@@ -6,7 +6,7 @@ const esc = s => String(s)
 
 const params = new URLSearchParams(location.search);
 const lang = params.get('lang') || 'ru';
-const pagePath = params.get('page') || 'pse_sdk';
+const pagePath = params.get('page') || 'pse_sdk/HelloWorld';
 
 const renderers = {
   text: b => `<p>${b.html}</p>`,
