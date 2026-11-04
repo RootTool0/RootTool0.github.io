@@ -43,6 +43,12 @@
       ]
     },
     {
+      "title": "Gameplay",
+      "pages": [
+        { "title": "Cheats", "path": "gameplay/Cheats" }
+      ]
+    },
+    {
       "title": "Elements",
       "pages": [
         { "title": "Entry Elevator",           "path": "elements/EntryElevator" },

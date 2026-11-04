@@ -1,0 +1,64 @@
+{
+  "ru": {
+    "title": "Cheats",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "Читы активируются <b>исключительно</b> через команду <code>PSE_COMMAND_GAME_SET_CHEATS_ENABLED</code> <i>(см. <b>Enums.h &gt; PseCommand</b>)</i>"
+      },
+      {
+        "type": "text",
+        "html": "После включения чит-режима становятся доступны следующие клавиши:"
+      },
+      {
+        "type": "table",
+        "align": ["center", "left", "left"],
+        "head": ["Клавиша", "Действие", "Описание"],
+        "rows": [
+          ["<b>1</b>", "Spawn Weight Cube", "Спавнит <b>Weight Cube</b> перед игроком"],
+          ["<b>2</b>", "Spawn Laser Cube", "Спавнит <b>Laser Cube</b> перед игроком"],
+          ["<b>3</b>", "Noclip: ON", "Включает режим полёта <i>(noclip)</i>: <code>MOVE_Flying</code>, коллизия отключена"],
+          ["<b>4</b>", "Noclip: OFF", "Выключает режим полёта <i>(noclip)</i>: <code>MOVE_Walking</code>, коллизия включена"],
+          ["<b>5</b>", "Teleport to End Elevator", "Телепортирует игрока к <b>Exit Elevator</b> и разворачивает камеру к нему"],
+          ["<b>6</b>", "Set Element State: 0", "Устанавливает <b>State = 0</b> элементу, на который смотрит игрок <i>(в радиусе 500 единиц)</i>"],
+          ["<b>7</b>", "Set Element State: 1", "Устанавливает <b>State = 1</b> элементу, на который смотрит игрок <i>(в радиусе 500 единиц)</i>"]
+        ]
+      },
+      {
+        "type": "note",
+        "html": "Клавиши <b>1</b>–<b>7</b> работают <b>только</b> при включённом чит-режиме. Если чит-режим выключен - нажатия игнорируются"
+      }
+    ]
+  },
+  "en": {
+    "title": "Cheats",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "Cheats are activated <b>exclusively</b> through the <code>PSE_COMMAND_GAME_SET_CHEATS_ENABLED</code> command <i>(see <b>Enums.h &gt; PseCommand</b>)</i>"
+      },
+      {
+        "type": "text",
+        "html": "Once cheat mode is enabled, the following keys become available:"
+      },
+      {
+        "type": "table",
+        "align": ["center", "left", "left"],
+        "head": ["Key", "Action", "Description"],
+        "rows": [
+          ["<b>1</b>", "Spawn Weight Cube", "Spawns a <b>Weight Cube</b> in front of the player"],
+          ["<b>2</b>", "Spawn Laser Cube", "Spawns a <b>Laser Cube</b> in front of the player"],
+          ["<b>3</b>", "Noclip: ON", "Enables flight mode <i>(noclip)</i>: <code>MOVE_Flying</code>, collision disabled"],
+          ["<b>4</b>", "Noclip: OFF", "Disables flight mode <i>(noclip)</i>: <code>MOVE_Walking</code>, collision enabled"],
+          ["<b>5</b>", "Teleport to End Elevator", "Teleports the player to the <b>Exit Elevator</b> and turns the camera towards it"],
+          ["<b>6</b>", "Set Element State: 0", "Sets <b>State = 0</b> on the element the player is looking at <i>(within 500 units)</i>"],
+          ["<b>7</b>", "Set Element State: 1", "Sets <b>State = 1</b> on the element the player is looking at <i>(within 500 units)</i>"]
+        ]
+      },
+      {
+        "type": "note",
+        "html": "Keys <b>1</b>–<b>7</b> work <b>only</b> when cheat mode is enabled. If cheat mode is disabled, the presses are ignored"
+      }
+    ]
+  }
+}
