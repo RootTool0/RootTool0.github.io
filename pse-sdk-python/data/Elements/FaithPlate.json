@@ -1,0 +1,56 @@
+{
+  "ru": {
+    "title": "Faith Plate",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_FAITH_PLATE.png", "alt": "PSE_CLASS_FAITH_PLATE" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_FAITH_PLATE</code> <i>(0x000E)</i>" },
+      { "type": "text", "html": "<b>Python-класс:</b> <code>pse.FaithPlate</code>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Ванильная панель веры, как в Portal 2" },
+      { "type": "note", "html": "<b>Важно:</b> Всё общее наследуется от <b><code>Element</code></b>. Здесь описаны только <b>уникальные</b> свойства. См. <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2>Поведение <code>state</code></h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Действие", "Значение", "Описание"], "rows": [
+        ["<b>Set State</b>", "<code>state != 0</code>", "Панель веры включается"],
+        ["<b>Get State</b>", "<b>-</b>", "Не используется <i>(возвращает <code>state</code>, изначально <code>0</code>)</i>"]
+      ]},
+      { "type": "text", "html": "<h2>Свойства</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Свойство", "Тип", "Доступ", "Описание"], "rows": [
+        ["<b><code>release_on_land</code></b>", "<code>bool</code>", "чтение/запись", "Отпускать объект из рук, если тот упал на панель веры"],
+        ["<b><code>global_coords</code></b>", "<code>bool</code>", "чтение/запись", "Использовать глобальные координаты для <b>Target Location</b>"],
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет подсветки панели в активированном состоянии. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет подсветки панели в деактивированном состоянии. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "text", "html": "<h3>Как работает полёт</h3>" },
+      { "type": "text", "html": "Объект перемещается по <b>параболической баллистической траектории</b> к конечной точке приземления <b>Target Location</b> <i>(X, Y, Z)</i>, достигая в апогее максимальной высоты <b>Height</b>" },
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\nplate = pse.FaithPlate()\nplate.create(location=(0, 0, -100))\n\nplate.release_on_land = True\nplate.global_coords = False\n\nplate.color_on = (0, 255, 0)\nplate.color_off = (255, 0, 0)\n\n# Включить панель\nplate.state = 1" },
+      { "type": "text", "html": "<h2>Ошибки</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - игра не запущена или вернула код ошибки</li><li><code>ValueError</code> - невалидный <code>state</code> или компоненты цвета вне <code>0..255</code></li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Faith Plate",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_FAITH_PLATE.png", "alt": "PSE_CLASS_FAITH_PLATE" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_FAITH_PLATE</code> <i>(0x000E)</i>" },
+      { "type": "text", "html": "<b>Python class:</b> <code>pse.FaithPlate</code>" },
+      { "type": "text", "html": "<b>Element Description:</b> A vanilla faith plate like in Portal 2" },
+      { "type": "note", "html": "<b>Important:</b> Everything common is inherited from <b><code>Element</code></b>. Only <b>unique</b> properties are described here. See <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2><code>state</code> behavior</h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Action", "Value", "Description"], "rows": [
+        ["<b>Set State</b>", "<code>state != 0</code>", "Faith plate is enabled"],
+        ["<b>Get State</b>", "<b>-</b>", "Not used <i>(returns <code>state</code>, initially <code>0</code>)</i>"]
+      ]},
+      { "type": "text", "html": "<h2>Properties</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Property", "Type", "Access", "Description"], "rows": [
+        ["<b><code>release_on_land</code></b>", "<code>bool</code>", "read/write", "Release the object from hands if it falls on the faith plate"],
+        ["<b><code>global_coords</code></b>", "<code>bool</code>", "read/write", "Use global coordinates for the <b>Target Location</b>"],
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Faith plate highlight color in the activated state. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Faith plate highlight color in the deactivated state. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "text", "html": "<h3>How the flight works</h3>" },
+      { "type": "text", "html": "The object moves along a <b>parabolic ballistic trajectory</b> to the landing point <b>Target Location</b> <i>(X, Y, Z)</i>, reaching <b>maximum height at the apex</b> at the height <b>Height</b>" },
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\nplate = pse.FaithPlate()\nplate.create(location=(0, 0, -100))\n\nplate.release_on_land = True\nplate.global_coords = False\n\nplate.color_on = (0, 255, 0)\nplate.color_off = (255, 0, 0)\n\n# Enable the plate\nplate.state = 1" },
+      { "type": "text", "html": "<h2>Errors</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - game not running or returned an error code</li><li><code>ValueError</code> - invalid <code>state</code> or color components outside <code>0..255</code></li></ul>" }
+    ]
+  }
+}

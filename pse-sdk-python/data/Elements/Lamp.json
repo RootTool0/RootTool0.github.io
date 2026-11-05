@@ -1,0 +1,48 @@
+{
+  "ru": {
+    "title": "Lamp",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_LAMP.png", "alt": "PSE_CLASS_LAMP" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_LAMP</code> <i>(0x0016)</i>" },
+      { "type": "text", "html": "<b>Python-класс:</b> <code>pse.Lamp</code>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Обычная лампа, которая меняет свой цвет в зависимости от <code>state</code>" },
+      { "type": "note", "html": "<b>Важно:</b> Всё общее наследуется от <b><code>Element</code></b>. Здесь описаны только <b>уникальные</b> свойства. См. <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2>Поведение <code>state</code></h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Действие", "Значение", "Описание"], "rows": [
+        ["<b>Set State</b>", "<code>state != 0</code>", "Лампа включается, цвет меняется на <code>color_on</code>"],
+        ["<b>Get State</b>", "<b>-</b>", "Не используется <i>(возвращает <code>state</code>, изначально <code>0</code>)</i>"]
+      ]},
+      { "type": "text", "html": "<h2>Свойства</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Свойство", "Тип", "Доступ", "Описание"], "rows": [
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет лампы в активированном (включённом) состоянии. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет лампы в деактивированном (выключенном) состоянии. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\nlamp = pse.Lamp()\nlamp.create(location=(0, 0, 0))\n\nlamp.color_on = (255, 255, 0)\nlamp.color_off = (50, 50, 50)\n\n# Включить лампу\nlamp.state = 1\n\n# Выключить лампу\nlamp.state = 0" },
+      { "type": "text", "html": "<h2>Ошибки</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - игра не запущена или вернула код ошибки</li><li><code>ValueError</code> - невалидный <code>state</code> или компоненты цвета вне <code>0..255</code></li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Lamp",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_LAMP.png", "alt": "PSE_CLASS_LAMP" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_LAMP</code> <i>(0x0016)</i>" },
+      { "type": "text", "html": "<b>Python class:</b> <code>pse.Lamp</code>" },
+      { "type": "text", "html": "<b>Element Description:</b> A regular lamp that changes its color depending on <code>state</code>" },
+      { "type": "note", "html": "<b>Important:</b> Everything common is inherited from <b><code>Element</code></b>. Only <b>unique</b> properties are described here. See <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2><code>state</code> behavior</h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Action", "Value", "Description"], "rows": [
+        ["<b>Set State</b>", "<code>state != 0</code>", "Lamp turns on, color switches to <code>color_on</code>"],
+        ["<b>Get State</b>", "<b>-</b>", "Not used <i>(returns <code>state</code>, initially <code>0</code>)</i>"]
+      ]},
+      { "type": "text", "html": "<h2>Properties</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Property", "Type", "Access", "Description"], "rows": [
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Lamp color in the activated (on) state. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Lamp color in the deactivated (off) state. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\nlamp = pse.Lamp()\nlamp.create(location=(0, 0, 0))\n\nlamp.color_on = (255, 255, 0)\nlamp.color_off = (50, 50, 50)\n\n# Turn the lamp on\nlamp.state = 1\n\n# Turn the lamp off\nlamp.state = 0" },
+      { "type": "text", "html": "<h2>Errors</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - game not running or returned an error code</li><li><code>ValueError</code> - invalid <code>state</code> or color components outside <code>0..255</code></li></ul>" }
+    ]
+  }
+}

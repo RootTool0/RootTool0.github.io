@@ -1,7 +1,7 @@
 {
   "categories": [
     {
-      "title": "Pse SDK",
+      "title": "PSE SDK",
       "pages": [
         { "title": "Hello, World!", "path": "pse_sdk/HelloWorld" }
       ]
@@ -16,9 +16,9 @@
       "title": "Structures.h",
       "pages": [
         { "title": "Common",           "path": "structures_h/Common" },
+        { "title": "PseData",          "path": "structures_h/PseData" },
         { "title": "PseBuffers",       "path": "structures_h/PseBuffers" },
         { "title": "PseCommandBuffer", "path": "structures_h/PseCommandBuffer" },
-        { "title": "PseData",          "path": "structures_h/PseData" },
         { "title": "PseEventBuffer",   "path": "structures_h/PseEventBuffer" }
       ]
     },

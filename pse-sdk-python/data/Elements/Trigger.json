@@ -1,0 +1,100 @@
+{
+  "ru": {
+    "title": "Trigger",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_TRIGGER.png", "alt": "PSE_CLASS_TRIGGER" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_TRIGGER</code> <i>(0x0015)</i>" },
+      { "type": "text", "html": "<b>Python-класс:</b> <code>pse.Trigger</code>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Очень функциональный триггер, правда. Функциональней МФЦ" },
+      { "type": "note", "html": "<b>Важно:</b> Всё общее наследуется от <b><code>Element</code></b>. Здесь описаны только <b>уникальные</b> свойства. См. <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2>Поведение <code>state</code></h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Действие", "Значение", "Описание"], "rows": [
+        ["<b>Set State</b>", "<b>-</b>", "Не используется <i>(нет логики)</i>"],
+        ["<b>Get State</b>", "<code>1</code>", "Объект вошёл в триггер"],
+        ["<b>Get State</b>", "<code>0</code>", "Объект вышел из триггера"]
+      ]},
+      { "type": "note", "html": "<b>Важно:</b> <code>state</code> обновляется <b>всегда</b>, даже если <code>condition</code> не сработал или <code>action</code> выключен. Его всегда можно прочитать через <code>trigger.state</code>. Событие же создаётся только по условиям ниже" },
+      { "type": "text", "html": "<h2>Свойства</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Свойство", "Тип", "Доступ", "Описание"], "rows": [
+        ["<b><code>target</code></b>", "<code>int</code>", "чтение/запись", "Цель, на которую реагирует триггер. Битовая маска, диапазон <code>0..15</code>"],
+        ["<b><code>condition</code></b>", "<code>int</code>", "чтение/запись", "Условие срабатывания. Битовая маска, диапазон <code>0..15</code>"],
+        ["<b><code>action</code></b>", "<code>int</code>", "чтение/запись", "Действие триггера. Битовая маска, диапазон <code>0..15</code>"]
+      ]},
+      { "type": "text", "html": "<h3>Цель (<code>target</code>)</h3>" },
+      { "type": "table", "align": ["center", "left", "left"], "head": ["Бит", "Значение", "Цель"], "rows": [
+        ["<b><code>0b0000</code></b>", "<b>None</b>", "Триггер ни на что не реагирует"],
+        ["<b><code>0b0001</code></b>", "<b>Player</b>", "Триггер реагирует на игрока"],
+        ["<b><code>0b0010</code></b>", "<b>Cubes</b>", "Триггер реагирует на кубики"]
+      ]},
+      { "type": "text", "html": "Биты можно совмещать: <code>0b0011</code> - триггер среагирует на игрока <b>или</b> на кубики" },
+      { "type": "text", "html": "<h3>Условие (<code>condition</code>)</h3>" },
+      { "type": "table", "align": ["center", "left", "left"], "head": ["Бит", "Значение", "Условие"], "rows": [
+        ["<b><code>0b0000</code></b>", "<b>None</b>", "Триггер никак не сработает <i>(вернёт <code>0</code>)</i>"],
+        ["<b><code>0b0001</code></b>", "<b>On Overlap In</b>", "Триггер сработает при входе <i>(вернёт <code>1</code>)</i>"],
+        ["<b><code>0b0010</code></b>", "<b>On Overlap Out</b>", "Триггер сработает при выходе <i>(вернёт <code>1</code>)</i>"]
+      ]},
+      { "type": "text", "html": "Биты можно совмещать: <code>0b0011</code> - триггер среагирует при входе <b>или</b> выходе" },
+      { "type": "text", "html": "<h3>Действие (<code>action</code>)</h3>" },
+      { "type": "table", "align": ["center", "left", "left"], "head": ["Бит", "Значение", "Действие"], "rows": [
+        ["<b><code>0b0000</code></b>", "<b>None</b>", "Триггер ничего не сделает"],
+        ["<b><code>0b0001</code></b>", "<b>Call</b>", "Триггер вызовет событие <b>State</b>"],
+        ["<b><code>0b0010</code></b>", "<b>Destroy</b>", "Триггер уничтожит объект <i>(кубик или игрока)</i>"]
+      ]},
+      { "type": "text", "html": "Биты можно совмещать: <code>0b0011</code> - триггер создаст событие <b>и</b> уничтожит объект" },
+      { "type": "text", "html": "<h2>Логика работы</h2>" },
+      { "type": "text", "html": "<ul><li><b>Действие зависит от условия:</b> действия <i>(например <code>Destroy</code>)</i> выполняются только при совпадении текущего события <i>(вход/выход)</i> с заданным <code>condition</code></li><li><b><code>state</code> обновляется всегда:</b> даже если условие не сработало или <code>action</code> выключен, <code>state</code> внутри триггера молча обновляется и всегда доступен для чтения</li></ul>" },
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\ntrigger = pse.Trigger()\ntrigger.create(location=(0, 0, -100))\n\n# Реагировать на игрока и кубики\ntrigger.target = 0b0011\n\n# Срабатывать при входе\ntrigger.condition = 0b0001\n\n# Создать событие и уничтожить объект\ntrigger.action = 0b0011\n\n@trigger.on_element_changed()\ndef on_trigger_changed(state):\n    print(f\"Триггер: state = {state}\")\n\nwhile True:\n    pse.poll_events()" },
+      { "type": "text", "html": "<h2>Ошибки</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - игра не запущена или вернула код ошибки</li><li><code>ValueError</code> - <code>target</code>, <code>condition</code> или <code>action</code> вне <code>0..15</code></li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Trigger",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_TRIGGER.png", "alt": "PSE_CLASS_TRIGGER" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_TRIGGER</code> <i>(0x0015)</i>" },
+      { "type": "text", "html": "<b>Python class:</b> <code>pse.Trigger</code>" },
+      { "type": "text", "html": "<b>Element Description:</b> A very functional trigger, indeed. More functional than a public service center" },
+      { "type": "note", "html": "<b>Important:</b> Everything common is inherited from <b><code>Element</code></b>. Only <b>unique</b> properties are described here. See <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2><code>state</code> behavior</h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Action", "Value", "Description"], "rows": [
+        ["<b>Set State</b>", "<b>-</b>", "Not used <i>(no logic)</i>"],
+        ["<b>Get State</b>", "<code>1</code>", "An object entered the trigger"],
+        ["<b>Get State</b>", "<code>0</code>", "An object left the trigger"]
+      ]},
+      { "type": "note", "html": "<b>Important:</b> <code>state</code> is updated <b>always</b>, even if <code>condition</code> didn't fire or <code>action</code> is disabled. It can always be read via <code>trigger.state</code>. The event is only emitted according to the conditions below" },
+      { "type": "text", "html": "<h2>Properties</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Property", "Type", "Access", "Description"], "rows": [
+        ["<b><code>target</code></b>", "<code>int</code>", "read/write", "Target the trigger reacts to. Bitmask, range <code>0..15</code>"],
+        ["<b><code>condition</code></b>", "<code>int</code>", "read/write", "Trigger condition. Bitmask, range <code>0..15</code>"],
+        ["<b><code>action</code></b>", "<code>int</code>", "read/write", "Trigger action. Bitmask, range <code>0..15</code>"]
+      ]},
+      { "type": "text", "html": "<h3>Target (<code>target</code>)</h3>" },
+      { "type": "table", "align": ["center", "left", "left"], "head": ["Bit", "Value", "Target"], "rows": [
+        ["<b><code>0b0000</code></b>", "<b>None</b>", "The trigger does not react to anything"],
+        ["<b><code>0b0001</code></b>", "<b>Player</b>", "The trigger reacts to the player"],
+        ["<b><code>0b0010</code></b>", "<b>Cubes</b>", "The trigger reacts to cubes"]
+      ]},
+      { "type": "text", "html": "Bits can be combined: <code>0b0011</code> - the trigger will react to the player <b>or</b> to cubes" },
+      { "type": "text", "html": "<h3>Condition (<code>condition</code>)</h3>" },
+      { "type": "table", "align": ["center", "left", "left"], "head": ["Bit", "Value", "Condition"], "rows": [
+        ["<b><code>0b0000</code></b>", "<b>None</b>", "The trigger will not fire <i>(returns <code>0</code>)</i>"],
+        ["<b><code>0b0001</code></b>", "<b>On Overlap In</b>", "The trigger fires on enter <i>(returns <code>1</code>)</i>"],
+        ["<b><code>0b0010</code></b>", "<b>On Overlap Out</b>", "The trigger fires on exit <i>(returns <code>1</code>)</i>"]
+      ]},
+      { "type": "text", "html": "Bits can be combined: <code>0b0011</code> - the trigger will react on enter <b>or</b> exit" },
+      { "type": "text", "html": "<h3>Action (<code>action</code>)</h3>" },
+      { "type": "table", "align": ["center", "left", "left"], "head": ["Bit", "Value", "Action"], "rows": [
+        ["<b><code>0b0000</code></b>", "<b>None</b>", "The trigger will do nothing"],
+        ["<b><code>0b0001</code></b>", "<b>Call</b>", "The trigger will fire a <b>State</b> event"],
+        ["<b><code>0b0010</code></b>", "<b>Destroy</b>", "The trigger will destroy the object <i>(cube or player)</i>"]
+      ]},
+      { "type": "text", "html": "Bits can be combined: <code>0b0011</code> - the trigger will fire an event <b>and</b> destroy the object" },
+      { "type": "text", "html": "<h2>How it works</h2>" },
+      { "type": "text", "html": "<ul><li><b>Action depends on condition:</b> actions <i>(e.g. <code>Destroy</code>)</i> are performed only when the current event <i>(enter/exit)</i> matches the specified <code>condition</code></li><li><b><code>state</code> is always updated:</b> even if the condition didn't fire or <code>action</code> is disabled, <code>state</code> inside the trigger is silently updated and always available for reading</li></ul>" },
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\ntrigger = pse.Trigger()\ntrigger.create(location=(0, 0, -100))\n\n# React to player and cubes\ntrigger.target = 0b0011\n\n# Fire on enter\ntrigger.condition = 0b0001\n\n# Call event and destroy the object\ntrigger.action = 0b0011\n\n@trigger.on_element_changed()\ndef on_trigger_changed(state):\n    print(f\"Trigger: state = {state}\")\n\nwhile True:\n    pse.poll_events()" },
+      { "type": "text", "html": "<h2>Errors</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - game not running or returned an error code</li><li><code>ValueError</code> - <code>target</code>, <code>condition</code> or <code>action</code> outside <code>0..15</code></li></ul>" }
+    ]
+  }
+}

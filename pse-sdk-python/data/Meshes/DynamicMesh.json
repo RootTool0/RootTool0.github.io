@@ -1,0 +1,278 @@
+{
+  "ru": {
+    "title": "DynamicMesh",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "<b>DynamicMesh</b> - управляемая геометрия. В отличие от <code>StaticMesh</code>, это <b>полноценный объект</b>: у него есть <b>GUID</b>, и после создания можно менять позицию, поворот, масштаб, видимость, меш и материал"
+      },
+      {
+        "type": "note",
+        "html": "<b>Важно:</b> <code>DynamicMesh</code> - <b>не</b> наследник <code>Element</code>. У него <b>нет</b> <code>state</code>, <b>нет</b> <code>on_element_changed()</code> и он <b>не</b> попадает в <code>get_element_by_guid()</code>. Это отдельная сущность"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Создание</h2>"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "import pse\n\npse.initialize()\n\nplatform = pse.DynamicMesh()\nplatform.create(\n    location=(0, 0, -50),\n    scale=(5, 5, 1),\n    mesh=pse.Mesh.FACE,\n    material=pse.Material.FLOOR_WHITE,\n)\n\nprint(platform.guid)  # GUID присвоен"
+      },
+      {
+        "type": "text",
+        "html": "<h2>create()</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Параметр", "Тип", "Описание"],
+        "rows": [
+          ["<b><code>location</code></b>", "<code>Vector3</code> <i>или tuple</i>", "Позиция. По умолчанию <code>(0.0, 0.0, 0.0)</code>"],
+          ["<b><code>quat</code></b>", "<code>Quat</code>", "Поворот. По умолчанию <code>(0.0, 0.0, 0.0, 1.0)</code>"],
+          ["<b><code>scale</code></b>", "<code>Vector3</code> <i>или tuple</i>", "Масштаб. По умолчанию <code>(1.0, 1.0, 1.0)</code>"],
+          ["<b><code>mesh</code></b>", "<code>Mesh</code>", "Геометрия. По умолчанию <code>Mesh.PLANE</code>"],
+          ["<b><code>material</code></b>", "<code>Material</code>", "Материал. По умолчанию <code>Material.WALL_WHITE_SMALL</code>"],
+          ["<b><code>visibility</code></b>", "<code>bool</code>", "Видимость. По умолчанию <code>True</code>"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<b>Возвращает:</b> <code>None</code>. После вызова <code>self._guid</code> содержит GUID созданного меша. Повторный вызов <code>create()</code> на уже созданном объекте <b>игнорируется</b>"
+      },
+      {
+        "type": "note",
+        "html": "<b>Важно:</b> <code>DynamicMesh</code> <b>не</b> регистрируется в <code>get_element_by_guid()</code>. Если потеряете ссылку на объект - найти его по GUID через биндинг не получится"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Свойства</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Свойство", "Тип", "Доступ", "Описание"],
+        "rows": [
+          ["<b><code>guid</code></b>", "<code>int</code>", "чтение", "GUID меша или <code>-1</code>, если не создан"],
+          ["<b><code>transform</code></b>", "<code>Transform</code>", "чтение/запись", "Позиция + поворот + масштаб одним объектом"],
+          ["<b><code>location</code></b>", "<code>Vector3</code>", "чтение/запись", "Позиция <i>(обёртка над <code>transform.location</code>)</i>"],
+          ["<b><code>rotation</code></b>", "<code>Quat</code>", "чтение/запись", "Поворот <i>(обёртка над <code>transform.quat</code>)</i>"],
+          ["<b><code>scale</code></b>", "<code>Vector3</code>", "чтение/запись", "Масштаб <i>(обёртка над <code>transform.scale</code>)</i>"],
+          ["<b><code>visibility</code></b>", "<code>bool</code>", "чтение/запись", "Видимость меша"],
+          ["<b><code>mesh</code></b>", "<code>Mesh</code>", "<b>только запись</b>", "Геометрия. Чтение бросает <code>AttributeError</code>"],
+          ["<b><code>material</code></b>", "<code>Material</code>", "<b>только запись</b>", "Материал. Чтение бросает <code>AttributeError</code>"]
+        ]
+      },
+      {
+        "type": "note",
+        "html": "<b>Почему <code>mesh</code> и <code>material</code> только на запись?</b> Игра не предоставляет команды \"прочитать текущий меш/материал\" для динамического меша. Остаётся только писать. Биндинг честно бросает <code>AttributeError</code> при чтении, а не возвращает мусор"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "# Чтение transform\nprint(platform.transform)\n\n# Изменение позиции\nplatform.location = (10, 0, -50)\n\n# Изменение только поворота\nplatform.rotation = pse.Quat(0.0, 0.0, 0.7071068, 0.7071068)\n\n# Масштаб\nplatform.scale = (2, 2, 1)\n\n# Видимость\nplatform.visibility = False\nplatform.visibility = True\n\n# Меш и материал - только запись\nplatform.mesh = pse.Mesh.CUBE\nplatform.material = pse.Material.WALL_WHITE_BIG\n\n# А вот так - ошибка:\n# platform.mesh        # AttributeError: [PSE] mesh is write-only\n# platform.material    # AttributeError: [PSE] material is write-only"
+      },
+      {
+        "type": "text",
+        "html": "<h2>destroy()</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Удаляет меш из мира и сбрасывает <code>guid</code> в <code>-1</code>. Повторный вызов безопасен - ничего не делает"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "platform.destroy()\nprint(platform.guid)  # -1\nprint(bool(platform))  # False"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Проверка \"жив ли\"</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Как и у элементов, у <code>DynamicMesh</code> переопределён <code>__bool__</code>:"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "mesh = pse.DynamicMesh()\nprint(bool(mesh))  # False - ещё не создан\n\nmesh.create(location=(0, 0, 0))\nprint(bool(mesh))  # True\n\nmesh.destroy()\nprint(bool(mesh))  # False"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Полный пример: движущаяся платформа</h2>"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "import time\nimport pse\n\npse.initialize()\n\nplatform = pse.DynamicMesh()\nplatform.create(\n    location=(0, 0, -50),\n    scale=(5, 5, 1),\n    mesh=pse.Mesh.CUBE,\n    material=pse.Material.WALL_WHITE_BIG,\n)\n\ntry:\n    t = 0.0\n    while True:\n        t += 0.05\n        platform.location = (100.0 * __import__(\"math\").sin(t), 0, -50)\n        pse.poll_events()\n        time.sleep(0.016)  # ~60 FPS\nexcept KeyboardInterrupt:\n    platform.destroy()"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Ошибки</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><code>RuntimeError</code> - игра не запущена или вернула код ошибки</li><li><code>AttributeError</code> - чтение <code>mesh</code> или <code>material</code> <i>(write-only)</i></li><li><code>ValueError</code> - невалидный <code>mesh</code>/<code>material</code> <i>(на практике <code>IntEnum</code> защищает)</i></li></ul>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Сравнение со StaticMesh</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "center"],
+        "head": ["Возможность", "StaticMesh", "DynamicMesh"],
+        "rows": [
+          ["Создание", "<b>+</b>", "<b>+</b>"],
+          ["GUID", "<b>-</b>", "<b>+</b>"],
+          ["Двигать / вращать / масштабировать", "<b>-</b>", "<b>+</b>"],
+          ["Менять меш", "<b>-</b>", "<i>(write-only)</i>"],
+          ["Менять материал", "<b>-</b>", "<i>(write-only)</i>"],
+          ["Скрывать / показывать", "<b>-</b>", "<b>+</b>"],
+          ["Удалять", "<b>-</b>", "<code>destroy()</code>"],
+          ["События / <code>state</code>", "<b>-</b>", "<b>-</b>"],
+          ["<code>get_element_by_guid()</code>", "<b>-</b>", "<b>-</b>"]
+        ]
+      }
+    ]
+  },
+  "en": {
+    "title": "DynamicMesh",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "<b>DynamicMesh</b> is controllable geometry. Unlike <code>StaticMesh</code>, it's a <b>full-fledged object</b>: it has a <b>GUID</b>, and after creation you can change its position, rotation, scale, visibility, mesh and material"
+      },
+      {
+        "type": "note",
+        "html": "<b>Important:</b> <code>DynamicMesh</code> is <b>not</b> a subclass of <code>Element</code>. It has <b>no</b> <code>state</code>, <b>no</b> <code>on_element_changed()</code>, and it <b>does not</b> appear in <code>get_element_by_guid()</code>. It's a separate entity"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Creation</h2>"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "import pse\n\npse.initialize()\n\nplatform = pse.DynamicMesh()\nplatform.create(\n    location=(0, 0, -50),\n    scale=(5, 5, 1),\n    mesh=pse.Mesh.FACE,\n    material=pse.Material.FLOOR_WHITE,\n)\n\nprint(platform.guid)  # GUID assigned"
+      },
+      {
+        "type": "text",
+        "html": "<h2>create()</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Parameter", "Type", "Description"],
+        "rows": [
+          ["<b><code>location</code></b>", "<code>Vector3</code> <i>or tuple</i>", "Position. Defaults to <code>(0.0, 0.0, 0.0)</code>"],
+          ["<b><code>quat</code></b>", "<code>Quat</code>", "Rotation. Defaults to <code>(0.0, 0.0, 0.0, 1.0)</code>"],
+          ["<b><code>scale</code></b>", "<code>Vector3</code> <i>or tuple</i>", "Scale. Defaults to <code>(1.0, 1.0, 1.0)</code>"],
+          ["<b><code>mesh</code></b>", "<code>Mesh</code>", "Geometry. Defaults to <code>Mesh.PLANE</code>"],
+          ["<b><code>material</code></b>", "<code>Material</code>", "Material. Defaults to <code>Material.WALL_WHITE_SMALL</code>"],
+          ["<b><code>visibility</code></b>", "<code>bool</code>", "Visibility. Defaults to <code>True</code>"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<b>Returns:</b> <code>None</code>. After the call, <code>self._guid</code> holds the GUID of the created mesh. Calling <code>create()</code> again on an already created object is <b>ignored</b>"
+      },
+      {
+        "type": "note",
+        "html": "<b>Important:</b> <code>DynamicMesh</code> is <b>not</b> registered in <code>get_element_by_guid()</code>. If you lose the object reference, you won't find it by GUID through the bindings"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Properties</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Property", "Type", "Access", "Description"],
+        "rows": [
+          ["<b><code>guid</code></b>", "<code>int</code>", "read", "Mesh GUID or <code>-1</code> if not created"],
+          ["<b><code>transform</code></b>", "<code>Transform</code>", "read/write", "Position + rotation + scale as a single object"],
+          ["<b><code>location</code></b>", "<code>Vector3</code>", "read/write", "Position <i>(wrapper over <code>transform.location</code>)</i>"],
+          ["<b><code>rotation</code></b>", "<code>Quat</code>", "read/write", "Rotation <i>(wrapper over <code>transform.quat</code>)</i>"],
+          ["<b><code>scale</code></b>", "<code>Vector3</code>", "read/write", "Scale <i>(wrapper over <code>transform.scale</code>)</i>"],
+          ["<b><code>visibility</code></b>", "<code>bool</code>", "read/write", "Mesh visibility"],
+          ["<b><code>mesh</code></b>", "<code>Mesh</code>", "<b>write-only</b>", "Geometry. Reading raises <code>AttributeError</code>"],
+          ["<b><code>material</code></b>", "<code>Material</code>", "<b>write-only</b>", "Material. Reading raises <code>AttributeError</code>"]
+        ]
+      },
+      {
+        "type": "note",
+        "html": "<b>Why are <code>mesh</code> and <code>material</code> write-only?</b> The game doesn't provide a \"read current mesh/material\" command for a dynamic mesh. Only writing is possible. The bindings honestly raise <code>AttributeError</code> on read instead of returning garbage"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "# Read transform\nprint(platform.transform)\n\n# Change position\nplatform.location = (10, 0, -50)\n\n# Change rotation only\nplatform.rotation = pse.Quat(0.0, 0.0, 0.7071068, 0.7071068)\n\n# Scale\nplatform.scale = (2, 2, 1)\n\n# Visibility\nplatform.visibility = False\nplatform.visibility = True\n\n# Mesh and material - write-only\nplatform.mesh = pse.Mesh.CUBE\nplatform.material = pse.Material.WALL_WHITE_BIG\n\n# But this raises:\n# platform.mesh        # AttributeError: [PSE] mesh is write-only\n# platform.material    # AttributeError: [PSE] material is write-only"
+      },
+      {
+        "type": "text",
+        "html": "<h2>destroy()</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Removes the mesh from the world and resets <code>guid</code> to <code>-1</code>. Repeated calls are safe - they do nothing"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "platform.destroy()\nprint(platform.guid)  # -1\nprint(bool(platform))  # False"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Checking if it's alive</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Like elements, <code>DynamicMesh</code> overrides <code>__bool__</code>:"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "mesh = pse.DynamicMesh()\nprint(bool(mesh))  # False - not created yet\n\nmesh.create(location=(0, 0, 0))\nprint(bool(mesh))  # True\n\nmesh.destroy()\nprint(bool(mesh))  # False"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Full example: moving platform</h2>"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "import math\nimport time\nimport pse\n\npse.initialize()\n\nplatform = pse.DynamicMesh()\nplatform.create(\n    location=(0, 0, -50),\n    scale=(5, 5, 1),\n    mesh=pse.Mesh.CUBE,\n    material=pse.Material.WALL_WHITE_BIG,\n)\n\ntry:\n    t = 0.0\n    while True:\n        t += 0.05\n        platform.location = (100.0 * math.sin(t), 0, -50)\n        pse.poll_events()\n        time.sleep(0.016)  # ~60 FPS\nexcept KeyboardInterrupt:\n    platform.destroy()"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Errors</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><code>RuntimeError</code> - game not running or returned an error code</li><li><code>AttributeError</code> - reading <code>mesh</code> or <code>material</code> <i>(write-only)</i></li><li><code>ValueError</code> - invalid <code>mesh</code>/<code>material</code> <i>(in practice <code>IntEnum</code> protects)</i></li></ul>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Comparison with StaticMesh</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "center"],
+        "head": ["Capability", "StaticMesh", "DynamicMesh"],
+        "rows": [
+          ["Create", "<b>+</b>", "<b>+</b>"],
+          ["GUID", "<b>-</b>", "<b>+</b>"],
+          ["Move / rotate / scale", "<b>-</b>", "<b>+</b>"],
+          ["Change mesh", "<b>-</b>", "<i>(write-only)</i>"],
+          ["Change material", "<b>-</b>", "<i>(write-only)</i>"],
+          ["Hide / show", "<b>-</b>", "<b>+</b>"],
+          ["Destroy", "<b>-</b>", "<code>destroy()</code>"],
+          ["Events / <code>state</code>", "<b>-</b>", "<b>-</b>"],
+          ["<code>get_element_by_guid()</code>", "<b>-</b>", "<b>-</b>"]
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "ru": {
+    "title": "Anti Expropriation Field",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_ANTI_EXPROPRIATION_FIELD.png", "alt": "PSE_CLASS_ANTI_EXPROPRIATION_FIELD" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_ANTI_EXPROPRIATION_FIELD</code> <i>(0x0004)</i>" },
+      { "type": "text", "html": "<b>Python-класс:</b> <code>pse.AntiExpropriationField</code>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Поле анти-экспроприации, способное уничтожать вещи, убивать игрока или переключать состояния <b>Солвер Гана</b>" },
+      { "type": "note", "html": "<b>Важно:</b> Всё общее наследуется от <b><code>Element</code></b>. Здесь описаны только <b>уникальные</b> свойства. См. <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2>Поведение <code>state</code></h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Действие", "Значение", "Описание"], "rows": [
+        ["<b>Set State</b>", "<code>state != 0</code>", "Поле включается"],
+        ["<b>Get State</b>", "<b>-</b>", "Не используется <i>(нет логики)</i>"]
+      ]},
+      { "type": "text", "html": "<h2>Свойства</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Свойство", "Тип", "Доступ", "Описание"], "rows": [
+        ["<b><code>solver_gun_mode</code></b>", "<code>int</code>", "чтение/запись", "Режим действия с <b>Солвер Ганом</b>. Диапазон <code>0..15</code>"],
+        ["<b><code>kill_player</code></b>", "<code>bool</code>", "чтение/запись", "Убивает игрока при попадании в поле"],
+        ["<b><code>destroy_objects</code></b>", "<code>bool</code>", "чтение/запись", "Уничтожает объекты при попадании в поле"],
+        ["<b><code>color</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет поля. RGB, <code>0..255</code>"],
+        ["<b><code>size</code></b>", "<code>tuple[int, int]</code>", "чтение/запись", "Размер поля: <code>(длина, высота)</code>. Каждое значение <code>0..65535</code>"]
+      ]},
+      { "type": "text", "html": "<h3>Режимы Солвер Гана</h3>" },
+      { "type": "table", "align": ["center", "left", "left"], "head": ["Значение", "Режим", "Описание"], "rows": [
+        ["<b>0</b>", "<b>None</b>", "Ничего не делает с Солвер Ганом"],
+        ["<b>1</b>", "<b>Switch</b>", "Переключает состояние Солвер Гана"],
+        ["<b>2</b>", "<b>Enable</b>", "Активирует Солвер Ган"],
+        ["<b>3</b>", "<b>Disable</b>", "Деактивирует Солвер Ган"],
+        ["<b>4</b>", "<b>Release</b>", "Отпускает объект из Солвер Гана"],
+        ["<b>5..15</b>", "<b>None</b>", "Любые другие значения обрабатываются как <b>None</b>"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\nfield = pse.AntiExpropriationField()\nfield.create(location=(0, 0, -100))\n\n# Убивать игрока и уничтожать объекты\nfield.kill_player = True\nfield.destroy_objects = True\n\n# Режим Солвер Гана: Release\nfield.solver_gun_mode = 4\n\n# Размер и цвет\nfield.size = (500, 300)\nfield.color = (255, 0, 0)\n\n# Включить поле\nfield.state = 1" },
+      { "type": "text", "html": "<h2>Ошибки</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - игра не запущена или вернула код ошибки</li><li><code>ValueError</code> - <code>solver_gun_mode</code> вне <code>0..15</code>, компоненты <code>size</code> вне <code>0..65535</code>, компоненты цвета вне <code>0..255</code></li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Anti Expropriation Field",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_ANTI_EXPROPRIATION_FIELD.png", "alt": "PSE_CLASS_ANTI_EXPROPRIATION_FIELD" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_ANTI_EXPROPRIATION_FIELD</code> <i>(0x0004)</i>" },
+      { "type": "text", "html": "<b>Python class:</b> <code>pse.AntiExpropriationField</code>" },
+      { "type": "text", "html": "<b>Element Description:</b> An anti-expropriation field capable of destroying things, killing the player, or toggling the <b>Solver Gun</b> states" },
+      { "type": "note", "html": "<b>Important:</b> Everything common is inherited from <b><code>Element</code></b>. Only <b>unique</b> properties are described here. See <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2><code>state</code> behavior</h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Action", "Value", "Description"], "rows": [
+        ["<b>Set State</b>", "<code>state != 0</code>", "Field is enabled"],
+        ["<b>Get State</b>", "<b>-</b>", "Not used <i>(no logic)</i>"]
+      ]},
+      { "type": "text", "html": "<h2>Properties</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Property", "Type", "Access", "Description"], "rows": [
+        ["<b><code>solver_gun_mode</code></b>", "<code>int</code>", "read/write", "Action mode with the <b>Solver Gun</b>. Range <code>0..15</code>"],
+        ["<b><code>kill_player</code></b>", "<code>bool</code>", "read/write", "Kills the player on contact with the field"],
+        ["<b><code>destroy_objects</code></b>", "<code>bool</code>", "read/write", "Destroys objects on contact with the field"],
+        ["<b><code>color</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Field color. RGB, <code>0..255</code>"],
+        ["<b><code>size</code></b>", "<code>tuple[int, int]</code>", "read/write", "Field size: <code>(length, height)</code>. Each value <code>0..65535</code>"]
+      ]},
+      { "type": "text", "html": "<h3>Solver Gun modes</h3>" },
+      { "type": "table", "align": ["center", "left", "left"], "head": ["Value", "Mode", "Description"], "rows": [
+        ["<b>0</b>", "<b>None</b>", "Does nothing to the Solver Gun"],
+        ["<b>1</b>", "<b>Switch</b>", "Toggles the Solver Gun state"],
+        ["<b>2</b>", "<b>Enable</b>", "Activates the Solver Gun"],
+        ["<b>3</b>", "<b>Disable</b>", "Deactivates the Solver Gun"],
+        ["<b>4</b>", "<b>Release</b>", "Releases the object from the Solver Gun"],
+        ["<b>5..15</b>", "<b>None</b>", "Any other values are treated as <b>None</b>"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\nfield = pse.AntiExpropriationField()\nfield.create(location=(0, 0, -100))\n\n# Kill player and destroy objects\nfield.kill_player = True\nfield.destroy_objects = True\n\n# Solver Gun mode: Release\nfield.solver_gun_mode = 4\n\n# Size and color\nfield.size = (500, 300)\nfield.color = (255, 0, 0)\n\n# Enable the field\nfield.state = 1" },
+      { "type": "text", "html": "<h2>Errors</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - game not running or returned an error code</li><li><code>ValueError</code> - <code>solver_gun_mode</code> outside <code>0..15</code>, <code>size</code> components outside <code>0..65535</code>, color components outside <code>0..255</code></li></ul>" }
+    ]
+  }
+}

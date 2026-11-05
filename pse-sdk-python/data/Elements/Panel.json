@@ -1,0 +1,72 @@
+{
+  "ru": {
+    "title": "Panel",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_PANEL.png", "alt": "PSE_CLASS_PANEL" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_PANEL</code> <i>(0x000F)</i>" },
+      { "type": "text", "html": "<b>Python-класс:</b> <code>pse.Panel</code>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Панель, на которой можно сидеть, стоять, прыгать, бегать, падать, приземляться, ударяться..." },
+      { "type": "note", "html": "<b>Важно:</b> Всё общее наследуется от <b><code>Element</code></b>. Здесь описаны только <b>уникальные</b> свойства. См. <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2>Поведение <code>state</code></h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Действие", "Значение", "Описание"], "rows": [
+        ["<b>Set State</b>", "<code>state != 0</code>", "Активирует анимацию панели"],
+        ["<b>Get State</b>", "<b>-</b>", "Не используется <i>(возвращает <code>state</code>, изначально <code>0</code>)</i>"]
+      ]},
+      { "type": "text", "html": "<h2>Свойства</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Свойство", "Тип", "Доступ", "Описание"], "rows": [
+        ["<b><code>animation</code></b>", "<code>int</code>", "чтение/запись", "Тип анимации панели. Диапазон <code>0..255</code>"],
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет панели в активированном состоянии. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет панели в деактивированном состоянии. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "text", "html": "<h3>Типы анимации</h3>" },
+      { "type": "table", "align": ["center", "left", "left"], "head": ["Значение", "Тип", "Описание"], "rows": [
+        ["<b>0</b>", "<b>None</b>", "Нет анимации (Idle)"],
+        ["<b>1</b>", "<b>Front</b>", "Анимация типа Front"],
+        ["<b>2</b>", "<b>FrontFront</b>", "Анимация типа Front Front"],
+        ["<b>3</b>", "<b>FrontBack</b>", "Анимация типа Front Back"],
+        ["<b>4</b>", "<b>Up</b>", "Анимация типа Up"],
+        ["<b>5</b>", "<b>UpFront</b>", "Анимация типа Up Front"],
+        ["<b>6</b>", "<b>UpBack</b>", "Анимация типа Up Back"],
+        ["<b>7..255</b>", "<b>None</b>", "Любые другие значения обрабатываются как <b>None</b>"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\npanel = pse.Panel()\npanel.create(location=(0, 0, -100))\n\n# Анимация Front\npanel.animation = 1\n\npanel.color_on = (0, 255, 0)\npanel.color_off = (255, 0, 0)\n\n# Запустить анимацию\npanel.state = 1" },
+      { "type": "text", "html": "<h2>Ошибки</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - игра не запущена или вернула код ошибки</li><li><code>ValueError</code> - <code>animation</code> вне <code>0..255</code> или компоненты цвета вне <code>0..255</code></li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Panel",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_PANEL.png", "alt": "PSE_CLASS_PANEL" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_PANEL</code> <i>(0x000F)</i>" },
+      { "type": "text", "html": "<b>Python class:</b> <code>pse.Panel</code>" },
+      { "type": "text", "html": "<b>Element Description:</b> A panel you can sit, stand, jump, run, fall, land, and bump on..." },
+      { "type": "note", "html": "<b>Important:</b> Everything common is inherited from <b><code>Element</code></b>. Only <b>unique</b> properties are described here. See <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2><code>state</code> behavior</h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Action", "Value", "Description"], "rows": [
+        ["<b>Set State</b>", "<code>state != 0</code>", "Activates the panel animation"],
+        ["<b>Get State</b>", "<b>-</b>", "Not used <i>(returns <code>state</code>, initially <code>0</code>)</i>"]
+      ]},
+      { "type": "text", "html": "<h2>Properties</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Property", "Type", "Access", "Description"], "rows": [
+        ["<b><code>animation</code></b>", "<code>int</code>", "read/write", "Panel animation type. Range <code>0..255</code>"],
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Panel color in the activated state. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Panel color in the deactivated state. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "text", "html": "<h3>Animation types</h3>" },
+      { "type": "table", "align": ["center", "left", "left"], "head": ["Value", "Type", "Description"], "rows": [
+        ["<b>0</b>", "<b>None</b>", "No animation (Idle)"],
+        ["<b>1</b>", "<b>Front</b>", "Animation type Front"],
+        ["<b>2</b>", "<b>FrontFront</b>", "Animation type Front Front"],
+        ["<b>3</b>", "<b>FrontBack</b>", "Animation type Front Back"],
+        ["<b>4</b>", "<b>Up</b>", "Animation type Up"],
+        ["<b>5</b>", "<b>UpFront</b>", "Animation type Up Front"],
+        ["<b>6</b>", "<b>UpBack</b>", "Animation type Up Back"],
+        ["<b>7..255</b>", "<b>None</b>", "Any other values are treated as <b>None</b>"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\npanel = pse.Panel()\npanel.create(location=(0, 0, -100))\n\n# Front animation\npanel.animation = 1\n\npanel.color_on = (0, 255, 0)\npanel.color_off = (255, 0, 0)\n\n# Start the animation\npanel.state = 1" },
+      { "type": "text", "html": "<h2>Errors</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - game not running or returned an error code</li><li><code>ValueError</code> - <code>animation</code> outside <code>0..255</code> or color components outside <code>0..255</code></li></ul>" }
+    ]
+  }
+}

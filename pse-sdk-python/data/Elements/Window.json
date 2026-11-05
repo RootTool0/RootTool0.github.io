@@ -1,0 +1,80 @@
+{
+  "ru": {
+    "title": "Window",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_WINDOW.png", "alt": "PSE_CLASS_WINDOW" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_WINDOW</code> <i>(0x0014)</i>" },
+      { "type": "text", "html": "<b>Python-класс:</b> <code>pse.Window</code>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Окно с настраиваемой рамкой и стеклом" },
+      { "type": "note", "html": "<b>Важно:</b> Всё общее наследуется от <b><code>Element</code></b>. Здесь описаны только <b>уникальные</b> свойства. См. <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2>Поведение <code>state</code></h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Действие", "Значение", "Описание"], "rows": [
+        ["<b>Set State</b>", "<b>-</b>", "Не используется <i>(нет логики)</i>"],
+        ["<b>Get State</b>", "<b>-</b>", "Не используется <i>(возвращает <code>state</code>, изначально <code>0</code>)</i>"]
+      ]},
+      { "type": "text", "html": "<h2>Свойства</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Свойство", "Тип", "Доступ", "Описание"], "rows": [
+        ["<b><code>material_glass</code></b>", "<code>int</code>", "чтение/запись", "Материал центрального стекла. <code>PseMaterial</code>"],
+        ["<b><code>frame_mask</code></b>", "<code>int</code>", "чтение/запись", "Битовая маска видимости частей рамки. Диапазон <code>0..1023</code>"],
+        ["<b><code>pass_solver_gun</code></b>", "<code>bool</code>", "чтение/запись", "Пропускает ли окно лучи <b>Солвер Гана</b>"],
+        ["<b><code>pass_laser</code></b>", "<code>bool</code>", "чтение/запись", "Пропускает ли окно лучи <b>лазеров</b>"],
+        ["<b><code>size</code></b>", "<code>tuple[int, int]</code>", "чтение/запись", "Размер рамки: <code>(длина, высота)</code>. Каждое значение <code>0..65535</code>"]
+      ]},
+      { "type": "text", "html": "<h3>Маска рамки (<code>frame_mask</code>)</h3>" },
+      { "type": "text", "html": "Каждый бит отвечает за видимость части рамки. Раскладка - как на цифровой клавиатуре:" },
+      { "type": "table", "align": ["center", "left", "left"], "head": ["Бит", "Часть рамки", "Описание"], "rows": [
+        ["<b>7</b>", "Верхний левый угол", "Видимость верхнего левого угла"],
+        ["<b>8</b>", "Верхняя часть", "Видимость верхней части"],
+        ["<b>9</b>", "Верхний правый угол", "Видимость верхнего правого угла"],
+        ["<b>4</b>", "Левая часть", "Видимость левой части"],
+        ["<b>5</b>", "Центр (стекло)", "Видимость центральной части"],
+        ["<b>6</b>", "Правая часть", "Видимость правой части"],
+        ["<b>1</b>", "Нижний левый угол", "Видимость нижнего левого угла"],
+        ["<b>2</b>", "Нижняя часть", "Видимость нижней части"],
+        ["<b>3</b>", "Нижний правый угол", "Видимость нижнего правого угла"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\nwindow = pse.Window()\nwindow.create(location=(0, 0, -100))\n\n# Стекло из материала WINDOW_GLASS_METAL_GRID\nwindow.material_glass = pse.Material.WINDOW_GLASS_METAL_GRID\n\n# Пропускать лазеры, но не Солвер Ган\nwindow.pass_laser = True\nwindow.pass_solver_gun = False\n\n# Размер окна\nwindow.size = (500, 300)\n\n# Показать только верхнюю и нижнюю части рамки\nwindow.frame_mask = (1 << 8) | (1 << 2)" },
+      { "type": "text", "html": "<h2>Ошибки</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - игра не запущена или вернула код ошибки</li><li><code>ValueError</code> - <code>frame_mask</code> вне <code>0..1023</code> или компоненты <code>size</code> вне <code>0..65535</code></li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Window",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_WINDOW.png", "alt": "PSE_CLASS_WINDOW" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_WINDOW</code> <i>(0x0014)</i>" },
+      { "type": "text", "html": "<b>Python class:</b> <code>pse.Window</code>" },
+      { "type": "text", "html": "<b>Element Description:</b> A window with a configurable frame and glass" },
+      { "type": "note", "html": "<b>Important:</b> Everything common is inherited from <b><code>Element</code></b>. Only <b>unique</b> properties are described here. See <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2><code>state</code> behavior</h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Action", "Value", "Description"], "rows": [
+        ["<b>Set State</b>", "<b>-</b>", "Not used <i>(no logic)</i>"],
+        ["<b>Get State</b>", "<b>-</b>", "Not used <i>(returns <code>state</code>, initially <code>0</code>)</i>"]
+      ]},
+      { "type": "text", "html": "<h2>Properties</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Property", "Type", "Access", "Description"], "rows": [
+        ["<b><code>material_glass</code></b>", "<code>int</code>", "read/write", "Central glass material. <code>PseMaterial</code>"],
+        ["<b><code>frame_mask</code></b>", "<code>int</code>", "read/write", "Bitmask of frame part visibility. Range <code>0..1023</code>"],
+        ["<b><code>pass_solver_gun</code></b>", "<code>bool</code>", "read/write", "Does the window let <b>Solver Gun</b> rays through?"],
+        ["<b><code>pass_laser</code></b>", "<code>bool</code>", "read/write", "Does the window let <b>laser</b> rays through?"],
+        ["<b><code>size</code></b>", "<code>tuple[int, int]</code>", "read/write", "Frame size: <code>(length, height)</code>. Each value <code>0..65535</code>"]
+      ]},
+      { "type": "text", "html": "<h3>Frame mask (<code>frame_mask</code>)</h3>" },
+      { "type": "text", "html": "Each bit controls the visibility of a frame part. The layout follows a numeric keypad:" },
+      { "type": "table", "align": ["center", "left", "left"], "head": ["Bit", "Frame part", "Description"], "rows": [
+        ["<b>7</b>", "Top-left corner", "Top-left corner visibility"],
+        ["<b>8</b>", "Top part", "Top part visibility"],
+        ["<b>9</b>", "Top-right corner", "Top-right corner visibility"],
+        ["<b>4</b>", "Left part", "Left part visibility"],
+        ["<b>5</b>", "Center (glass)", "Central part visibility"],
+        ["<b>6</b>", "Right part", "Right part visibility"],
+        ["<b>1</b>", "Bottom-left corner", "Bottom-left corner visibility"],
+        ["<b>2</b>", "Bottom part", "Bottom part visibility"],
+        ["<b>3</b>", "Bottom-right corner", "Bottom-right corner visibility"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\nwindow = pse.Window()\nwindow.create(location=(0, 0, -100))\n\n# Glass from WINDOW_GLASS_METAL_GRID material\nwindow.material_glass = pse.Material.WINDOW_GLASS_METAL_GRID\n\n# Let lasers through, but not the Solver Gun\nwindow.pass_laser = True\nwindow.pass_solver_gun = False\n\n# Window size\nwindow.size = (500, 300)\n\n# Show only the top and bottom frame parts\nwindow.frame_mask = (1 << 8) | (1 << 2)" },
+      { "type": "text", "html": "<h2>Errors</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - game not running or returned an error code</li><li><code>ValueError</code> - <code>frame_mask</code> outside <code>0..1023</code> or <code>size</code> components outside <code>0..65535</code></li></ul>" }
+    ]
+  }
+}

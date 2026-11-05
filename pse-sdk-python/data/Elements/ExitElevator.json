@@ -1,0 +1,56 @@
+{
+  "ru": {
+    "title": "Exit Elevator",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_EXIT_ELEVATOR.png", "alt": "PSE_CLASS_EXIT_ELEVATOR" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_EXIT_ELEVATOR</code> <i>(0x0001)</i>" },
+      { "type": "text", "html": "<b>Python-класс:</b> <code>pse.ExitElevator</code>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Ванильный лифт для выхода с уровня. По поведению <b>точь-в-точь как <code>Door</code></b>" },
+      { "type": "note", "html": "<b>Важно:</b> Всё общее наследуется от <b><code>Element</code></b>. Здесь описаны только <b>уникальные</b> свойства. См. <b>Elements &gt; Element</b> и <b>Elements &gt; Door</b>" },
+      { "type": "text", "html": "<h2>Поведение <code>state</code></h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Действие", "Значение", "Описание"], "rows": [
+        ["<b>Set State</b>", "<code>state != 0</code>", "Лифт открывается"],
+        ["<b>Get State</b>", "<code>1</code>", "Лифт открыт"],
+        ["<b>Get State</b>", "<code>0</code>", "Лифт закрыт"]
+      ]},
+      { "type": "text", "html": "Может создать событие со значением <code>state = 0</code>, если включён бит авто-закрытия и игрок прошёл через лифт" },
+      { "type": "text", "html": "<h2>Свойства</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Свойство", "Тип", "Доступ", "Описание"], "rows": [
+        ["<b><code>auto_close</code></b>", "<code>bool</code>", "чтение/запись", "Авто-закрытие лифта при прохождении через него игроком"],
+        ["<b><code>callback_highlight</code></b>", "<code>bool</code>", "чтение/запись", "Переключает подсветку лифта на зелёную при <b>Callback Ping</b> <i>(использовалось как выход в <b>Portal: Solver Alpha</b>)</i>"],
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет лифта в активированном (открытом) состоянии. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет лифта в деактивированном (закрытом) состоянии. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\nexit_elevator = pse.ExitElevator()\nexit_elevator.create(location=(0, 0, -100))\nexit_elevator.auto_close = True\nexit_elevator.color_on = (0, 255, 0)\nexit_elevator.color_off = (255, 0, 0)\nexit_elevator.state = 1" },
+      { "type": "text", "html": "<h2>Ошибки</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - игра не запущена или вернула код ошибки</li><li><code>ValueError</code> - невалидный <code>state</code> или компоненты цвета вне <code>0..255</code></li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Exit Elevator",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_EXIT_ELEVATOR.png", "alt": "PSE_CLASS_EXIT_ELEVATOR" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_EXIT_ELEVATOR</code> <i>(0x0001)</i>" },
+      { "type": "text", "html": "<b>Python class:</b> <code>pse.ExitElevator</code>" },
+      { "type": "text", "html": "<b>Element Description:</b> A vanilla elevator for exiting the level. Behaves <b>exactly like <code>Door</code></b>" },
+      { "type": "note", "html": "<b>Important:</b> Everything common is inherited from <b><code>Element</code></b>. Only <b>unique</b> properties are described here. See <b>Elements &gt; Element</b> and <b>Elements &gt; Door</b>" },
+      { "type": "text", "html": "<h2><code>state</code> behavior</h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Action", "Value", "Description"], "rows": [
+        ["<b>Set State</b>", "<code>state != 0</code>", "Elevator opens"],
+        ["<b>Get State</b>", "<code>1</code>", "Elevator is open"],
+        ["<b>Get State</b>", "<code>0</code>", "Elevator is closed"]
+      ]},
+      { "type": "text", "html": "Can emit an event with <code>state = 0</code> if the auto-close bit is enabled and the player has passed through the elevator" },
+      { "type": "text", "html": "<h2>Properties</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Property", "Type", "Access", "Description"], "rows": [
+        ["<b><code>auto_close</code></b>", "<code>bool</code>", "read/write", "Auto-close the elevator when the player passes through it"],
+        ["<b><code>callback_highlight</code></b>", "<code>bool</code>", "read/write", "Switches the elevator highlight to green on <b>Callback Ping</b> <i>(used as an exit in <b>Portal: Solver Alpha</b>)</i>"],
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Elevator color in the activated (open) state. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Elevator color in the deactivated (closed) state. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\nexit_elevator = pse.ExitElevator()\nexit_elevator.create(location=(0, 0, -100))\nexit_elevator.auto_close = True\nexit_elevator.color_on = (0, 255, 0)\nexit_elevator.color_off = (255, 0, 0)\nexit_elevator.state = 1" },
+      { "type": "text", "html": "<h2>Errors</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - game not running or returned an error code</li><li><code>ValueError</code> - invalid <code>state</code> or color components outside <code>0..255</code></li></ul>" }
+    ]
+  }
+}

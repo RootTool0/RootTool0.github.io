@@ -1,0 +1,52 @@
+{
+  "categories": [
+    {
+      "title": "PSE-SDK-Python",
+      "pages": [
+        { "title": "Hello, World!", "path": "PSE-SDK-Python/HelloWorld" }
+      ]
+    },
+	{
+      "title": "Runtime",
+      "pages": [
+        { "title": "Runtime", "path": "runtime/Runtime" }
+      ]
+    },
+	{
+      "title": "Meshes",
+      "pages": [
+        { "title": "Static Mesh",  "path": "Meshes/StaticMesh" },
+        { "title": "Dynamic Mesh", "path": "Meshes/DynamicMesh" }
+      ]
+    },
+    {
+      "title": "Elements",
+      "pages": [
+        { "title": "Element",                  "path": "Elements/Element" },
+        { "title": "Entry Elevator",           "path": "Elements/EntryElevator" },
+        { "title": "Exit Elevator",            "path": "Elements/ExitElevator" },
+        { "title": "Door",                     "path": "Elements/Door" },
+        { "title": "Button",                   "path": "Elements/Button" },
+        { "title": "Anti Expropriation Field", "path": "Elements/AntiExpropriationField" },
+        { "title": "Pedestal Button",          "path": "Elements/PedestalButton" },
+        { "title": "Solver Button",            "path": "Elements/SolverButton" },
+        { "title": "Indicator",                "path": "Elements/Indicator" },
+        { "title": "Laser Tx",                 "path": "Elements/LaserTx" },
+        { "title": "Laser Rx",                 "path": "Elements/LaserRx" },
+        { "title": "Laser Relay",              "path": "Elements/LaserRelay" },
+        { "title": "Laser Panel",              "path": "Elements/LaserPanel" },
+        { "title": "Laser Cube",               "path": "Elements/LaserCube" },
+        { "title": "Weight Cube",              "path": "Elements/WeightCube" },
+        { "title": "Faith Plate",              "path": "Elements/FaithPlate" },
+        { "title": "Panel",                    "path": "Elements/Panel" },
+        { "title": "Stairs",                   "path": "Elements/Stairs" },
+        { "title": "Cube Dropper",             "path": "Elements/CubeDropper" },
+        { "title": "Solver Gun Pedestal",      "path": "Elements/SolverGunPedestal" },
+        { "title": "Flashlight",               "path": "Elements/Flashlight" },
+        { "title": "Window",                   "path": "Elements/Window" },
+        { "title": "Trigger",                  "path": "Elements/Trigger" },
+        { "title": "Lamp",                     "path": "Elements/Lamp" }
+      ]
+    }
+  ]
+}

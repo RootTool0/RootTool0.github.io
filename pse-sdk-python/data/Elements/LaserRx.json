@@ -1,0 +1,56 @@
+{
+  "ru": {
+    "title": "Laser Rx",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_LASER_RX.png", "alt": "PSE_CLASS_LASER_RX" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_LASER_RX</code> <i>(0x0009)</i>" },
+      { "type": "text", "html": "<b>Python-класс:</b> <code>pse.LaserRx</code>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Лазерный приёмник, который активируется, если в него попадает лазерный луч <i>(или лазер конкретного цвета)</i>. Также может смешивать цвета нескольких лазерных лучей внутри себя" },
+      { "type": "note", "html": "<b>Важно:</b> Всё общее наследуется от <b><code>Element</code></b>. Здесь описаны только <b>уникальные</b> свойства. См. <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2>Поведение <code>state</code></h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Действие", "Значение", "Описание"], "rows": [
+        ["<b>Set State</b>", "<b>-</b>", "Не используется <i>(нет логики)</i>"],
+        ["<b>Get State</b>", "<code>1</code>", "В приёмник попадает лазер <i>(или лазер нужного цвета, если включён <code>color_filter_enabled</code>)</i>"],
+        ["<b>Get State</b>", "<code>0</code>", "Лазера нет"]
+      ]},
+      { "type": "text", "html": "<h2>Свойства</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Свойство", "Тип", "Доступ", "Описание"], "rows": [
+        ["<b><code>shifted</code></b>", "<code>bool</code>", "чтение/запись", "Переключает версию модели на смещённую вниз"],
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет приёмника в активированном состоянии. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет приёмника в деактивированном состоянии. RGB, <code>0..255</code>"],
+        ["<b><code>color_filter_enabled</code></b>", "<code>bool</code>", "чтение/запись", "Активировать приёмник <b>только</b> от лазера указанного цвета"],
+        ["<b><code>laser_color</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет лазера для фильтра. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\nrx = pse.LaserRx()\nrx.create(location=(0, 0, -100))\n\nrx.color_on = (0, 255, 0)\nrx.color_off = (255, 0, 0)\n\n# Активировать только от красного лазера\nrx.color_filter_enabled = True\nrx.laser_color = (255, 0, 0)\n\n@rx.on_element_changed()\ndef on_rx_changed(state):\n    print(f\"Приёмник: state = {state}\")\n\nwhile True:\n    pse.poll_events()" },
+      { "type": "text", "html": "<h2>Ошибки</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - игра не запущена или вернула код ошибки</li><li><code>ValueError</code> - компоненты цвета вне <code>0..255</code></li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Laser Rx",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_LASER_RX.png", "alt": "PSE_CLASS_LASER_RX" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_LASER_RX</code> <i>(0x0009)</i>" },
+      { "type": "text", "html": "<b>Python class:</b> <code>pse.LaserRx</code>" },
+      { "type": "text", "html": "<b>Element Description:</b> A laser receiver that activates when a laser beam hits it <i>(or a laser of a specific color)</i>. It can also mix the colors of several laser beams inside itself" },
+      { "type": "note", "html": "<b>Important:</b> Everything common is inherited from <b><code>Element</code></b>. Only <b>unique</b> properties are described here. See <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2><code>state</code> behavior</h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Action", "Value", "Description"], "rows": [
+        ["<b>Set State</b>", "<b>-</b>", "Not used <i>(no logic)</i>"],
+        ["<b>Get State</b>", "<code>1</code>", "A laser hits the receiver <i>(or a laser of the required color if <code>color_filter_enabled</code> is on)</i>"],
+        ["<b>Get State</b>", "<code>0</code>", "No laser"]
+      ]},
+      { "type": "text", "html": "<h2>Properties</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Property", "Type", "Access", "Description"], "rows": [
+        ["<b><code>shifted</code></b>", "<code>bool</code>", "read/write", "Switches the model version to the one shifted downward"],
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Receiver color in the activated state. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Receiver color in the deactivated state. RGB, <code>0..255</code>"],
+        ["<b><code>color_filter_enabled</code></b>", "<code>bool</code>", "read/write", "Activate the receiver <b>only</b> from a laser of the specified color"],
+        ["<b><code>laser_color</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Laser color for the filter. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\nrx = pse.LaserRx()\nrx.create(location=(0, 0, -100))\n\nrx.color_on = (0, 255, 0)\nrx.color_off = (255, 0, 0)\n\n# Activate only from a red laser\nrx.color_filter_enabled = True\nrx.laser_color = (255, 0, 0)\n\n@rx.on_element_changed()\ndef on_rx_changed(state):\n    print(f\"Receiver: state = {state}\")\n\nwhile True:\n    pse.poll_events()" },
+      { "type": "text", "html": "<h2>Errors</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - game not running or returned an error code</li><li><code>ValueError</code> - color components outside <code>0..255</code></li></ul>" }
+    ]
+  }
+}

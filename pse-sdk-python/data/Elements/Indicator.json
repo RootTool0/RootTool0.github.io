@@ -1,0 +1,54 @@
+{
+  "ru": {
+    "title": "Indicator",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_INDICATOR.png", "alt": "PSE_CLASS_INDICATOR" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_INDICATOR</code> <i>(0x0007)</i>" },
+      { "type": "text", "html": "<b>Python-класс:</b> <code>pse.Indicator</code>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Индикатор, отображающий статус выполнения условия в виде значка или круговой шкалы времени <i>(в режиме таймера)</i>" },
+      { "type": "note", "html": "<b>Важно:</b> Всё общее наследуется от <b><code>Element</code></b>. Здесь описаны только <b>уникальные</b> свойства. См. <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2>Поведение <code>state</code></h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Действие", "Значение", "Описание"], "rows": [
+        ["<b>Set State</b> <i>(обычный режим)</i>", "<code>state != 0</code>", "Индикатор включается"],
+        ["<b>Set State</b> <i>(режим таймера)</i>", "<code>N</code>", "Обратный отсчёт в количестве <code>N</code> секунд"],
+        ["<b>Get State</b>", "<b>-</b>", "Не используется <i>(возвращает <code>state</code>, изначально <code>0</code>)</i>"]
+      ]},
+      { "type": "text", "html": "<h2>Свойства</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Свойство", "Тип", "Доступ", "Описание"], "rows": [
+        ["<b><code>flat</code></b>", "<code>bool</code>", "чтение/запись", "Переключает модель индикатора на плоскую"],
+        ["<b><code>timer_mode</code></b>", "<code>bool</code>", "чтение/запись", "Переключает индикатор на режим таймера"],
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет индикатора в активированном (включённом) состоянии. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет индикатора в деактивированном (выключенном) состоянии. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\nindicator = pse.Indicator()\nindicator.create(location=(0, 0, -100))\n\n# Обычный режим\nindicator.flat = True\nindicator.color_on = (0, 255, 0)\nindicator.color_off = (255, 0, 0)\nindicator.state = 1\n\n# Режим таймера\nindicator.timer_mode = True\nindicator.state = 10  # обратный отсчёт 10 секунд" },
+      { "type": "text", "html": "<h2>Ошибки</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - игра не запущена или вернула код ошибки</li><li><code>ValueError</code> - невалидный <code>state</code> <i>(вне <code>int8_t</code>)</i> или компоненты цвета вне <code>0..255</code></li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Indicator",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_INDICATOR.png", "alt": "PSE_CLASS_INDICATOR" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_INDICATOR</code> <i>(0x0007)</i>" },
+      { "type": "text", "html": "<b>Python class:</b> <code>pse.Indicator</code>" },
+      { "type": "text", "html": "<b>Element Description:</b> An indicator displaying the condition status as an icon or a circular time gauge <i>(in timer mode)</i>" },
+      { "type": "note", "html": "<b>Important:</b> Everything common is inherited from <b><code>Element</code></b>. Only <b>unique</b> properties are described here. See <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2><code>state</code> behavior</h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Action", "Value", "Description"], "rows": [
+        ["<b>Set State</b> <i>(normal mode)</i>", "<code>state != 0</code>", "Indicator turns on"],
+        ["<b>Set State</b> <i>(timer mode)</i>", "<code>N</code>", "Countdown of <code>N</code> seconds"],
+        ["<b>Get State</b>", "<b>-</b>", "Not used <i>(returns <code>state</code>, initially <code>0</code>)</i>"]
+      ]},
+      { "type": "text", "html": "<h2>Properties</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Property", "Type", "Access", "Description"], "rows": [
+        ["<b><code>flat</code></b>", "<code>bool</code>", "read/write", "Switches the indicator model to a flat one"],
+        ["<b><code>timer_mode</code></b>", "<code>bool</code>", "read/write", "Switches the indicator to timer mode"],
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Indicator color in the activated (on) state. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Indicator color in the deactivated (off) state. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\nindicator = pse.Indicator()\nindicator.create(location=(0, 0, -100))\n\n# Normal mode\nindicator.flat = True\nindicator.color_on = (0, 255, 0)\nindicator.color_off = (255, 0, 0)\nindicator.state = 1\n\n# Timer mode\nindicator.timer_mode = True\nindicator.state = 10  # 10-second countdown" },
+      { "type": "text", "html": "<h2>Errors</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - game not running or returned an error code</li><li><code>ValueError</code> - invalid <code>state</code> <i>(outside <code>int8_t</code>)</i> or color components outside <code>0..255</code></li></ul>" }
+    ]
+  }
+}

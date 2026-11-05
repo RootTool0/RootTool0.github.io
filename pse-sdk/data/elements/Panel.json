@@ -10,8 +10,8 @@
       { "type": "text", "html": "<b>Разметка регистров:</b>" },
       { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Индекс", "Наименование", "Формат данных", "Описание"], "rows": [
         ["<code>[0]</code>", "<b>Enums</b>", "<code>________________________AAAAAAAA</code>", "<code>AAAAAAAA</code> - Тип анимации для панели"],
-        ["<code>[1]</code>", "<b>Color Activated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Цвет подсветки лестницы в активированном состоянии"],
-        ["<code>[2]</code>", "<b>Color Deactivated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Цвет подсветки лестницы в деактивированном состоянии"],
+        ["<code>[1]</code>", "<b>Color Activated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Подсветки лестницы в активированном состоянии"],
+        ["<code>[2]</code>", "<b>Color Deactivated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Подсветки лестницы в деактивированном состоянии"],
         ["<code>[3]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
         ["<code>[4]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
         ["<code>[5]</code>", "<b>НЕ ИСПОЛЬЗУЕТСЯ</b>", "<code>________________________________</code>", "<b>-</b>"],
@@ -32,8 +32,8 @@
       { "type": "text", "html": "<b>Register layout:</b>" },
       { "type": "table", "align": ["center", "left", "left", "left"], "head": ["Index", "Name", "Data format", "Description"], "rows": [
         ["<code>[0]</code>", "<b>Enums</b>", "<code>________________________AAAAAAAA</code>", "<code>AAAAAAAA</code> - Animation type for the panel"],
-        ["<code>[1]</code>", "<b>Color Activated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Stairs highlight color in the activated state"],
-        ["<code>[2]</code>", "<b>Color Deactivated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Stairs highlight color in the deactivated state"],
+        ["<code>[1]</code>", "<b>Color Activated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Highlight color in the activated state"],
+        ["<code>[2]</code>", "<b>Color Deactivated</b>", "<code>________RRRRRRRRGGGGGGGGBBBBBBBB</code>", "<code>R...G...B</code> - Highlight color in the deactivated state"],
         ["<code>[3]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
         ["<code>[4]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],
         ["<code>[5]</code>", "<b>NOT USED</b>", "<code>________________________________</code>", "<b>-</b>"],

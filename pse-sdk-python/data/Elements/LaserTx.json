@@ -1,0 +1,48 @@
+{
+  "ru": {
+    "title": "Laser Tx",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_LASER_TX.png", "alt": "PSE_CLASS_LASER_TX" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_LASER_TX</code> <i>(0x0008)</i>" },
+      { "type": "text", "html": "<b>Python-класс:</b> <code>pse.LaserTx</code>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Лазерный излучатель, который излучает лазер определённого цвета при активации" },
+      { "type": "note", "html": "<b>Важно:</b> Всё общее наследуется от <b><code>Element</code></b>. Здесь описаны только <b>уникальные</b> свойства. См. <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2>Поведение <code>state</code></h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Действие", "Значение", "Описание"], "rows": [
+        ["<b>Set State</b>", "<code>state != 0</code>", "Лазер активируется"],
+        ["<b>Get State</b>", "<b>-</b>", "Не используется <i>(возвращает <code>state</code>, изначально <code>0</code>)</i>"]
+      ]},
+      { "type": "text", "html": "<h2>Свойства</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Свойство", "Тип", "Доступ", "Описание"], "rows": [
+        ["<b><code>shifted</code></b>", "<code>bool</code>", "чтение/запись", "Переключает версию модели на смещённую вниз"],
+        ["<b><code>laser_color</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет лазера. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\ntx = pse.LaserTx()\ntx.create(location=(0, 0, -100))\n\ntx.laser_color = (255, 0, 0)  # красный лазер\ntx.shifted = False\n\n# Включить лазер\ntx.state = 1" },
+      { "type": "text", "html": "<h2>Ошибки</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - игра не запущена или вернула код ошибки</li><li><code>ValueError</code> - компоненты цвета вне <code>0..255</code></li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Laser Tx",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_LASER_TX.png", "alt": "PSE_CLASS_LASER_TX" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_LASER_TX</code> <i>(0x0008)</i>" },
+      { "type": "text", "html": "<b>Python class:</b> <code>pse.LaserTx</code>" },
+      { "type": "text", "html": "<b>Element Description:</b> A laser emitter that emits a laser of a specific color when activated" },
+      { "type": "note", "html": "<b>Important:</b> Everything common is inherited from <b><code>Element</code></b>. Only <b>unique</b> properties are described here. See <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2><code>state</code> behavior</h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Action", "Value", "Description"], "rows": [
+        ["<b>Set State</b>", "<code>state != 0</code>", "Laser activates"],
+        ["<b>Get State</b>", "<b>-</b>", "Not used <i>(returns <code>state</code>, initially <code>0</code>)</i>"]
+      ]},
+      { "type": "text", "html": "<h2>Properties</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Property", "Type", "Access", "Description"], "rows": [
+        ["<b><code>shifted</code></b>", "<code>bool</code>", "read/write", "Switches the model version to the one shifted downward"],
+        ["<b><code>laser_color</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Laser color. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\ntx = pse.LaserTx()\ntx.create(location=(0, 0, -100))\n\ntx.laser_color = (255, 0, 0)  # red laser\ntx.shifted = False\n\n# Enable the laser\ntx.state = 1" },
+      { "type": "text", "html": "<h2>Errors</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - game not running or returned an error code</li><li><code>ValueError</code> - color components outside <code>0..255</code></li></ul>" }
+    ]
+  }
+}

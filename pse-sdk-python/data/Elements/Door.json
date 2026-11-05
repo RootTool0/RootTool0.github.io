@@ -1,0 +1,60 @@
+{
+  "ru": {
+    "title": "Door",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_DOOR.png", "alt": "PSE_CLASS_DOOR" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_DOOR</code> <i>(0x0002)</i>" },
+      { "type": "text", "html": "<b>Python-класс:</b> <code>pse.Door</code>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Дверь.... просто дверь" },
+      { "type": "note", "html": "<b>Важно:</b> Всё общее наследуется от <b><code>Element</code></b>. Здесь описаны только <b>уникальные</b> свойства. См. <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2>Поведение <code>state</code></h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Действие", "Значение", "Описание"], "rows": [
+        ["<b>Set State</b>", "<code>state != 0</code>", "Дверь открывается"],
+        ["<b>Get State</b>", "<code>1</code>", "Дверь открыта"],
+        ["<b>Get State</b>", "<code>0</code>", "Дверь закрыта"]
+      ]},
+      { "type": "text", "html": "Может создать событие со значением <code>state = 0</code>, если включён бит авто-закрытия и игрок прошёл через дверь, тем самым закрыв её" },
+      { "type": "text", "html": "<h2>Свойства</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Свойство", "Тип", "Доступ", "Описание"], "rows": [
+        ["<b><code>auto_close</code></b>", "<code>bool</code>", "чтение/запись", "Авто-закрытие двери при прохождении через неё игроком"],
+        ["<b><code>callback_highlight</code></b>", "<code>bool</code>", "чтение/запись", "Переключает подсветку двери на зелёную при <b>Callback Ping</b> <i>(использовалось как выход в <b>Portal: Solver Alpha</b>)</i>"],
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет двери в активированном (открытом) состоянии. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет двери в деактивированном (закрытом) состоянии. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\ndoor = pse.Door()\ndoor.create(location=(0, 0, -100))\ndoor.auto_close = True\ndoor.color_on = (0, 255, 0)\ndoor.color_off = (255, 0, 0)\n\n# Открыть дверь\ndoor.state = 1\n\n# Закрыть дверь\ndoor.state = 0" },
+      { "type": "text", "html": "<h2>Пример: кнопка открывает дверь</h2>" },
+      { "type": "code", "lang": "python", "code": "button = pse.Button()\nbutton.create(location=(200, 0, -100))\n\n@button.on_element_changed()\ndef on_button_changed(state):\n    door.state = state\n\nwhile True:\n    pse.poll_events()" },
+      { "type": "text", "html": "<h2>Ошибки</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - игра не запущена или вернула код ошибки</li><li><code>ValueError</code> - невалидный <code>state</code> или компоненты цвета вне <code>0..255</code></li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Door",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_DOOR.png", "alt": "PSE_CLASS_DOOR" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_DOOR</code> <i>(0x0002)</i>" },
+      { "type": "text", "html": "<b>Python class:</b> <code>pse.Door</code>" },
+      { "type": "text", "html": "<b>Element Description:</b> A door.... just a door" },
+      { "type": "note", "html": "<b>Important:</b> Everything common is inherited from <b><code>Element</code></b>. Only <b>unique</b> properties are described here. See <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2><code>state</code> behavior</h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Action", "Value", "Description"], "rows": [
+        ["<b>Set State</b>", "<code>state != 0</code>", "Door opens"],
+        ["<b>Get State</b>", "<code>1</code>", "Door is open"],
+        ["<b>Get State</b>", "<code>0</code>", "Door is closed"]
+      ]},
+      { "type": "text", "html": "Can emit an event with <code>state = 0</code> if the auto-close bit is enabled and the player has passed through the door, closing it" },
+      { "type": "text", "html": "<h2>Properties</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Property", "Type", "Access", "Description"], "rows": [
+        ["<b><code>auto_close</code></b>", "<code>bool</code>", "read/write", "Auto-close the door when the player passes through it"],
+        ["<b><code>callback_highlight</code></b>", "<code>bool</code>", "read/write", "Switches the door highlight to green on <b>Callback Ping</b> <i>(used as an exit in <b>Portal: Solver Alpha</b>)</i>"],
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Door color in the activated (open) state. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Door color in the deactivated (closed) state. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\ndoor = pse.Door()\ndoor.create(location=(0, 0, -100))\ndoor.auto_close = True\ndoor.color_on = (0, 255, 0)\ndoor.color_off = (255, 0, 0)\n\n# Open the door\ndoor.state = 1\n\n# Close the door\ndoor.state = 0" },
+      { "type": "text", "html": "<h2>Example: button opens the door</h2>" },
+      { "type": "code", "lang": "python", "code": "button = pse.Button()\nbutton.create(location=(200, 0, -100))\n\n@button.on_element_changed()\ndef on_button_changed(state):\n    door.state = state\n\nwhile True:\n    pse.poll_events()" },
+      { "type": "text", "html": "<h2>Errors</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - game not running or returned an error code</li><li><code>ValueError</code> - invalid <code>state</code> or color components outside <code>0..255</code></li></ul>" }
+    ]
+  }
+}

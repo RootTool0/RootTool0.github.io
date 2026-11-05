@@ -1,0 +1,48 @@
+{
+  "ru": {
+    "title": "Stairs",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_STAIRS.png", "alt": "PSE_CLASS_STAIRS" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_STAIRS</code> <i>(0x0010)</i>" },
+      { "type": "text", "html": "<b>Python-класс:</b> <code>pse.Stairs</code>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Обычная лестница, что ещё сказать?" },
+      { "type": "note", "html": "<b>Важно:</b> Всё общее наследуется от <b><code>Element</code></b>. Здесь описаны только <b>уникальные</b> свойства. См. <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2>Поведение <code>state</code></h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Действие", "Значение", "Описание"], "rows": [
+        ["<b>Set State</b>", "<code>state != 0</code>", "Лестница поднимается"],
+        ["<b>Get State</b>", "<b>-</b>", "Не используется <i>(возвращает <code>state</code>, изначально <code>0</code>)</i>"]
+      ]},
+      { "type": "text", "html": "<h2>Свойства</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Свойство", "Тип", "Доступ", "Описание"], "rows": [
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет подсветки лестницы в активированном состоянии. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет подсветки лестницы в деактивированном состоянии. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\nstairs = pse.Stairs()\nstairs.create(location=(0, 0, -100))\n\nstairs.color_on = (0, 255, 0)\nstairs.color_off = (255, 0, 0)\n\n# Поднять лестницу\nstairs.state = 1" },
+      { "type": "text", "html": "<h2>Ошибки</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - игра не запущена или вернула код ошибки</li><li><code>ValueError</code> - компоненты цвета вне <code>0..255</code></li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Stairs",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_STAIRS.png", "alt": "PSE_CLASS_STAIRS" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_STAIRS</code> <i>(0x0010)</i>" },
+      { "type": "text", "html": "<b>Python class:</b> <code>pse.Stairs</code>" },
+      { "type": "text", "html": "<b>Element Description:</b> A regular staircase, what else is there to say?" },
+      { "type": "note", "html": "<b>Important:</b> Everything common is inherited from <b><code>Element</code></b>. Only <b>unique</b> properties are described here. See <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2><code>state</code> behavior</h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Action", "Value", "Description"], "rows": [
+        ["<b>Set State</b>", "<code>state != 0</code>", "Stairs rise"],
+        ["<b>Get State</b>", "<b>-</b>", "Not used <i>(returns <code>state</code>, initially <code>0</code>)</i>"]
+      ]},
+      { "type": "text", "html": "<h2>Properties</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Property", "Type", "Access", "Description"], "rows": [
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Stairs highlight color in the activated state. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Stairs highlight color in the deactivated state. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\nstairs = pse.Stairs()\nstairs.create(location=(0, 0, -100))\n\nstairs.color_on = (0, 255, 0)\nstairs.color_off = (255, 0, 0)\n\n# Raise the stairs\nstairs.state = 1" },
+      { "type": "text", "html": "<h2>Errors</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - game not running or returned an error code</li><li><code>ValueError</code> - color components outside <code>0..255</code></li></ul>" }
+    ]
+  }
+}

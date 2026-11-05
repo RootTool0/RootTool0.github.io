@@ -1,0 +1,314 @@
+{
+  "ru": {
+    "title": "Element",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "<b>Element</b> - абстрактный базовый класс для <b>всех</b> элементов игры. Он описывает общее поведение, которое наследуют все элементы: <code>Door</code>, <code>Button</code>, <code>LaserTx</code> и тд."
+      },
+      {
+        "type": "note",
+        "html": "<b>Важно:</b> <code>Element</code> - <b>абстрактный класс</b> (<code>ABC</code>). Напрямую его создать нельзя: <code>pse.Element()</code> упадёт. Используйте конкретные классы элементов, например <code>pse.Door()</code> или <code>pse.Button()</code>. Все свойства и методы ниже доступны у <b>любого</b> элемента"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Создание и уничтожение</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Метод", "Возвращает", "Описание"],
+        "rows": [
+          ["<b><code>create(location, quat, scale, state, visibility)</code></b>", "<code>None</code>", "Создаёт элемент в мире и присваивает ему <b>GUID</b>. Если элемент уже создан - вызов <b>игнорируется</b>"],
+          ["<b><code>destroy()</code></b>", "<code>None</code>", "Удаляет элемент из мира и сбрасывает <b>GUID</b> в <code>-1</code>. Повторный вызов безопасен"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h3>Параметры <code>create()</code></h3>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Параметр", "Тип", "Описание"],
+        "rows": [
+          ["<b><code>location</code></b>", "<code>Vector3</code> <i>или tuple</i>", "Позиция. По умолчанию <code>(0.0, 0.0, 0.0)</code>"],
+          ["<b><code>quat</code></b>", "<code>Quat</code>", "Поворот. По умолчанию <code>(0.0, 0.0, 0.0, 1.0)</code>"],
+          ["<b><code>scale</code></b>", "<code>Vector3</code> <i>или tuple</i>", "Масштаб. По умолчанию <code>(1.0, 1.0, 1.0)</code>"],
+          ["<b><code>state</code></b>", "<code>int</code>", "Начальное состояние. Должно помещаться в <code>int8_t</code> <i>(-128..127)</i>. По умолчанию <code>0</code>"],
+          ["<b><code>visibility</code></b>", "<code>bool</code>", "Видимость. По умолчанию <code>True</code>"]
+        ]
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "import pse\n\npse.initialize()\n\ndoor = pse.Door()\ndoor.create(location=(100, 0, -100))\nprint(door.guid)  # GUID присвоен\n\ndoor.destroy()\nprint(door.guid)  # -1"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Общие свойства</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left", "left"],
+        "head": ["Свойство", "Тип", "Доступ", "Описание"],
+        "rows": [
+          ["<b><code>guid</code></b>", "<code>int</code>", "чтение", "Уникальный идентификатор элемента в мире или <code>-1</code>, если элемент не создан"],
+          ["<b><code>transform</code></b>", "<code>Transform</code>", "чтение/запись", "Позиция + поворот + масштаб одним объектом"],
+          ["<b><code>location</code></b>", "<code>Vector3</code>", "чтение/запись", "Позиция <i>(обёртка над <code>transform.location</code>)</i>"],
+          ["<b><code>rotation</code></b>", "<code>Quat</code>", "чтение/запись", "Поворот <i>(обёртка над <code>transform.quat</code>)</i>"],
+          ["<b><code>scale</code></b>", "<code>Vector3</code>", "чтение/запись", "Масштаб <i>(обёртка над <code>transform.scale</code>)</i>"],
+          ["<b><code>visibility</code></b>", "<code>bool</code>", "чтение/запись", "Видимость элемента"],
+          ["<b><code>state</code></b>", "<code>int</code>", "чтение/запись", "Сквозная переменная состояния <i>(<code>int8_t</code>, -128..127)</i>. Связывает элементы друг с другом"]
+        ]
+      },
+      {
+        "type": "note",
+        "html": "<b>Важно:</b> <code>state</code> - это не \"включён/выключен\". Это <b>сквозная переменная</b>, которую каждый элемент интерпретирует по-своему. Для <code>Door</code> это \"открыта/закрыта\", для <code>Indicator</code> в режиме таймера - количество секунд, для <code>Trigger</code> - результат срабатывания. Читайте страницы конкретных элементов"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "# Чтение и запись свойств\ndoor.state = 1\nprint(door.state)  # 1\n\ndoor.location = (200, 0, -100)\ndoor.rotation = pse.Quat(0.0, 0.0, 0.7071068, 0.7071068)\ndoor.scale = (2.0, 2.0, 2.0)\ndoor.visibility = False"
+      },
+      {
+        "type": "text",
+        "html": "<h2>События</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Метод", "Возвращает", "Описание"],
+        "rows": [
+          ["<b><code>on_element_changed()</code></b>", "<code>декоратор</code>", "Регистрирует колбэк, который вызывается при изменении состояния элемента. Колбэк получает <b>новое значение <code>state</code></b>"],
+          ["<b><code>set_on_element_changed(func)</code></b>", "<code>None</code>", "То же самое, но без декоратора - для программной регистрации"]
+        ]
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "# Через декоратор\n@door.on_element_changed()\ndef on_door_changed(state):\n    print(f\"Дверь изменилась: state = {state}\")\n\n# Без декоратора\ndef on_door_changed2(state):\n    print(f\"Дверь изменилась: state = {state}\")\n\ndoor.set_on_element_changed(on_door_changed2)\n\n# Не забывайте про главный цикл!\nwhile True:\n    pse.poll_events()"
+      },
+      {
+        "type": "note",
+        "html": "<b>Помните:</b> колбэки вызываются <b>только</b> из <code>pse.poll_events()</code>. Нет главного цикла - нет событий. Подробнее: <b>Runtime &gt; События и poll_events()</b>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Проверка \"жив ли\" элемент</h2>"
+      },
+      {
+        "type": "text",
+        "html": "У всех элементов переопределён <code>__bool__</code>. Пока элемент не создан или уже уничтожен - он <code>False</code>:"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "door = pse.Door()\nprint(bool(door))  # False\n\ndoor.create(location=(0, 0, 0))\nprint(bool(door))  # True\n\ndoor.destroy()\nprint(bool(door))  # False"
+      },
+      {
+        "type": "text",
+        "html": "Внутри это просто проверка <code>guid != -1</code>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Отладка</h2>"
+      },
+      {
+        "type": "text",
+        "html": "У каждого элемента есть человекочитаемый <code>__repr__</code>:"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "door = pse.Door()\nprint(door)  # Door(guid=-1)\n\ndoor.create(location=(0, 0, 0))\nprint(door)  # Door(guid=140234567890123)"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Что наследуют элементы</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Все элементы (<code>Door</code>, <code>Button</code>, <code>LaserTx</code> и т.д.) получают от <code>Element</code>:"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b>Методы:</b> <code>create()</code>, <code>destroy()</code>, <code>on_element_changed()</code>, <code>set_on_element_changed()</code></li><li><b>Свойства:</b> <code>guid</code>, <code>transform</code>, <code>location</code>, <code>rotation</code>, <code>scale</code>, <code>visibility</code>, <code>state</code></li><li><b>Магические методы:</b> <code>__bool__</code>, <code>__repr__</code></li></ul>"
+      },
+      {
+        "type": "text",
+        "html": "А ещё каждый элемент привязан к своему <b><code>PseClass</code></b> и добавляет <b>свои</b> свойства: цвета, режимы, таймеры, флаги. Смотрите страницы конкретных элементов"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Ошибки</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "left"],
+        "head": ["Исключение", "Причина"],
+        "rows": [
+          ["<b><code>RuntimeError</code></b>", "Игра не запущена или вернула код ошибки <i>(см. <b>Runtime &gt; Обработка ошибок</b>)</i>"],
+          ["<b><code>ValueError</code></b>", "<code>state</code> не помещается в <code>int8_t</code> <i>(-128..127)</i>"],
+          ["<b><code>TypeError</code></b>", "Попытка создать <code>pse.Element()</code> напрямую <i>(абстрактный класс)</i>"]
+        ]
+      }
+    ]
+  },
+  "en": {
+    "title": "Element",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "<b>Element</b> is the abstract base class for <b>all</b> game elements. It describes the common behavior inherited by all elements: <code>Door</code>, <code>Button</code>, <code>LaserTx</code> and etc."
+      },
+      {
+        "type": "note",
+        "html": "<b>Important:</b> <code>Element</code> is an <b>abstract class</b> (<code>ABC</code>). You cannot create it directly: <code>pse.Element()</code> will fail. Use concrete element classes, e.g. <code>pse.Door()</code> or <code>pse.Button()</code>. All properties and methods below are available on <b>every</b> element"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Creation and destruction</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Method", "Returns", "Description"],
+        "rows": [
+          ["<b><code>create(location, quat, scale, state, visibility)</code></b>", "<code>None</code>", "Creates the element in the world and assigns it a <b>GUID</b>. If the element is already created, the call is <b>ignored</b>"],
+          ["<b><code>destroy()</code></b>", "<code>None</code>", "Removes the element from the world and resets <b>GUID</b> to <code>-1</code>. Repeated calls are safe"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h3><code>create()</code> parameters</h3>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Parameter", "Type", "Description"],
+        "rows": [
+          ["<b><code>location</code></b>", "<code>Vector3</code> <i>or tuple</i>", "Position. Defaults to <code>(0.0, 0.0, 0.0)</code>"],
+          ["<b><code>quat</code></b>", "<code>Quat</code>", "Rotation. Defaults to <code>(0.0, 0.0, 0.0, 1.0)</code>"],
+          ["<b><code>scale</code></b>", "<code>Vector3</code> <i>or tuple</i>", "Scale. Defaults to <code>(1.0, 1.0, 1.0)</code>"],
+          ["<b><code>state</code></b>", "<code>int</code>", "Initial state. Must fit in <code>int8_t</code> <i>(-128..127)</i>. Defaults to <code>0</code>"],
+          ["<b><code>visibility</code></b>", "<code>bool</code>", "Visibility. Defaults to <code>True</code>"]
+        ]
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "import pse\n\npse.initialize()\n\ndoor = pse.Door()\ndoor.create(location=(100, 0, -100))\nprint(door.guid)  # GUID assigned\n\ndoor.destroy()\nprint(door.guid)  # -1"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Common properties</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left", "left"],
+        "head": ["Property", "Type", "Access", "Description"],
+        "rows": [
+          ["<b><code>guid</code></b>", "<code>int</code>", "read", "Unique element identifier in the world, or <code>-1</code> if not created"],
+          ["<b><code>transform</code></b>", "<code>Transform</code>", "read/write", "Position + rotation + scale as a single object"],
+          ["<b><code>location</code></b>", "<code>Vector3</code>", "read/write", "Position <i>(wrapper over <code>transform.location</code>)</i>"],
+          ["<b><code>rotation</code></b>", "<code>Quat</code>", "read/write", "Rotation <i>(wrapper over <code>transform.quat</code>)</i>"],
+          ["<b><code>scale</code></b>", "<code>Vector3</code>", "read/write", "Scale <i>(wrapper over <code>transform.scale</code>)</i>"],
+          ["<b><code>visibility</code></b>", "<code>bool</code>", "read/write", "Element visibility"],
+          ["<b><code>state</code></b>", "<code>int</code>", "read/write", "End-to-end state variable <i>(<code>int8_t</code>, -128..127)</i>. Links elements to each other"]
+        ]
+      },
+      {
+        "type": "note",
+        "html": "<b>Important:</b> <code>state</code> is not an \"on/off\" flag. It's an <b>end-to-end variable</b> that each element interprets differently. For <code>Door</code> it means \"open/closed\", for <code>Indicator</code> in timer mode it's the number of seconds, for <code>Trigger</code> it's the trigger result. Read the pages of specific elements"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "# Read and write properties\ndoor.state = 1\nprint(door.state)  # 1\n\ndoor.location = (200, 0, -100)\ndoor.rotation = pse.Quat(0.0, 0.0, 0.7071068, 0.7071068)\ndoor.scale = (2.0, 2.0, 2.0)\ndoor.visibility = False"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Events</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Method", "Returns", "Description"],
+        "rows": [
+          ["<b><code>on_element_changed()</code></b>", "<code>decorator</code>", "Registers a callback invoked when the element's state changes. The callback receives the <b>new <code>state</code> value</b>"],
+          ["<b><code>set_on_element_changed(func)</code></b>", "<code>None</code>", "Same, but without a decorator - for programmatic registration"]
+        ]
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "# Via decorator\n@door.on_element_changed()\ndef on_door_changed(state):\n    print(f\"Door changed: state = {state}\")\n\n# Without decorator\ndef on_door_changed2(state):\n    print(f\"Door changed: state = {state}\")\n\ndoor.set_on_element_changed(on_door_changed2)\n\n# Don't forget the main loop!\nwhile True:\n    pse.poll_events()"
+      },
+      {
+        "type": "note",
+        "html": "<b>Remember:</b> callbacks are invoked <b>only</b> from <code>pse.poll_events()</code>. No main loop - no events. More: <b>Runtime &gt; Events and poll_events()</b>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Checking if an element is alive</h2>"
+      },
+      {
+        "type": "text",
+        "html": "All elements override <code>__bool__</code>. Until the element is created or after it's destroyed, it's <code>False</code>:"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "door = pse.Door()\nprint(bool(door))  # False\n\ndoor.create(location=(0, 0, 0))\nprint(bool(door))  # True\n\ndoor.destroy()\nprint(bool(door))  # False"
+      },
+      {
+        "type": "text",
+        "html": "Internally it's just a <code>guid != -1</code> check"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Debugging</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Every element has a human-readable <code>__repr__</code>:"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "door = pse.Door()\nprint(door)  # Door(guid=-1)\n\ndoor.create(location=(0, 0, 0))\nprint(door)  # Door(guid=140234567890123)"
+      },
+      {
+        "type": "text",
+        "html": "<h2>What elements inherit</h2>"
+      },
+      {
+        "type": "text",
+        "html": "All elements (<code>Door</code>, <code>Button</code>, <code>LaserTx</code>, etc.) inherit from <code>Element</code>:"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b>Methods:</b> <code>create()</code>, <code>destroy()</code>, <code>on_element_changed()</code>, <code>set_on_element_changed()</code></li><li><b>Properties:</b> <code>guid</code>, <code>transform</code>, <code>location</code>, <code>rotation</code>, <code>scale</code>, <code>visibility</code>, <code>state</code></li><li><b>Magic methods:</b> <code>__bool__</code>, <code>__repr__</code></li></ul>"
+      },
+      {
+        "type": "text",
+        "html": "Additionally, each element is bound to its own <b><code>PseClass</code></b> and adds its <b>own</b> properties: colors, modes, timers, flags. See the pages of specific elements"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Errors</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "left"],
+        "head": ["Exception", "Reason"],
+        "rows": [
+          ["<b><code>RuntimeError</code></b>", "Game not running or returned an error code <i>(see <b>Runtime &gt; Error handling</b>)</i>"],
+          ["<b><code>ValueError</code></b>", "<code>state</code> doesn't fit in <code>int8_t</code> <i>(-128..127)</i>"],
+          ["<b><code>TypeError</code></b>", "Attempt to instantiate <code>pse.Element()</code> directly <i>(abstract class)</i>"]
+        ]
+      }
+    ]
+  }
+}

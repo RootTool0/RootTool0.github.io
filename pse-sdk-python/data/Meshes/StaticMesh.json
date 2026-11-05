@@ -1,0 +1,144 @@
+{
+  "ru": {
+    "title": "StaticMesh",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "<b>StaticMesh</b> - статическая геометрия. Создаётся одним вызовом, после чего игра о ней больше ничего не спрашивает: её нельзя двигать, скрывать, удалять или менять ей материал через этот биндинг"
+      },
+      {
+        "type": "text",
+        "html": "По сути это <b>одноразовая команда</b> <code>PSE_COMMAND_STATIC_MESH_CREATE</code>. Никакого объекта-обёртки не создаётся - только <code>staticmethod</code> <code>create()</code>"
+      },
+      {
+        "type": "note",
+        "html": "<b>Важно:</b> <code>StaticMesh</code> - это <b>не</b> класс с экземплярами. У него нет <code>__init__</code>, нет <code>guid</code>, нет <code>destroy</code>. Только <code>create()</code>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>create()</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Параметр", "Тип", "Описание"],
+        "rows": [
+          ["<b><code>location</code></b>", "<code>Vector3</code> <i>или tuple</i>", "Позиция центра меша. По умолчанию <code>(0.0, 0.0, 0.0)</code>"],
+          ["<b><code>quat</code></b>", "<code>Quat</code>", "Поворот. По умолчанию <code>(0.0, 0.0, 0.0, 1.0)</code> <i>(без поворота)</i>"],
+          ["<b><code>scale</code></b>", "<code>Vector3</code> <i>или tuple</i>", "Масштаб. По умолчанию <code>(1.0, 1.0, 1.0)</code>"],
+          ["<b><code>mesh</code></b>", "<code>Mesh</code>", "Геометрия из перечисления <code>pse.Mesh</code>. По умолчанию <code>Mesh.PLANE</code>"],
+          ["<b><code>material</code></b>", "<code>Material</code>", "Материал из перечисления <code>pse.Material</code>. По умолчанию <code>Material.WALL_WHITE_SMALL</code>"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<b>Возвращает:</b> <code>None</code>. Меш сразу появляется в мире, и биндинг о нём забывает"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "import pse\n\npse.initialize()\n\n# Простой пол\npse.StaticMesh.create(\n    location=(0, 0, -100),\n    scale=(10, 10, 1),\n    mesh=pse.Mesh.FACE,\n    material=pse.Material.FLOOR_WHITE,\n)\n\n# Стена с поворотом\npse.StaticMesh.create(\n    location=(0, 0, 0),\n    scale=(10, 10, 1),\n    quat=pse.Quat(0.0, 0.0, 0.7071068, 0.7071068),  # поворот на 90° вокруг Z\n    mesh=pse.Mesh.FACE,\n    material=pse.Material.WALL_WHITE_BIG,\n)"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Что можно, а что нельзя</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center"],
+        "head": ["Действие", "Поддерживается?"],
+        "rows": [
+          ["Создать меш", "<code>StaticMesh.create(...)</code>"],
+          ["Изменить позицию/поворот/масштаб", "Нельзя. Только <code>DynamicMesh</code>"],
+          ["Изменить материал", "Нельзя"],
+          ["Скрыть/показать", "Нельзя"],
+          ["Удалить", "Нельзя"],
+          ["Получить <code>guid</code>", "Нельзя. Игра его не возвращает"]
+        ]
+      },
+      {
+        "type": "note",
+        "html": "Если вам нужна геометрия, которой можно управлять после создания, - используйте <b><code>DynamicMesh</code></b>. <code>StaticMesh</code> - это \"поставил и забыл\""
+      },
+      {
+        "type": "text",
+        "html": "<h2>Ошибки</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><code>RuntimeError</code> - если игра не запущена или вернула код ошибки <i>(см. <b>Runtime &gt; Обработка ошибок</b>)</i></li><li><code>ValueError</code> - если <code>mesh</code> или <code>material</code> не из соответствующего перечисления <i>(на практике <code>IntEnum</code> не даст передать мусор, но валидация на стороне игры всё равно есть)</i></li></ul>"
+      }
+    ]
+  },
+  "en": {
+    "title": "StaticMesh",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "<b>StaticMesh</b> is static geometry. It's created with a single call, after which the game never asks about it again: you can't move it, hide it, destroy it, or change its material through these bindings"
+      },
+      {
+        "type": "text",
+        "html": "Essentially it's a <b>one-shot command</b> <code>PSE_COMMAND_STATIC_MESH_CREATE</code>. No wrapper object is created - just a <code>staticmethod</code> <code>create()</code>"
+      },
+      {
+        "type": "note",
+        "html": "<b>Important:</b> <code>StaticMesh</code> is <b>not</b> a class with instances. It has no <code>__init__</code>, no <code>guid</code>, no <code>destroy</code>. Only <code>create()</code>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>create()</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Parameter", "Type", "Description"],
+        "rows": [
+          ["<b><code>location</code></b>", "<code>Vector3</code> <i>or tuple</i>", "Mesh center position. Defaults to <code>(0.0, 0.0, 0.0)</code>"],
+          ["<b><code>quat</code></b>", "<code>Quat</code>", "Rotation. Defaults to <code>(0.0, 0.0, 0.0, 1.0)</code> <i>(no rotation)</i>"],
+          ["<b><code>scale</code></b>", "<code>Vector3</code> <i>or tuple</i>", "Scale. Defaults to <code>(1.0, 1.0, 1.0)</code>"],
+          ["<b><code>mesh</code></b>", "<code>Mesh</code>", "Geometry from the <code>pse.Mesh</code> enum. Defaults to <code>Mesh.PLANE</code>"],
+          ["<b><code>material</code></b>", "<code>Material</code>", "Material from the <code>pse.Material</code> enum. Defaults to <code>Material.WALL_WHITE_SMALL</code>"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<b>Returns:</b> <code>None</code>. The mesh appears in the world immediately, and the bindings forget about it"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "import pse\n\npse.initialize()\n\n# Simple floor\npse.StaticMesh.create(\n    location=(0, 0, -100),\n    scale=(10, 10, 1),\n    mesh=pse.Mesh.FACE,\n    material=pse.Material.FLOOR_WHITE,\n)\n\n# Rotated wall\npse.StaticMesh.create(\n    location=(0, 0, 0),\n    scale=(10, 10, 1),\n    quat=pse.Quat(0.0, 0.0, 0.7071068, 0.7071068),  # 90° around Z\n    mesh=pse.Mesh.FACE,\n    material=pse.Material.WALL_WHITE_BIG,\n)"
+      },
+      {
+        "type": "text",
+        "html": "<h2>What you can and cannot do</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center"],
+        "head": ["Action", "Supported?"],
+        "rows": [
+          ["Create a mesh", "<code>StaticMesh.create(...)</code>"],
+          ["Change position/rotation/scale", "Not possible. Use <code>DynamicMesh</code>"],
+          ["Change material", "Not possible"],
+          ["Hide/show", "Not possible"],
+          ["Destroy", "Not possible"],
+          ["Get <code>guid</code>", "Not possible. The game doesn't return it"]
+        ]
+      },
+      {
+        "type": "note",
+        "html": "If you need geometry you can control after creation, use <b><code>DynamicMesh</code></b>. <code>StaticMesh</code> is \"set and forget\""
+      },
+      {
+        "type": "text",
+        "html": "<h2>Errors</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><code>RuntimeError</code> - if the game is not running or returned an error code <i>(see <b>Runtime &gt; Error handling</b>)</i></li><li><code>ValueError</code> - if <code>mesh</code> or <code>material</code> is not from the corresponding enum <i>(in practice <code>IntEnum</code> won't let you pass garbage, but the game-side validation still exists)</i></li></ul>"
+      }
+    ]
+  }
+}

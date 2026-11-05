@@ -1,0 +1,214 @@
+{
+  "ru": {
+    "title": "Hello, World!",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "Добро пожаловать в документацию <b>PSE SDK Python</b> - официальный Python-биндинг для <b>Portal Solver Editor (PSE) SDK</b>, набора инструментов для программной работы с редактором игры <b>Portal: Solver</b>"
+      },
+      {
+        "type": "text",
+        "html": "Библиотека предоставляет <b>высокоуровневый Python API</b> поверх низкоуровневого <b>C SDK</b>. Все внутренние детали - разделяемая память, кольцевые буферы, атомарные индексы, байтовые смещения - скрыты за чистым и удобным Python-интерфейсом"
+      },
+      {
+        "type": "note",
+        "html": "<b>C PSE SDK - закон.</b> Этот пакет является <b>Python-обёрткой</b> над официальным C SDK. Всё, что касается битов, регистров, смещений и поведения элементов, определено в C SDK. Если документация или поведение Python-биндинга расходится с C SDK - <b>прав C SDK</b>. Python-слой лишь прячет низкоуровневую работу за удобным API"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Что можно делать</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b>Элементы:</b> двери, кнопки, триггеры, лазеры, панели веры, панели, лестницы, кубики, лампы, окна, лифты и другое</li><li><b>Меши:</b> статическая и динамическая геометрия с материалами</li><li><b>События:</b> колбэки на изменение состояния элементов</li><li><b>Игрок:</b> позиция, поворот, спавн, kill</li><li><b>Solver Gun и фонарик:</b> выдать/забрать, управление состоянием, действия</li><li><b>Игра:</b> читы, гравитация, инициализация уровня</li></ul>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Требования и установка</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b>Windows</b> <i>(игра существует только под Windows)</i></li><li><b>Python 3.10+</b></li><li>Запущенная <b>Portal: Solver</b></li></ul>"
+      },
+      {
+        "type": "code",
+        "lang": "bash",
+        "code": "pip install pse-sdk-python"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Быстрый старт</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Базовый сценарий: подключаемся к запущенной игре, создаём пол, кнопку и дверь, и открываем дверь по нажатию кнопки"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "import pse\n\n# Подключаемся к запущенной игре\npse.initialize()\n\n# Собираем пол\npse.StaticMesh.create(\n    location=(0, 0, -100),\n    scale=(10, 10, 1),\n    mesh=pse.Mesh.FACE,\n    material=pse.Material.FLOOR_WHITE,\n)\n\n# Создаём кнопку и дверь\nbutton = pse.Button()\nbutton.create(location=(200, 200, -100))\n\ndoor = pse.Door()\ndoor.create(location=(-150, 0, -100))\n\n# Открываем дверь при нажатии кнопки\n@button.on_element_changed()\ndef on_button_changed(state):\n    door.state = state\n\n# Главный цикл\nwhile True:\n    pse.poll_events()"
+      },
+      {
+        "type": "text",
+        "html": "<h3>Что происходит в этом примере</h3>"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><code>pse.initialize()</code> - подключается к разделяемой памяти игры и инициализирует SDK. Вызывается один раз при старте программы</li><li><code>pse.StaticMesh.create(...)</code> - создаёт статический меш (пол) из готовой геометрии <code>pse.Mesh.FACE</code> с материалом <code>pse.Material.FLOOR_WHITE</code></li><li><code>pse.Button()</code> и <code>pse.Door()</code> - создают объекты-обёртки. Метод <code>create(...)</code> размещает элемент в мире и запоминает его <b>GUID</b></li><li><code>@button.on_element_changed()</code> - регистрирует колбэк, который вызывается при изменении состояния кнопки. Внутри колбэка мы просто пишем новое состояние в <code>door.state</code></li><li><code>pse.poll_events()</code> - <b>обязательный</b> главный цикл. Он забирает события из буфера игры и вызывает ваши колбэки</li></ul>"
+      },
+      {
+        "type": "note",
+        "html": "Без вызова <code>pse.poll_events()</code> в цикле <b>никакие</b> колбэки не будут вызваны, даже если события пришли от игры. Это главный цикл вашей программы"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Ключевая идея</h2>"
+      },
+      {
+        "type": "text",
+        "html": "В C SDK вы работаете с сырыми байтами и командами. В Python-биндинге вы работаете с <b>объектами</b> и <b>свойствами</b>:"
+      },
+      {
+        "type": "table",
+        "align": ["left", "left"],
+        "head": ["C SDK", "PSE SDK Python"],
+        "rows": [
+          ["<code>PSE_COMMAND_ELEMENT_SET_STATE</code> + байтовые смещения", "<code>element.state = 1</code>"],
+          ["<code>PSE_COMMAND_ELEMENT_SET_REGISTER</code> + битовые маски", "<code>door.color_on = (255, 0, 0)</code>"],
+          ["Ручной разбор <code>PseEventBuffer</code>", "<code>@element.on_element_changed()</code> + <code>pse.poll_events()</code>"],
+          ["Ручное создание элементов по <code>PseClass</code>", "<code>pse.Door()</code>, <code>pse.Button()</code> и т.д."]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "Все низкоуровневые детали остаются в C SDK. Python-биндинг - это удобный фасад"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Что дальше?</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b>Хотите понять жизненный цикл?</b> Переходите в раздел <b>Runtime</b> - там описаны <code>initialize</code>, <code>deinitialize</code>, <code>poll_events</code> и обработка ошибок</li><li><b>Нужна геометрия?</b> Смотрите раздел <b>Meshes</b> - <code>StaticMesh</code> и <code>DynamicMesh</code></li><li><b>Интересуют конкретные элементы?</b> Раздел <b>Elements</b> содержит базовый класс <code>Element</code> и все 23 элемента игры с их свойствами</li><li><b>Нужны типы и перечисления?</b> Раздел <b>Types</b> - <code>Vector3</code>, <code>Quat</code>, <code>Transform</code>, <code>Mesh</code>, <code>Material</code>, <code>Class</code> и другие</li><li><b>Хотите глубже?</b> Оригинальный <a href=\"https://github.com/RootTool0/pse-sdk\">C SDK</a> и его <a href=\"https://roottool0.github.io/pse-sdk/index.html?lang=ru\">документация</a> - источник истины по всем низкоуровневым деталям</li></ul>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Обратная связь</h2>"
+      },
+      {
+        "type": "note",
+        "html": "<b>Нашли баг или есть предложение?</b> Все баги, вопросы и идеи - в <a href=\"https://github.com/RootTool0/pse-sdk-python/issues\">Issues</a>. Не стесняйтесь: это помогает делать биндинг лучше"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b>Репозиторий:</b> <a href=\"https://github.com/RootTool0/pse-sdk-python\">github.com/RootTool0/pse-sdk-python</a></li><li><b>Релизы:</b> <a href=\"https://github.com/RootTool0/pse-sdk-python/releases\">Releases</a></li><li><b>Оригинальный C SDK:</b> <a href=\"https://github.com/RootTool0/pse-sdk\">pse-sdk</a></li><li><b>Страница игры:</b> <a href=\"https://gamejolt.com/games/PortalSolver/898591\">Portal: Solver на GameJolt</a></li><li><b>Автор:</b> RootTool - <a href=\"https://t.me/RootToolBlog\">Telegram-канал</a>, <a href=\"https://t.me/RootTool0\">Telegram (ЛС)</a>, Discord <code>.roottool</code>, <a href=\"https://www.youtube.com/@RTEdits0\">YouTube</a></li></ul>"
+      }
+    ]
+  },
+  "en": {
+    "title": "Hello, World!",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "Welcome to the <b>PSE SDK Python</b> documentation - the official Python bindings for <b>Portal Solver Editor (PSE) SDK</b>, a toolkit for programmatic work with the in-game editor of <b>Portal: Solver</b>"
+      },
+      {
+        "type": "text",
+        "html": "The library provides a <b>high-level Python API</b> over the low-level <b>C SDK</b>. All internal details - shared memory, ring buffers, atomic indices, byte offsets - are hidden behind a clean and convenient Python interface"
+      },
+      {
+        "type": "note",
+        "html": "<b>C PSE SDK is the law.</b> This package is a <b>Python wrapper</b> over the official C SDK. Everything related to bits, registers, offsets and element behavior is defined in the C SDK. If the documentation or behavior of the Python bindings diverges from the C SDK - <b>the C SDK is right</b>. The Python layer merely hides the low-level work behind a convenient API"
+      },
+      {
+        "type": "text",
+        "html": "<h2>What you can do</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b>Elements:</b> doors, buttons, triggers, lasers, faith plates, panels, stairs, cubes, lamps, windows, elevators and more</li><li><b>Meshes:</b> static and dynamic geometry with materials</li><li><b>Events:</b> callbacks for element state changes</li><li><b>Player:</b> position, rotation, spawn, kill</li><li><b>Solver Gun & flashlight:</b> give/take, state control, actions</li><li><b>Game:</b> cheats, gravity, level initialization</li></ul>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Requirements and installation</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b>Windows</b> <i>(the game is Windows-only)</i></li><li><b>Python 3.10+</b></li><li><b>Portal: Solver</b> must be running</li></ul>"
+      },
+      {
+        "type": "code",
+        "lang": "bash",
+        "code": "pip install pse-sdk-python"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Quick start</h2>"
+      },
+      {
+        "type": "text",
+        "html": "A basic scenario: connect to the running game, create a floor, a button and a door, and make the button open the door"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "import pse\n\n# Connect to the running game\npse.initialize()\n\n# Build a floor\npse.StaticMesh.create(\n    location=(0, 0, -100),\n    scale=(10, 10, 1),\n    mesh=pse.Mesh.FACE,\n    material=pse.Material.FLOOR_WHITE,\n)\n\n# Create a button and a door\nbutton = pse.Button()\nbutton.create(location=(200, 200, -100))\n\ndoor = pse.Door()\ndoor.create(location=(-150, 0, -100))\n\n# Open the door when the button is pressed\n@button.on_element_changed()\ndef on_button_changed(state):\n    door.state = state\n\n# Main loop\nwhile True:\n    pse.poll_events()"
+      },
+      {
+        "type": "text",
+        "html": "<h3>What happens in this example</h3>"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><code>pse.initialize()</code> - connects to the game's shared memory and initializes the SDK. Call it once at program start</li><li><code>pse.StaticMesh.create(...)</code> - creates a static mesh (floor) from ready-made geometry <code>pse.Mesh.FACE</code> with material <code>pse.Material.FLOOR_WHITE</code></li><li><code>pse.Button()</code> and <code>pse.Door()</code> - create wrapper objects. The <code>create(...)</code> method places the element in the world and stores its <b>GUID</b></li><li><code>@button.on_element_changed()</code> - registers a callback invoked when the button's state changes. Inside the callback we simply write the new state into <code>door.state</code></li><li><code>pse.poll_events()</code> - the <b>mandatory</b> main loop. It pulls events from the game buffer and invokes your callbacks</li></ul>"
+      },
+      {
+        "type": "note",
+        "html": "Without calling <code>pse.poll_events()</code> in a loop, <b>no</b> callbacks will ever be invoked, even if events have arrived from the game. This is your program's main loop"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Key idea</h2>"
+      },
+      {
+        "type": "text",
+        "html": "In the C SDK you work with raw bytes and commands. In the Python bindings you work with <b>objects</b> and <b>properties</b>:"
+      },
+      {
+        "type": "table",
+        "align": ["left", "left"],
+        "head": ["C SDK", "PSE SDK Python"],
+        "rows": [
+          ["<code>PSE_COMMAND_ELEMENT_SET_STATE</code> + byte offsets", "<code>element.state = 1</code>"],
+          ["<code>PSE_COMMAND_ELEMENT_SET_REGISTER</code> + bit masks", "<code>door.color_on = (255, 0, 0)</code>"],
+          ["Manual <code>PseEventBuffer</code> parsing", "<code>@element.on_element_changed()</code> + <code>pse.poll_events()</code>"],
+          ["Manual element creation via <code>PseClass</code>", "<code>pse.Door()</code>, <code>pse.Button()</code>, etc."]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "All low-level details stay in the C SDK. The Python bindings are just a convenient facade"
+      },
+      {
+        "type": "text",
+        "html": "<h2>What's next?</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b>Want to understand the lifecycle?</b> Head to the <b>Runtime</b> section - it covers <code>initialize</code>, <code>deinitialize</code>, <code>poll_events</code> and error handling</li><li><b>Need geometry?</b> See the <b>Meshes</b> section - <code>StaticMesh</code> and <code>DynamicMesh</code></li><li><b>Interested in specific elements?</b> The <b>Elements</b> section contains the base <code>Element</code> class and all 23 game elements with their properties</li><li><b>Need types and enums?</b> The <b>Types</b> section - <code>Vector3</code>, <code>Quat</code>, <code>Transform</code>, <code>Mesh</code>, <code>Material</code>, <code>Class</code> and more</li><li><b>Want to go deeper?</b> The original <a href=\"https://github.com/RootTool0/pse-sdk\">C SDK</a> and its <a href=\"https://roottool0.github.io/pse-sdk/index.html?lang=en\">documentation</a> are the source of truth for all low-level details</li></ul>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Feedback</h2>"
+      },
+      {
+        "type": "note",
+        "html": "<b>Found a bug or have a suggestion?</b> All bugs, questions and ideas go to <a href=\"https://github.com/RootTool0/pse-sdk-python/issues\">Issues</a>. Don't hesitate: it helps make the bindings better"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b>Repository:</b> <a href=\"https://github.com/RootTool0/pse-sdk-python\">github.com/RootTool0/pse-sdk-python</a></li><li><b>Releases:</b> <a href=\"https://github.com/RootTool0/pse-sdk-python/releases\">Releases</a></li><li><b>Original C SDK:</b> <a href=\"https://github.com/RootTool0/pse-sdk\">pse-sdk</a></li><li><b>Game page:</b> <a href=\"https://gamejolt.com/games/PortalSolver/898591\">Portal: Solver on GameJolt</a></li><li><b>Author:</b> RootTool - <a href=\"https://t.me/RootToolBlog\">Telegram channel</a>, <a href=\"https://t.me/RootTool0\">Telegram (DM)</a>, Discord <code>.roottool</code>, <a href=\"https://www.youtube.com/@RTEdits0\">YouTube</a></li></ul>"
+      }
+    ]
+  }
+}

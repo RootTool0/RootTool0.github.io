@@ -1,0 +1,172 @@
+{
+  "ru": {
+    "title": "Entry Elevator",
+    "blocks": [
+      {
+        "type": "image",
+        "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_ENTRY_ELEVATOR.png",
+        "alt": "PSE_CLASS_ENTRY_ELEVATOR"
+      },
+      {
+        "type": "text",
+        "html": "<b>PseClass:</b> <code>PSE_CLASS_ENTRY_ELEVATOR</code> <i>(0x0000)</i>"
+      },
+      {
+        "type": "text",
+        "html": "<b>Python-класс:</b> <code>pse.EntryElevator</code>"
+      },
+      {
+        "type": "text",
+        "html": "<b>Описание Элемента:</b> Входной лифт. По поведению <b>точь-в-точь как <code>Door</code></b>, но с одним отличием: <code>state</code> дополнительно становится <code>1</code>, когда игрок выходит из комнаты лифта"
+      },
+      {
+        "type": "note",
+        "html": "<b>Важно:</b> Всё общее - <code>guid</code>, <code>transform</code>, <code>location</code>, <code>rotation</code>, <code>scale</code>, <code>visibility</code>, <code>state</code>, <code>create()</code>, <code>destroy()</code>, события - наследуется от <b><code>Element</code></b>. Здесь описаны только <b>уникальные</b> свойства. См. <b>Elements &gt; Element</b>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Поведение <code>state</code></h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Действие", "Значение", "Описание"],
+        "rows": [
+          ["<b>Set State</b>", "<code>state != 0</code>", "Лифт открывается"],
+          ["<b>Get State</b>", "<code>1</code>", "Лифт открыт <b>или</b> игрок вышел из комнаты лифта"],
+          ["<b>Get State</b>", "<code>0</code>", "Лифт закрыт"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "Дополнительно лифт может создать событие со значением <code>state = 0</code>, если включён бит авто-закрытия и игрок прошёл через лифт, тем самым закрыв его"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Свойства</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left", "left"],
+        "head": ["Свойство", "Тип", "Доступ", "Описание"],
+        "rows": [
+          ["<b><code>auto_close</code></b>", "<code>bool</code>", "чтение/запись", "Авто-закрытие лифта при прохождении через него игроком"],
+          ["<b><code>callback_highlight</code></b>", "<code>bool</code>", "чтение/запись", "Переключает подсветку лифта на зелёную при <b>Callback Ping</b> <i>(использовалось как выход в <b>Portal: Solver Alpha</b>)</i>"],
+          ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет лифта в активированном (открытом) состоянии. RGB, каждое значение <code>0..255</code>"],
+          ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет лифта в деактивированном (закрытом) состоянии. RGB, каждое значение <code>0..255</code>"]
+        ]
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "import pse\n\npse.initialize()\n\nelevator = pse.EntryElevator()\nelevator.create(location=(0, 0, -100))\n\n# Авто-закрытие\nelevator.auto_close = True\n\n# Зелёная подсветка при Callback Ping\nelevator.callback_highlight = True\n\n# Цвета\nelevator.color_on = (0, 255, 0)\nelevator.color_off = (255, 0, 0)\n\n# Открыть лифт\nelevator.state = 1"
+      },
+      {
+        "type": "text",
+        "html": "<h2>События</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Как и у любого элемента, у <code>EntryElevator</code> есть <code>on_element_changed()</code> и <code>set_on_element_changed()</code>. Колбэк получает новое значение <code>state</code>:"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "@elevator.on_element_changed()\ndef on_elevator_changed(state):\n    if state == 1:\n        print(\"Лифт открыт или игрок вышел\")\n    elif state == 0:\n        print(\"Лифт закрыт\")\n\nwhile True:\n    pse.poll_events()"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Ошибки</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><code>RuntimeError</code> - игра не запущена или вернула код ошибки <i>(см. <b>Runtime &gt; Обработка ошибок</b>)</i></li><li><code>ValueError</code> - невалидный <code>state</code> <i>(вне <code>int8_t</code>)</i> или компоненты цвета вне <code>0..255</code></li></ul>"
+      }
+    ]
+  },
+  "en": {
+    "title": "Entry Elevator",
+    "blocks": [
+      {
+        "type": "image",
+        "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_ENTRY_ELEVATOR.png",
+        "alt": "PSE_CLASS_ENTRY_ELEVATOR"
+      },
+      {
+        "type": "text",
+        "html": "<b>PseClass:</b> <code>PSE_CLASS_ENTRY_ELEVATOR</code> <i>(0x0000)</i>"
+      },
+      {
+        "type": "text",
+        "html": "<b>Python class:</b> <code>pse.EntryElevator</code>"
+      },
+      {
+        "type": "text",
+        "html": "<b>Element Description:</b> Entry elevator. Behaves <b>exactly like <code>Door</code></b>, with one difference: <code>state</code> additionally becomes <code>1</code> when the player leaves the elevator room"
+      },
+      {
+        "type": "note",
+        "html": "<b>Important:</b> Everything common - <code>guid</code>, <code>transform</code>, <code>location</code>, <code>rotation</code>, <code>scale</code>, <code>visibility</code>, <code>state</code>, <code>create()</code>, <code>destroy()</code>, events - is inherited from <b><code>Element</code></b>. Only <b>unique</b> properties are described here. See <b>Elements &gt; Element</b>"
+      },
+      {
+        "type": "text",
+        "html": "<h2><code>state</code> behavior</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Action", "Value", "Description"],
+        "rows": [
+          ["<b>Set State</b>", "<code>state != 0</code>", "Elevator opens"],
+          ["<b>Get State</b>", "<code>1</code>", "Elevator is open <b>or</b> the player has left the elevator room"],
+          ["<b>Get State</b>", "<code>0</code>", "Elevator is closed"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "Additionally, the elevator can emit an event with <code>state = 0</code> if the auto-close bit is enabled and the player has passed through the elevator, closing it"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Properties</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left", "left"],
+        "head": ["Property", "Type", "Access", "Description"],
+        "rows": [
+          ["<b><code>auto_close</code></b>", "<code>bool</code>", "read/write", "Auto-close the elevator when the player passes through it"],
+          ["<b><code>callback_highlight</code></b>", "<code>bool</code>", "read/write", "Switches the elevator highlight to green on <b>Callback Ping</b> <i>(used as an exit in <b>Portal: Solver Alpha</b>)</i>"],
+          ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Elevator color in the activated (open) state. RGB, each value <code>0..255</code>"],
+          ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Elevator color in the deactivated (closed) state. RGB, each value <code>0..255</code>"]
+        ]
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "import pse\n\npse.initialize()\n\nelevator = pse.EntryElevator()\nelevator.create(location=(0, 0, -100))\n\n# Auto-close\nelevator.auto_close = True\n\n# Green highlight on Callback Ping\nelevator.callback_highlight = True\n\n# Colors\nelevator.color_on = (0, 255, 0)\nelevator.color_off = (255, 0, 0)\n\n# Open the elevator\nelevator.state = 1"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Events</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Like any element, <code>EntryElevator</code> has <code>on_element_changed()</code> and <code>set_on_element_changed()</code>. The callback receives the new <code>state</code> value:"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "@elevator.on_element_changed()\ndef on_elevator_changed(state):\n    if state == 1:\n        print(\"Elevator open or player left\")\n    elif state == 0:\n        print(\"Elevator closed\")\n\nwhile True:\n    pse.poll_events()"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Errors</h2>"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><code>RuntimeError</code> - game not running or returned an error code <i>(see <b>Runtime &gt; Error handling</b>)</i></li><li><code>ValueError</code> - invalid <code>state</code> <i>(outside <code>int8_t</code>)</i> or color components outside <code>0..255</code></li></ul>"
+      }
+    ]
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "ru": {
+    "title": "Pedestal Button",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_PEDESTAL_BUTTON.png", "alt": "PSE_CLASS_PEDESTAL_BUTTON" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_PEDESTAL_BUTTON</code> <i>(0x0005)</i>" },
+      { "type": "text", "html": "<b>Python-класс:</b> <code>pse.PedestalButton</code>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Пьедестал-кнопка, активируемая исключительно рукой игрока <i>(не Солвер Ганом)</i>" },
+      { "type": "note", "html": "<b>Важно:</b> Всё общее наследуется от <b><code>Element</code></b>. Здесь описаны только <b>уникальные</b> свойства. См. <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2>Поведение <code>state</code></h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Действие", "Значение", "Описание"], "rows": [
+        ["<b>Set State</b>", "<b>-</b>", "Не используется <i>(нет логики)</i>"],
+        ["<b>Get State</b>", "<code>1</code>", "Кнопка активирована"],
+        ["<b>Get State</b>", "<code>0</code>", "Кнопка деактивирована"],
+        ["<b>Get State</b> <i>(режим Timer)</i>", "<code>N</code>", "Количество секунд таймера при активации"]
+      ]},
+      { "type": "text", "html": "<h2>Свойства</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Свойство", "Тип", "Доступ", "Описание"], "rows": [
+        ["<b><code>button_mode</code></b>", "<code>int</code>", "чтение/запись", "Режим кнопки: <code>0</code> - Switch, <code>1</code> - Click, <code>2</code> - Timer, <code>3</code> - Once. Диапазон <code>0..3</code>"],
+        ["<b><code>timer_seconds</code></b>", "<code>int</code>", "чтение/запись", "Количество секунд таймера. Диапазон <code>0..127</code> <i>(<code>uint7_t</code>, и нет, это не ошибка)</i>"],
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет кнопки в активированном состоянии. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет кнопки в деактивированном состоянии. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "text", "html": "<h3>Режимы кнопки</h3>" },
+      { "type": "table", "align": ["center", "left", "left"], "head": ["Значение", "Режим", "Описание"], "rows": [
+        ["<b>0</b>", "<b>Switch</b>", "Переключатель, меняет состояние (вкл/выкл) при каждом клике"],
+        ["<b>1</b>", "<b>Click</b>", "Клик, активируется на небольшое время"],
+        ["<b>2</b>", "<b>Timer</b>", "Таймер, активируется на заданное количество секунд <i>(<code>timer_seconds</code>)</i>"],
+        ["<b>3</b>", "<b>Once</b>", "Одноразово активируется один раз, блокируется и больше не выключается"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\nbutton = pse.PedestalButton()\nbutton.create(location=(0, 0, -100))\n\n# Режим таймера на 10 секунд\nbutton.button_mode = 2\nbutton.timer_seconds = 10\n\nbutton.color_on = (0, 255, 0)\nbutton.color_off = (255, 0, 0)" },
+      { "type": "text", "html": "<h2>Ошибки</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - игра не запущена или вернула код ошибки</li><li><code>ValueError</code> - <code>button_mode</code> вне <code>0..3</code>, <code>timer_seconds</code> вне <code>0..127</code>, компоненты цвета вне <code>0..255</code></li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Pedestal Button",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_PEDESTAL_BUTTON.png", "alt": "PSE_CLASS_PEDESTAL_BUTTON" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_PEDESTAL_BUTTON</code> <i>(0x0005)</i>" },
+      { "type": "text", "html": "<b>Python class:</b> <code>pse.PedestalButton</code>" },
+      { "type": "text", "html": "<b>Element Description:</b> A pedestal button activated exclusively by the player's hand <i>(not by the Solver Gun)</i>" },
+      { "type": "note", "html": "<b>Important:</b> Everything common is inherited from <b><code>Element</code></b>. Only <b>unique</b> properties are described here. See <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2><code>state</code> behavior</h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Action", "Value", "Description"], "rows": [
+        ["<b>Set State</b>", "<b>-</b>", "Not used <i>(no logic)</i>"],
+        ["<b>Get State</b>", "<code>1</code>", "Button is activated"],
+        ["<b>Get State</b>", "<code>0</code>", "Button is deactivated"],
+        ["<b>Get State</b> <i>(Timer mode)</i>", "<code>N</code>", "Number of timer seconds when activated"]
+      ]},
+      { "type": "text", "html": "<h2>Properties</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Property", "Type", "Access", "Description"], "rows": [
+        ["<b><code>button_mode</code></b>", "<code>int</code>", "read/write", "Button mode: <code>0</code> - Switch, <code>1</code> - Click, <code>2</code> - Timer, <code>3</code> - Once. Range <code>0..3</code>"],
+        ["<b><code>timer_seconds</code></b>", "<code>int</code>", "read/write", "Number of timer seconds. Range <code>0..127</code> <i>(<code>uint7_t</code>, and no, this is not a mistake)</i>"],
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Button color in the activated state. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Button color in the deactivated state. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "text", "html": "<h3>Button modes</h3>" },
+      { "type": "table", "align": ["center", "left", "left"], "head": ["Value", "Mode", "Description"], "rows": [
+        ["<b>0</b>", "<b>Switch</b>", "A switch that toggles the state (on/off) on each click"],
+        ["<b>1</b>", "<b>Click</b>", "A click that activates for a short time"],
+        ["<b>2</b>", "<b>Timer</b>", "A timer that activates for the specified number of seconds <i>(<code>timer_seconds</code>)</i>"],
+        ["<b>3</b>", "<b>Once</b>", "Activates once, becomes locked, and never turns off again"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\nbutton = pse.PedestalButton()\nbutton.create(location=(0, 0, -100))\n\n# Timer mode for 10 seconds\nbutton.button_mode = 2\nbutton.timer_seconds = 10\n\nbutton.color_on = (0, 255, 0)\nbutton.color_off = (255, 0, 0)" },
+      { "type": "text", "html": "<h2>Errors</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - game not running or returned an error code</li><li><code>ValueError</code> - <code>button_mode</code> outside <code>0..3</code>, <code>timer_seconds</code> outside <code>0..127</code>, color components outside <code>0..255</code></li></ul>" }
+    ]
+  }
+}

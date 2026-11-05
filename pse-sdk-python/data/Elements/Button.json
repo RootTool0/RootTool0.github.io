@@ -1,0 +1,50 @@
+{
+  "ru": {
+    "title": "Button",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_BUTTON.png", "alt": "PSE_CLASS_BUTTON" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_BUTTON</code> <i>(0x0003)</i>" },
+      { "type": "text", "html": "<b>Python-класс:</b> <code>pse.Button</code>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> <i>1500-мегаваттная экспериментальная сверхпрочная сверхударная сверхкнопка</i>" },
+      { "type": "note", "html": "<b>Важно:</b> Всё общее наследуется от <b><code>Element</code></b>. Здесь описаны только <b>уникальные</b> свойства. См. <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2>Поведение <code>state</code></h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Действие", "Значение", "Описание"], "rows": [
+        ["<b>Set State</b>", "<b>-</b>", "Не используется <i>(нет логики)</i>"],
+        ["<b>Get State</b>", "<code>1</code>", "Кнопка нажата (активирована)"],
+        ["<b>Get State</b>", "<code>0</code>", "Кнопка отпущена (деактивирована)"]
+      ]},
+      { "type": "text", "html": "<h2>Свойства</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Свойство", "Тип", "Доступ", "Описание"], "rows": [
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет кнопки в активированном (нажатом) состоянии. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет кнопки в деактивированном (отпущенном) состоянии. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\nbutton = pse.Button()\nbutton.create(location=(0, 0, -100))\nbutton.color_on = (0, 255, 0)\nbutton.color_off = (255, 0, 0)\n\n@button.on_element_changed()\ndef on_button_changed(state):\n    print(f\"Кнопка: state = {state}\")\n\nwhile True:\n    pse.poll_events()" },
+      { "type": "text", "html": "<h2>Ошибки</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - игра не запущена или вернула код ошибки</li><li><code>ValueError</code> - компоненты цвета вне <code>0..255</code></li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Button",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_BUTTON.png", "alt": "PSE_CLASS_BUTTON" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_BUTTON</code> <i>(0x0003)</i>" },
+      { "type": "text", "html": "<b>Python class:</b> <code>pse.Button</code>" },
+      { "type": "text", "html": "<b>Element Description:</b> <i>The 1500-megawatt experimental ultra-durable super-impact super-button</i>" },
+      { "type": "note", "html": "<b>Important:</b> Everything common is inherited from <b><code>Element</code></b>. Only <b>unique</b> properties are described here. See <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2><code>state</code> behavior</h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Action", "Value", "Description"], "rows": [
+        ["<b>Set State</b>", "<b>-</b>", "Not used <i>(no logic)</i>"],
+        ["<b>Get State</b>", "<code>1</code>", "Button is pressed (activated)"],
+        ["<b>Get State</b>", "<code>0</code>", "Button is released (deactivated)"]
+      ]},
+      { "type": "text", "html": "<h2>Properties</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Property", "Type", "Access", "Description"], "rows": [
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Button color in the activated (pressed) state. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Button color in the deactivated (released) state. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\nbutton = pse.Button()\nbutton.create(location=(0, 0, -100))\nbutton.color_on = (0, 255, 0)\nbutton.color_off = (255, 0, 0)\n\n@button.on_element_changed()\ndef on_button_changed(state):\n    print(f\"Button: state = {state}\")\n\nwhile True:\n    pse.poll_events()" },
+      { "type": "text", "html": "<h2>Errors</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - game not running or returned an error code</li><li><code>ValueError</code> - color components outside <code>0..255</code></li></ul>" }
+    ]
+  }
+}

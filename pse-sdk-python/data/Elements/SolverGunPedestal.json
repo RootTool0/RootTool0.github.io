@@ -1,0 +1,40 @@
+{
+  "ru": {
+    "title": "Solver Gun Pedestal",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_SOLVER_GUN_PEDESTAL.png", "alt": "PSE_CLASS_SOLVER_GUN_PEDESTAL" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_SOLVER_GUN_PEDESTAL</code> <i>(0x0012)</i>" },
+      { "type": "text", "html": "<b>Python-класс:</b> <code>pse.SolverGunPedestal</code>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Пьедестал для взятия <b>Солвер Гана</b>" },
+      { "type": "note", "html": "<b>Важно:</b> Всё общее наследуется от <b><code>Element</code></b>. Собственных свойств у <code>SolverGunPedestal</code> <b>нет</b>. См. <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2>Поведение <code>state</code></h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Действие", "Значение", "Описание"], "rows": [
+        ["<b>Set State</b>", "<b>-</b>", "Не используется <i>(нет логики)</i>"],
+        ["<b>Get State</b>", "<code>1</code>", "Солвер Ган был взят <i>(на стойке его нет)</i>"],
+        ["<b>Get State</b>", "<code>0</code>", "Солвер Ган на стойке"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\npedestal = pse.SolverGunPedestal()\npedestal.create(location=(0, 0, -100))\n\n@pedestal.on_element_changed()\ndef on_pedestal_changed(state):\n    if state == 1:\n        print(\"Солвер Ган взят\")\n    else:\n        print(\"Солвер Ган вернулся на стойку\")\n\nwhile True:\n    pse.poll_events()" },
+      { "type": "text", "html": "<h2>Ошибки</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - игра не запущена или вернула код ошибки</li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Solver Gun Pedestal",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_SOLVER_GUN_PEDESTAL.png", "alt": "PSE_CLASS_SOLVER_GUN_PEDESTAL" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_SOLVER_GUN_PEDESTAL</code> <i>(0x0012)</i>" },
+      { "type": "text", "html": "<b>Python class:</b> <code>pse.SolverGunPedestal</code>" },
+      { "type": "text", "html": "<b>Element Description:</b> A pedestal for picking up the <b>Solver Gun</b>" },
+      { "type": "note", "html": "<b>Important:</b> Everything common is inherited from <b><code>Element</code></b>. <code>SolverGunPedestal</code> has <b>no</b> unique properties. See <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2><code>state</code> behavior</h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Action", "Value", "Description"], "rows": [
+        ["<b>Set State</b>", "<b>-</b>", "Not used <i>(no logic)</i>"],
+        ["<b>Get State</b>", "<code>1</code>", "The Solver Gun has been taken <i>(it is not on the stand)</i>"],
+        ["<b>Get State</b>", "<code>0</code>", "The Solver Gun is on the stand"]
+      ]},
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\npedestal = pse.SolverGunPedestal()\npedestal.create(location=(0, 0, -100))\n\n@pedestal.on_element_changed()\ndef on_pedestal_changed(state):\n    if state == 1:\n        print(\"Solver Gun taken\")\n    else:\n        print(\"Solver Gun returned to the stand\")\n\nwhile True:\n    pse.poll_events()" },
+      { "type": "text", "html": "<h2>Errors</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - game not running or returned an error code</li></ul>" }
+    ]
+  }
+}

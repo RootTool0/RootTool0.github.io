@@ -1,0 +1,334 @@
+{
+  "ru": {
+    "title": "Runtime",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "Раздел <b>Runtime</b> описывает жизненный цикл Python-биндинга: подключение к игре, главный цикл событий, корректное отключение и обработку ошибок"
+      },
+      {
+        "type": "text",
+        "html": "Всё, что здесь есть - это <b>глобальные функции модуля <code>pse</code></b>, а не методы объектов. Они управляют соединением целиком"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Функции</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Сигнатура", "Тип возвращаемого значения", "Описание"],
+        "rows": [
+          ["<b><code>initialize()</code></b>", "<code>None</code>", "Подключается к разделяемой памяти игры, загружает <code>pse.dll</code>, настраивает сигнатуры функций и инициализирует игру <i>(команда <code>GAME_INITIALIZE</code>)</i>. Повторный вызов безопасен - ничего не делает"],
+          ["<b><code>deinitialize()</code></b>", "<code>None</code>", "Отправляет команду <code>GAME_DEINITIALIZE</code>, освобождает дескрипторы разделяемой памяти и выгружает DLL. Автоматически вызывается через <code>atexit</code> при выходе из программы"],
+          ["<b><code>is_initialized()</code></b>", "<code>bool</code>", "Возвращает <code>True</code>, если SDK подключён и готов к работе, иначе <code>False</code>"],
+          ["<b><code>poll_events()</code></b>", "<code>None</code>", "Неблокирующая попытка забрать <b>одно</b> событие из буфера игры и вызвать соответствующий колбэк. Если событий нет - сразу возвращает управление. <b>Должна вызываться в цикле</b>"],
+          ["<b><code>get_element_by_guid(guid)</code></b>", "<code>Element | None</code>", "Возвращает объект-обёртку элемента по его <b>GUID</b>, если он был создан через этот биндинг. Иначе <code>None</code>"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h2>Жизненный цикл</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Типичная программа на <b>PSE SDK Python</b> всегда выглядит одинаково:"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "import pse\n\n# 1. Подключение\npse.initialize()\n\n# 2. Создание элементов, мешей, подписка на события\nbutton = pse.Button()\nbutton.create(location=(0, 0, -100))\n\n@button.on_element_changed()\ndef on_button_changed(state):\n    print(f\"Button state: {state}\")\n\n# 3. Главный цикл\ntry:\n    while True:\n        pse.poll_events()\nexcept KeyboardInterrupt:\n    pass\n\n# 4. Отключение (или автоматически через atexit)\npse.deinitialize()"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b><code>initialize()</code></b> - строго <b>один раз</b> в начале. Если игра не запущена - будет <code>RuntimeError</code></li><li><b>Главный цикл</b> - обязателен, если вы подписались на события. Без него колбэки не вызываются</li><li><b><code>deinitialize()</code></b> - можно не вызывать вручную: биндинг регистрирует его через <code>atexit</code></li></ul>"
+      },
+      {
+        "type": "note",
+        "html": "<b>Важно:</b> <code>poll_events()</code> забирает <b>одно</b> событие за вызов. Если за игровой тик пришло несколько событий, одного вызова в цикле может быть мало - но на практике цикл крутится достаточно часто, чтобы не отставать. Если вы хотите забирать всё сразу - вызывайте <code>poll_events()</code> в цикле <code>while</code> до тех пор, пока он не перестанет что-то находить <i>(в текущем API нет возвращаемого значения, поэтому просто крутите главный цикл)</i>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Обработка ошибок</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Биндинг старается падать <b>громко и понятно</b>. Вот что вы можете поймать:"
+      },
+      {
+        "type": "table",
+        "align": ["left", "left", "left"],
+        "head": ["Исключение", "Где возникает", "Причина"],
+        "rows": [
+          ["<b><code>RuntimeError</code></b>", "<code>initialize()</code>, <code>deinitialize()</code>, внутренний <code>_push()</code>", "Игра не запущена, разделяемая память недоступна, или игра вернула код ошибки <i>(<code>Result.ERROR_*</code>)</i> при выполнении команды"],
+          ["<b><code>FileNotFoundError</code></b>", "<code>initialize()</code>", "Не найден <code>pse.dll</code> рядом с пакетом и не передан явный путь"],
+          ["<b><code>ValueError</code></b>", "Свойства элементов, <code>create()</code>", "Значение не помещается в целевой тип: <code>state</code> вне <code>int8_t</code>, компоненты цвета вне <code>0..255</code>, размер вне <code>uint16_t</code> и т.п."],
+          ["<b><code>IndexError</code></b>", "Внутренние <code>_get_register</code> / <code>_set_register</code>", "Индекс регистра вне диапазона <code>0..7</code> <i>(обычно не видно пользователю, но полезно знать)</i>"],
+          ["<b><code>AttributeError</code></b>", "Свойства <code>DynamicMesh.mesh</code> / <code>DynamicMesh.material</code>", "Попытка <b>прочитать</b> write-only свойство. Эти поля можно только записывать"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h3>Коды ошибок игры</h3>"
+      },
+      {
+        "type": "text",
+        "html": "Когда игра возвращает ошибку, биндинг бросает <code>RuntimeError</code> с кодом из перечисления <code>pse.Result</code>:"
+      },
+      {
+        "type": "table",
+        "align": ["center", "left", "left"],
+        "head": ["Значение (HEX)", "Имя в Python", "Описание"],
+        "rows": [
+          ["<b>0x00000000</b>", "<code>Result.SUCCESS</code>", "Команда успешно выполнена"],
+          ["<b>0x00000001</b>", "<code>Result.ERROR_COMMAND_NOT_FOUND</code>", "Код команды не распознан игрой"],
+          ["<b>0x00000002</b>", "<code>Result.ERROR_COMMAND_NOT_IMPLEMENTED</code>", "Команда найдена, но не реализована"],
+          ["<b>0x00000003</b>", "<code>Result.ERROR_EXECUTION_FAILED</code>", "Неизвестная критическая ошибка при выполнении"],
+          ["<b>0x00000004</b>", "<code>Result.ERROR_ARRAY_INDEX_OUT_OF_RANGE</code>", "Выход за пределы массива <i>(универсальная ошибка для невалидных классов/материалов/мешей)</i>"],
+          ["<b>0x00000005</b>", "<code>Result.ERROR_GUID_NOT_FOUND</code>", "Объект с указанным <b>GUID</b> не найден в мире"],
+          ["<b>0x00000006</b>", "<code>Result.ERROR_INVALID_OBJECT_TYPE</code>", "Объект с этим <b>GUID</b> имеет другой класс"],
+          ["<b>0x00000007</b>", "<code>Result.ERROR_GAME_NOT_INITIALIZED</code>", "Игра не инициализирована <i>(вызовите <code>pse.initialize()</code>)</i>"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h2>GUID и поиск элементов</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Каждый созданный элемент получает <b>GUID</b> - глобальный уникальный идентификатор <i>(<code>uint64_t</code>)</i>. Он хранится в свойстве <code>element.guid</code>"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "button = pse.Button()\nbutton.create(location=(0, 0, -100))\n\nprint(button.guid)  # например, 140234567890123\n\n# Найти элемент по GUID\nsame_button = pse.get_element_by_guid(button.guid)\nassert same_button is button"
+      },
+      {
+        "type": "note",
+        "html": "<b>Важно:</b> <code>get_element_by_guid()</code> работает только для элементов, созданных <b>через этот же процесс биндинга</b>. Если элемент создан другой программой или вручную в редакторе игры, биндинг о нём не знает и вернёт <code>None</code>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Проверка «жив ли» элемент</h2>"
+      },
+      {
+        "type": "text",
+        "html": "У всех элементов и у <code>DynamicMesh</code> переопределён <code>__bool__</code>. Это удобно для проверок:"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "door = pse.Door()\n\nif not door:\n    print(\"Дверь ещё не создана\")\n\ndoor.create(location=(0, 0, -100))\n\nif door:\n    print(f\"Дверь создана, GUID = {door.guid}\")\n\ndoor.destroy()\n\nif not door:\n    print(\"Дверь уничтожена\")"
+      },
+      {
+        "type": "text",
+        "html": "Внутри это просто проверка <code>guid != -1</code>. Пока элемент не создан или уже уничтожен - он <code>False</code>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>События и <code>poll_events()</code></h2>"
+      },
+      {
+        "type": "text",
+        "html": "<code>poll_events()</code> читает <b>Event-буфер</b> и реагирует на известные типы событий:"
+      },
+      {
+        "type": "table",
+        "align": ["center", "left", "left"],
+        "head": ["Значение (HEX)", "Событие", "Что делает биндинг"],
+        "rows": [
+          ["<b>0x00000000</b>", "<code>Event.ELEMENT_CHANGED</code>", "Извлекает <b>GUID</b> и <b>State</b>, находит элемент через <code>get_element_by_guid()</code> и вызывает его колбэк <i>(если зарегистрирован)</i>"],
+          ["<b>0x00000001</b>", "<code>Event.GAME_TICK_OVERFLOW</code>", "Предупреждение о переизбытке SDK-команд за один игровой тик. В текущей версии <b>игнорируется</b> <i>(закомментировано)</i>"],
+          ["<b>0xFFFFFFFF</b>", "<code>Event.NONE</code>", "Служебное пустое состояние"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "Неизвестные события вызывают <code>RuntimeWarning</code> через модуль <code>warnings</code>. Это не ошибка - просто сигнал, что игра прислала что-то, чего биндинг не знает"
+      },
+      {
+        "type": "note",
+        "html": "<b>Помните:</b> <code>poll_events()</code> - это <b>единственный</b> способ доставить события из игры в ваши колбэки. Нет цикла - нет событий"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Версия</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Текущая версия биндинга доступна как <code>pse.__version__</code>:"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "import pse\nprint(pse.__version__)  # '1.0.3'"
+      }
+    ]
+  },
+  "en": {
+    "title": "Runtime",
+    "blocks": [
+      {
+        "type": "text",
+        "html": "The <b>Runtime</b> section describes the Python bindings lifecycle: connecting to the game, the main event loop, graceful shutdown, and error handling"
+      },
+      {
+        "type": "text",
+        "html": "Everything here consists of <b>global functions of the <code>pse</code> module</b>, not object methods. They manage the connection as a whole"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Functions</h2>"
+      },
+      {
+        "type": "table",
+        "align": ["left", "center", "left"],
+        "head": ["Signature", "Return type", "Description"],
+        "rows": [
+          ["<b><code>initialize()</code></b>", "<code>None</code>", "Connects to the game's shared memory, loads <code>pse.dll</code>, sets up function signatures and initializes the game <i>(<code>GAME_INITIALIZE</code> command)</i>. Repeated calls are safe - they do nothing"],
+          ["<b><code>deinitialize()</code></b>", "<code>None</code>", "Sends the <code>GAME_DEINITIALIZE</code> command, releases shared memory handles and unloads the DLL. Automatically called via <code>atexit</code> on program exit"],
+          ["<b><code>is_initialized()</code></b>", "<code>bool</code>", "Returns <code>True</code> if the SDK is connected and ready, otherwise <code>False</code>"],
+          ["<b><code>poll_events()</code></b>", "<code>None</code>", "Non-blocking attempt to grab <b>one</b> event from the game buffer and invoke the matching callback. Returns immediately if there are no events. <b>Must be called in a loop</b>"],
+          ["<b><code>get_element_by_guid(guid)</code></b>", "<code>Element | None</code>", "Returns the wrapper object for an element by its <b>GUID</b>, if it was created through these bindings. Otherwise <code>None</code>"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h2>Lifecycle</h2>"
+      },
+      {
+        "type": "text",
+        "html": "A typical <b>PSE SDK Python</b> program always looks the same:"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "import pse\n\n# 1. Connect\npse.initialize()\n\n# 2. Create elements, meshes, subscribe to events\nbutton = pse.Button()\nbutton.create(location=(0, 0, -100))\n\n@button.on_element_changed()\ndef on_button_changed(state):\n    print(f\"Button state: {state}\")\n\n# 3. Main loop\ntry:\n    while True:\n        pse.poll_events()\nexcept KeyboardInterrupt:\n    pass\n\n# 4. Disconnect (or automatically via atexit)\npse.deinitialize()"
+      },
+      {
+        "type": "text",
+        "html": "<ul><li><b><code>initialize()</code></b> - strictly <b>once</b> at the start. If the game is not running, you get a <code>RuntimeError</code></li><li><b>Main loop</b> - mandatory if you subscribed to events. Without it, callbacks are never invoked</li><li><b><code>deinitialize()</code></b> - you don't have to call it manually: the bindings register it via <code>atexit</code></li></ul>"
+      },
+      {
+        "type": "note",
+        "html": "<b>Important:</b> <code>poll_events()</code> grabs <b>one</b> event per call. If several events arrive within a single game tick, one call in the loop may not be enough - but in practice the loop spins fast enough to keep up. If you want to drain everything at once, call <code>poll_events()</code> in a <code>while</code> loop until it stops finding anything <i>(the current API has no return value, so just keep the main loop running)</i>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Error handling</h2>"
+      },
+      {
+        "type": "text",
+        "html": "The bindings try to fail <b>loudly and clearly</b>. Here's what you can catch:"
+      },
+      {
+        "type": "table",
+        "align": ["left", "left", "left"],
+        "head": ["Exception", "Where it occurs", "Reason"],
+        "rows": [
+          ["<b><code>RuntimeError</code></b>", "<code>initialize()</code>, <code>deinitialize()</code>, internal <code>_push()</code>", "The game is not running, shared memory is unavailable, or the game returned an error code <i>(<code>Result.ERROR_*</code>)</i> while executing a command"],
+          ["<b><code>FileNotFoundError</code></b>", "<code>initialize()</code>", "<code>pse.dll</code> was not found next to the package and no explicit path was passed"],
+          ["<b><code>ValueError</code></b>", "Element properties, <code>create()</code>", "The value doesn't fit the target type: <code>state</code> outside <code>int8_t</code>, color components outside <code>0..255</code>, size outside <code>uint16_t</code>, etc."],
+          ["<b><code>IndexError</code></b>", "Internal <code>_get_register</code> / <code>_set_register</code>", "Register index outside <code>0..7</code> <i>(usually invisible to the user, but good to know)</i>"],
+          ["<b><code>AttributeError</code></b>", "<code>DynamicMesh.mesh</code> / <code>DynamicMesh.material</code> properties", "Attempt to <b>read</b> a write-only property. These fields can only be written"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h3>Game error codes</h3>"
+      },
+      {
+        "type": "text",
+        "html": "When the game returns an error, the bindings raise a <code>RuntimeError</code> with a code from the <code>pse.Result</code> enum:"
+      },
+      {
+        "type": "table",
+        "align": ["center", "left", "left"],
+        "head": ["Value (HEX)", "Python name", "Description"],
+        "rows": [
+          ["<b>0x00000000</b>", "<code>Result.SUCCESS</code>", "Command executed successfully"],
+          ["<b>0x00000001</b>", "<code>Result.ERROR_COMMAND_NOT_FOUND</code>", "Command code not recognized by the game"],
+          ["<b>0x00000002</b>", "<code>Result.ERROR_COMMAND_NOT_IMPLEMENTED</code>", "Command found but not implemented"],
+          ["<b>0x00000003</b>", "<code>Result.ERROR_EXECUTION_FAILED</code>", "Unknown critical error during execution"],
+          ["<b>0x00000004</b>", "<code>Result.ERROR_ARRAY_INDEX_OUT_OF_RANGE</code>", "Array index out of range <i>(universal error for invalid classes/materials/meshes)</i>"],
+          ["<b>0x00000005</b>", "<code>Result.ERROR_GUID_NOT_FOUND</code>", "No object with the given <b>GUID</b> in the world"],
+          ["<b>0x00000006</b>", "<code>Result.ERROR_INVALID_OBJECT_TYPE</code>", "The object with this <b>GUID</b> has a different class"],
+          ["<b>0x00000007</b>", "<code>Result.ERROR_GAME_NOT_INITIALIZED</code>", "Game is not initialized <i>(call <code>pse.initialize()</code>)</i>"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "<h2>GUID and element lookup</h2>"
+      },
+      {
+        "type": "text",
+        "html": "Every created element receives a <b>GUID</b> - a globally unique identifier <i>(<code>uint64_t</code>)</i>. It's stored in the <code>element.guid</code> property"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "button = pse.Button()\nbutton.create(location=(0, 0, -100))\n\nprint(button.guid)  # e.g. 140234567890123\n\n# Find an element by GUID\nsame_button = pse.get_element_by_guid(button.guid)\nassert same_button is button"
+      },
+      {
+        "type": "note",
+        "html": "<b>Important:</b> <code>get_element_by_guid()</code> only works for elements created <b>through this same binding process</b>. If an element was created by another program or manually in the in-game editor, the bindings don't know about it and return <code>None</code>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Checking if an element is alive</h2>"
+      },
+      {
+        "type": "text",
+        "html": "All elements and <code>DynamicMesh</code> override <code>__bool__</code>. This is handy for checks:"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "door = pse.Door()\n\nif not door:\n    print(\"Door is not created yet\")\n\ndoor.create(location=(0, 0, -100))\n\nif door:\n    print(f\"Door created, GUID = {door.guid}\")\n\ndoor.destroy()\n\nif not door:\n    print(\"Door destroyed\")"
+      },
+      {
+        "type": "text",
+        "html": "Internally it's just a <code>guid != -1</code> check. Until the element is created or after it's destroyed, it's <code>False</code>"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Events and <code>poll_events()</code></h2>"
+      },
+      {
+        "type": "text",
+        "html": "<code>poll_events()</code> reads the <b>Event buffer</b> and reacts to known event types:"
+      },
+      {
+        "type": "table",
+        "align": ["center", "left", "left"],
+        "head": ["Value (HEX)", "Event", "What the bindings do"],
+        "rows": [
+          ["<b>0x00000000</b>", "<code>Event.ELEMENT_CHANGED</code>", "Extracts the <b>GUID</b> and <b>State</b>, looks up the element via <code>get_element_by_guid()</code> and invokes its callback <i>(if registered)</i>"],
+          ["<b>0x00000001</b>", "<code>Event.GAME_TICK_OVERFLOW</code>", "Warning about SDK command overflow per game tick. Currently <b>ignored</b> <i>(commented out)</i>"],
+          ["<b>0xFFFFFFFF</b>", "<code>Event.NONE</code>", "Service empty state"]
+        ]
+      },
+      {
+        "type": "text",
+        "html": "Unknown events raise a <code>RuntimeWarning</code> via the <code>warnings</code> module. It's not an error - just a signal that the game sent something the bindings don't recognize"
+      },
+      {
+        "type": "note",
+        "html": "<b>Remember:</b> <code>poll_events()</code> is the <b>only</b> way to deliver events from the game to your callbacks. No loop - no events"
+      },
+      {
+        "type": "text",
+        "html": "<h2>Version</h2>"
+      },
+      {
+        "type": "text",
+        "html": "The current bindings version is available as <code>pse.__version__</code>:"
+      },
+      {
+        "type": "code",
+        "lang": "python",
+        "code": "import pse\nprint(pse.__version__)  # '1.0.3'"
+      }
+    ]
+  }
+}

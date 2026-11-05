@@ -1,0 +1,60 @@
+{
+  "ru": {
+    "title": "Laser Panel",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_LASER_PANEL.png", "alt": "PSE_CLASS_LASER_PANEL" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_LASER_PANEL</code> <i>(0x000B)</i>" },
+      { "type": "text", "html": "<b>Python-класс:</b> <code>pse.LaserPanel</code>" },
+      { "type": "text", "html": "<b>Описание Элемента:</b> Панель с лазерной пластиной, способная переотражать лазеры" },
+      { "type": "note", "html": "<b>Важно:</b> Всё общее наследуется от <b><code>Element</code></b>. Здесь описаны только <b>уникальные</b> свойства. См. <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2>Поведение <code>state</code></h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Действие", "Значение", "Описание"], "rows": [
+        ["<b>Set State</b>", "<b>-</b>", "Не используется <i>(нет логики)</i>"],
+        ["<b>Get State</b>", "<code>1</code>", "Было любое касание с лазером <i>(только если включён <code>activation_visual</code>)</i>"],
+        ["<b>Get State</b>", "<code>0</code>", "Касаний не было"]
+      ]},
+      { "type": "text", "html": "<h2>Свойства</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Свойство", "Тип", "Доступ", "Описание"], "rows": [
+        ["<b><code>activation_visual</code></b>", "<code>bool</code>", "чтение/запись", "Меняет визуал панели и заставляет её включаться <i>(генерировать события <code>state</code>)</i> при касании хотя бы с одним лазером"],
+        ["<b><code>max_angle</code></b>", "<code>int</code>", "чтение/запись", "Максимальный угол наклона. <code>0..180</code>"],
+        ["<b><code>min_angle</code></b>", "<code>int</code>", "чтение/запись", "Минимальный угол наклона. <code>0..180</code>, жёстко ограничен сверху значением <code>max_angle</code>"],
+        ["<b><code>angle</code></b>", "<code>int</code>", "чтение/запись", "Заданный угол наклона в промежутке <code>[min_angle; max_angle]</code>"],
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет панели в активированном состоянии. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "чтение/запись", "Цвет панели в деактивированном состоянии. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "note", "html": "<b>Важно:</b> Если <code>min_angle</code> и <code>max_angle</code> равны, <b>панель блокируется</b> и Солвер Ган при наводке на панель не подсвечивает её" },
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\npanel = pse.LaserPanel()\npanel.create(location=(0, 0, -100))\n\n# Диапазон углов\npanel.min_angle = 0\npanel.max_angle = 90\npanel.angle = 45\n\n# Визуал активации\npanel.activation_visual = True\npanel.color_on = (0, 255, 0)\npanel.color_off = (255, 0, 0)\n\n@panel.on_element_changed()\ndef on_panel_changed(state):\n    print(f\"Панель: state = {state}\")\n\nwhile True:\n    pse.poll_events()" },
+      { "type": "text", "html": "<h2>Ошибки</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - игра не запущена или вернула код ошибки</li><li><code>ValueError</code> - углы вне <code>0..180</code> или компоненты цвета вне <code>0..255</code></li></ul>" }
+    ]
+  },
+  "en": {
+    "title": "Laser Panel",
+    "blocks": [
+      { "type": "image", "src": "../pse-sdk/assets/enums_h/class/PSE_CLASS_LASER_PANEL.png", "alt": "PSE_CLASS_LASER_PANEL" },
+      { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_LASER_PANEL</code> <i>(0x000B)</i>" },
+      { "type": "text", "html": "<b>Python class:</b> <code>pse.LaserPanel</code>" },
+      { "type": "text", "html": "<b>Element Description:</b> A panel with a laser plate capable of reflecting lasers" },
+      { "type": "note", "html": "<b>Important:</b> Everything common is inherited from <b><code>Element</code></b>. Only <b>unique</b> properties are described here. See <b>Elements &gt; Element</b>" },
+      { "type": "text", "html": "<h2><code>state</code> behavior</h2>" },
+      { "type": "table", "align": ["left", "center", "left"], "head": ["Action", "Value", "Description"], "rows": [
+        ["<b>Set State</b>", "<b>-</b>", "Not used <i>(no logic)</i>"],
+        ["<b>Get State</b>", "<code>1</code>", "Any contact with a laser occurred <i>(only if <code>activation_visual</code> is on)</i>"],
+        ["<b>Get State</b>", "<code>0</code>", "No contact occurred"]
+      ]},
+      { "type": "text", "html": "<h2>Properties</h2>" },
+      { "type": "table", "align": ["left", "center", "left", "left"], "head": ["Property", "Type", "Access", "Description"], "rows": [
+        ["<b><code>activation_visual</code></b>", "<code>bool</code>", "read/write", "Changes the panel's visual and makes it activate <i>(emit <code>state</code> events)</i> on contact with at least one laser"],
+        ["<b><code>max_angle</code></b>", "<code>int</code>", "read/write", "Maximum tilt angle. <code>0..180</code>"],
+        ["<b><code>min_angle</code></b>", "<code>int</code>", "read/write", "Minimum tilt angle. <code>0..180</code>, hard-limited above by <code>max_angle</code>"],
+        ["<b><code>angle</code></b>", "<code>int</code>", "read/write", "Target tilt angle within <code>[min_angle; max_angle]</code>"],
+        ["<b><code>color_on</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Panel color in the activated state. RGB, <code>0..255</code>"],
+        ["<b><code>color_off</code></b>", "<code>tuple[int, int, int]</code>", "read/write", "Panel color in the deactivated state. RGB, <code>0..255</code>"]
+      ]},
+      { "type": "note", "html": "<b>Important:</b> If <code>min_angle</code> and <code>max_angle</code> are equal, the <b>panel is locked</b> and the Solver Gun does not highlight it when aiming at it" },
+      { "type": "code", "lang": "python", "code": "import pse\n\npse.initialize()\n\npanel = pse.LaserPanel()\npanel.create(location=(0, 0, -100))\n\n# Angle range\npanel.min_angle = 0\npanel.max_angle = 90\npanel.angle = 45\n\n# Activation visual\npanel.activation_visual = True\npanel.color_on = (0, 255, 0)\npanel.color_off = (255, 0, 0)\n\n@panel.on_element_changed()\ndef on_panel_changed(state):\n    print(f\"Panel: state = {state}\")\n\nwhile True:\n    pse.poll_events()" },
+      { "type": "text", "html": "<h2>Errors</h2>" },
+      { "type": "text", "html": "<ul><li><code>RuntimeError</code> - game not running or returned an error code</li><li><code>ValueError</code> - angles outside <code>0..180</code> or color components outside <code>0..255</code></li></ul>" }
+    ]
+  }
+}
