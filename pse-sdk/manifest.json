@@ -45,7 +45,8 @@
     {
       "title": "Gameplay",
       "pages": [
-        { "title": "Cheats", "path": "gameplay/Cheats" }
+        { "title": "Cheats",         "path": "gameplay/Cheats" },
+        { "title": "AbsoluteSolver", "path": "gameplay/AbsoluteSolver" }
       ]
     },
     {

@@ -80,7 +80,7 @@ async function loadPage() {
     const page = root[lang] || root.ru;
     if (!page) throw new Error(`There is neither "${lang}" or "ru" in the file`);
 
-    document.title = `[PSE SDK] ${page.title}`;
+    document.title = `[PSE SDK Python] ${page.title}`;
     document.getElementById('page-title').textContent = page.title;
     content.innerHTML = (page.blocks || []).map(renderBlock).join('\n');
   } catch (e) {

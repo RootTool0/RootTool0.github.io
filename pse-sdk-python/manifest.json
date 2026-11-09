@@ -20,6 +20,13 @@
       ]
     },
     {
+      "title": "Gameplay",
+      "pages": [
+        { "title": "Cheats",         "path": "../../pse-sdk/data/gameplay/Cheats" },
+        { "title": "AbsoluteSolver", "path": "../../pse-sdk/data/gameplay/AbsoluteSolver" }
+      ]
+    },
+    {
       "title": "Elements",
       "pages": [
         { "title": "Element",                  "path": "Elements/Element" },
