@@ -1,12 +1,176 @@
 {
-  "ru": {
-    "title": "Absolute Solver",
-    "blocks": [
-    ]
-  },
-  "en": {
-    "title": "Absolute Solver",
-    "blocks": [
-    ]
-  }
+    "ru": {
+        "title": "Absolute Solver",
+        "blocks": [
+            {
+                "type": "text",
+                "html": "Внешний вид <b>Absolute Solver</b> можно кастомизировать своими PNG-текстурами. Файлы кладутся в <code>{папка билда}\\PortalSolver_DEV\\Config\\Absolute Solver\\</code>. Если файла нет - берётся встроенная текстура. Эту возможность знают немногие."
+            },
+            {
+                "type": "text",
+                "html": "<h2>Текстуры</h2>"
+            },
+            {
+                "type": "table",
+                "align": ["left", "left"],
+                "head": ["Файл", "Режим"],
+                "rows": [
+                    ["<code>T_AS_Translate.png</code>", "<b>Translate</b> - основная текстура"],
+                    ["<code>T_AS_Rotation_Static.png</code>", "<b>Rotate</b> - текстура <b>Rotation_Static</b>"],
+                    ["<code>T_AS_Rotation_CW.png</code>", "<b>Rotate</b> - текстура <b>Rotation_CW</b> <i>(по часовой стрелке)</i>"],
+                    ["<code>T_AS_Rotation_CCW.png</code>", "<b>Rotate</b> - текстура <b>Rotation_CCW</b> <i>(против часовой стрелки)</i>"],
+                    ["<code>T_AS_Target.png</code>", "<b>Target</b> - статичная часть"],
+                    ["<code>T_AS_Target_Rotating.png</code>", "<b>Target</b> - вращающаяся часть"]
+                ]
+            },
+            {
+                "type": "note",
+                "html": "Оригинальные файлы текстур лежат в репозитории: <a href=\"https://github.com/RootTool0/RootTool0.github.io/tree/main/pse-sdk/assets/Gameplay/AbsoluteSolver\">RootTool0.github.io → pse-sdk/assets/Gameplay/AbsoluteSolver</a>"
+            },
+            {
+                "type": "text",
+                "html": "<h2>Каналы</h2>"
+            },
+            {
+                "type": "text",
+                "html": "PNG упаковывает слои в каналы <b>R</b>, <b>G</b>, <b>B</b>. <b>RG</b> красятся раздельно, <b>B</b> - маска прозрачности, должна быть на обоих слоях, иначе слой вырезается."
+            },
+            {
+                "type": "table",
+                "align": ["center", "left", "left"],
+                "head": ["Канал", "Что кодирует", "Как красится"],
+                "rows": [
+                    ["<b>R</b>", "Центр", "Белый или чёрный по <code>AbsoluteSolver_IsBlack</code>, смешивается с цветным на величину <code>AbsoluteSolver_Color_Alpha</code>"],
+                    ["<b>G</b>", "Край / обводка", "Цвет <code>AbsoluteSolver_Color</code>"],
+                    ["<b>B</b>", "Прозрачность", "Маска для <b>R</b> и <b>G</b>, без неё слой вырезается"]
+                ]
+            },
+            {
+                "type": "note",
+                "html": "<code>AbsoluteSolver_Color_Alpha</code> - <b>не прозрачность</b>, а смеситель между цветным <b>G</b> и ч/б <b>R</b>. Прозрачность задаёт только канал <b>B</b> текстуры."
+            },
+            {
+                "type": "text",
+                "html": "<h2>Конфиг</h2>"
+            },
+            {
+                "type": "text",
+                "html": "Параметры кастомизации хранятся в <code>GameUserSettings.ini</code>, секция <code>[AbsoluteSolverSettings]</code>, путь <code>%LOCALAPPDATA%\\PortalSolver_DEV\\Saved\\Config\\Windows\\</code>."
+            },
+            {
+                "type": "table",
+                "align": ["left", "center", "center", "left"],
+                "head": ["Параметр", "Пример (дефолт)", "Диапазон", "Описание"],
+                "rows": [
+                    ["<code>AbsoluteSolver_Translate_Scale_X</code>", "<code>1.15333295</code>", "<code>любое</code>", "Горизонтальный масштаб <b>Absolute Solver</b> в режиме <b>Translate</b>"],
+                    ["<code>AbsoluteSolver_Translate_Scale_Y</code>", "<code>1</code>", "<code>любое</code>", "Вертикальный масштаб <b>Absolute Solver</b> в режиме <b>Translate</b>"],
+                    ["<code>AbsoluteSolver_Translate_Offset_X</code>", "<code>0</code>", "<code>любое</code>", "Смещение <b>Absolute Solver</b> по X в режиме <b>Translate</b>"],
+                    ["<code>AbsoluteSolver_Translate_Offset_Y</code>", "<code>-16.2</code>", "<code>любое</code>", "Смещение <b>Absolute Solver</b> по Y в режиме <b>Translate</b>"],
+                    ["<code>AbsoluteSolver_Rotate_Scale_X</code>", "<code>1</code>", "<code>любое</code>", "Горизонтальный масштаб <b>Absolute Solver</b> в режиме <b>Rotate</b>"],
+                    ["<code>AbsoluteSolver_Rotate_Scale_Y</code>", "<code>1</code>", "<code>любое</code>", "Вертикальный масштаб <b>Absolute Solver</b> в режиме <b>Rotate</b>"],
+                    ["<code>AbsoluteSolver_Rotate_Offset_X</code>", "<code>0</code>", "<code>любое</code>", "Смещение <b>Absolute Solver</b> по X в режиме <b>Rotate</b>"],
+                    ["<code>AbsoluteSolver_Rotate_Offset_Y</code>", "<code>0</code>", "<code>любое</code>", "Смещение <b>Absolute Solver</b> по Y в режиме <b>Rotate</b>"],
+                    ["<code>AbsoluteSolver_Target_Scale_X</code>", "<code>1.15333295</code>", "<code>любое</code>", "Горизонтальный масштаб <b>Absolute Solver</b> в режиме <b>Target</b>"],
+                    ["<code>AbsoluteSolver_Target_Scale_Y</code>", "<code>1</code>", "<code>любое</code>", "Вертикальный масштаб <b>Absolute Solver</b> в режиме <b>Target</b>"],
+                    ["<code>AbsoluteSolver_Target_Offset_X</code>", "<code>0</code>", "<code>любое</code>", "Смещение <b>Absolute Solver</b> по X в режиме <b>Target</b>"],
+                    ["<code>AbsoluteSolver_Target_Offset_Y</code>", "<code>0</code>", "<code>любое</code>", "Смещение <b>Absolute Solver</b> по Y в режиме <b>Target</b>"],
+                    ["<code>AbsoluteSolver_Color</code>", "<code>X=1.000 Y=0.000 Z=0.067</code>", "<code>RGB</code>, <code>0.0-1.0</code>", "Основной цвет <b>Absolute Solver</b>, цветная часть <i>(канал <b>G</b>)</i>"],
+                    ["<code>AbsoluteSolver_IsBlack</code>", "<code>False</code>", "<code>True</code> / <code>False</code>", "Цвет центра <b>Absolute Solver</b>: <code>False</code> - белый, <code>True</code> - чёрный <i>(канал <b>R</b>)</i>"],
+                    ["<code>AbsoluteSolver_Color_Alpha</code>", "<code>0.3</code>", "<code>0.0-1.0</code>", "Смешивает цветной <b>G</b> с ч/б <b>R</b>: <code>0</code> - чистый цвет, <code>1</code> - чистый белый/чёрный. <b>Это не прозрачность!</b>"],
+                    ["<code>AbsoluteSolver_Color_Center_Emmisive</code>", "<code>1.5</code>", "<code>&ge; 0</code>", "Сила свечения центра <b>Absolute Solver</b> <i>(канал <b>R</b>)</i>"],
+                    ["<code>AbsoluteSolver_Color_Stroke_Emmisive</code>", "<code>3</code>", "<code>&ge; 0</code>", "Сила свечения обводки <b>Absolute Solver</b> <i>(канал <b>G</b>)</i>"],
+                    ["<code>AbsoluteSolver_Rotate_Speed</code>", "<code>0.0025</code>", "<code>любое</code>", "Скорость вращения текстуры <b>Rotation_Static</b> у <b>Absolute Solver</b> в режиме <b>Rotate</b>"],
+                    ["<code>AbsoluteSolver_Rotate_Speed_CW</code>", "<code>0</code>", "<code>любое</code>", "Скорость вращения текстуры <b>Rotation_CW</b> <i>(по часовой стрелке)</i> у <b>Absolute Solver</b> в режиме <b>Rotate</b>"],
+                    ["<code>AbsoluteSolver_Rotate_Speed_CCW</code>", "<code>0</code>", "<code>любое</code>", "Скорость вращения текстуры <b>Rotation_CCW</b> <i>(против часовой стрелки)</i> у <b>Absolute Solver</b> в режиме <b>Rotate</b>"]
+                ]
+            }
+        ]
+    },
+    "en": {
+        "title": "Absolute Solver",
+        "blocks": [
+            {
+                "type": "text",
+                "html": "The appearance of <b>Absolute Solver</b> can be customized with your own PNG textures. Files go into <code>{build folder}\\PortalSolver_DEV\\Config\\Absolute Solver\\</code>. If a file is missing - the built-in texture is used. Few people know about this feature."
+            },
+            {
+                "type": "text",
+                "html": "<h2>Textures</h2>"
+            },
+            {
+                "type": "table",
+                "align": ["left", "left"],
+                "head": ["File", "Mode"],
+                "rows": [
+                    ["<code>T_AS_Translate.png</code>", "<b>Translate</b> - main texture"],
+                    ["<code>T_AS_Rotation_Static.png</code>", "<b>Rotate</b> - <b>Rotation_Static</b> texture"],
+                    ["<code>T_AS_Rotation_CW.png</code>", "<b>Rotate</b> - <b>Rotation_CW</b> texture <i>(clockwise)</i>"],
+                    ["<code>T_AS_Rotation_CCW.png</code>", "<b>Rotate</b> - <b>Rotation_CCW</b> texture <i>(counter-clockwise)</i>"],
+                    ["<code>T_AS_Target.png</code>", "<b>Target</b> - static part"],
+                    ["<code>T_AS_Target_Rotating.png</code>", "<b>Target</b> - rotating part"]
+                ]
+            },
+            {
+                "type": "note",
+                "html": "The original texture files are available in the repository: <a href=\"https://github.com/RootTool0/RootTool0.github.io/tree/main/pse-sdk/assets/Gameplay/AbsoluteSolver\">RootTool0.github.io → pse-sdk/assets/Gameplay/AbsoluteSolver</a>"
+            },
+            {
+                "type": "text",
+                "html": "<h2>Channels</h2>"
+            },
+            {
+                "type": "text",
+                "html": "The PNG packs layers into the <b>R</b>, <b>G</b>, <b>B</b> channels. <b>RG</b> are colored separately, <b>B</b> is the transparency mask and must be present on both layers, otherwise the layer is cut out."
+            },
+            {
+                "type": "table",
+                "align": ["center", "left", "left"],
+                "head": ["Channel", "What it encodes", "How it is colored"],
+                "rows": [
+                    ["<b>R</b>", "Center", "White or black via <code>AbsoluteSolver_IsBlack</code>, blended with the colored part by <code>AbsoluteSolver_Color_Alpha</code>"],
+                    ["<b>G</b>", "Edge / stroke", "Color <code>AbsoluteSolver_Color</code>"],
+                    ["<b>B</b>", "Transparency", "Mask for <b>R</b> and <b>G</b>, without it the layer is cut out"]
+                ]
+            },
+            {
+                "type": "note",
+                "html": "<code>AbsoluteSolver_Color_Alpha</code> - <b>not transparency</b>, but a blender between the colored <b>G</b> and the b/w <b>R</b>. Transparency is set only by the <b>B</b> channel of the texture."
+            },
+            {
+                "type": "text",
+                "html": "<h2>Config</h2>"
+            },
+            {
+                "type": "text",
+                "html": "Customization parameters are stored in <code>GameUserSettings.ini</code>, section <code>[AbsoluteSolverSettings]</code>, path <code>%LOCALAPPDATA%\\PortalSolver_DEV\\Saved\\Config\\Windows\\</code>."
+            },
+            {
+                "type": "table",
+                "align": ["left", "center", "center", "left"],
+                "head": ["Parameter", "Example (default)", "Range", "Description"],
+                "rows": [
+                    ["<code>AbsoluteSolver_Translate_Scale_X</code>", "<code>1.15333295</code>", "<code>any</code>", "Horizontal scale of <b>Absolute Solver</b> in <b>Translate</b> mode"],
+                    ["<code>AbsoluteSolver_Translate_Scale_Y</code>", "<code>1</code>", "<code>any</code>", "Vertical scale of <b>Absolute Solver</b> in <b>Translate</b> mode"],
+                    ["<code>AbsoluteSolver_Translate_Offset_X</code>", "<code>0</code>", "<code>any</code>", "X offset of <b>Absolute Solver</b> in <b>Translate</b> mode"],
+                    ["<code>AbsoluteSolver_Translate_Offset_Y</code>", "<code>-16.2</code>", "<code>any</code>", "Y offset of <b>Absolute Solver</b> in <b>Translate</b> mode"],
+                    ["<code>AbsoluteSolver_Rotate_Scale_X</code>", "<code>1</code>", "<code>any</code>", "Horizontal scale of <b>Absolute Solver</b> in <b>Rotate</b> mode"],
+                    ["<code>AbsoluteSolver_Rotate_Scale_Y</code>", "<code>1</code>", "<code>any</code>", "Vertical scale of <b>Absolute Solver</b> in <b>Rotate</b> mode"],
+                    ["<code>AbsoluteSolver_Rotate_Offset_X</code>", "<code>0</code>", "<code>any</code>", "X offset of <b>Absolute Solver</b> in <b>Rotate</b> mode"],
+                    ["<code>AbsoluteSolver_Rotate_Offset_Y</code>", "<code>0</code>", "<code>any</code>", "Y offset of <b>Absolute Solver</b> in <b>Rotate</b> mode"],
+                    ["<code>AbsoluteSolver_Target_Scale_X</code>", "<code>1.15333295</code>", "<code>any</code>", "Horizontal scale of <b>Absolute Solver</b> in <b>Target</b> mode"],
+                    ["<code>AbsoluteSolver_Target_Scale_Y</code>", "<code>1</code>", "<code>any</code>", "Vertical scale of <b>Absolute Solver</b> in <b>Target</b> mode"],
+                    ["<code>AbsoluteSolver_Target_Offset_X</code>", "<code>0</code>", "<code>any</code>", "X offset of <b>Absolute Solver</b> in <b>Target</b> mode"],
+                    ["<code>AbsoluteSolver_Target_Offset_Y</code>", "<code>0</code>", "<code>any</code>", "Y offset of <b>Absolute Solver</b> in <b>Target</b> mode"],
+                    ["<code>AbsoluteSolver_Color</code>", "<code>X=1.000 Y=0.000 Z=0.067</code>", "<code>RGB</code>, <code>0.0-1.0</code>", "Main color of <b>Absolute Solver</b>, the colored part <i>(channel <b>G</b>)</i>"],
+                    ["<code>AbsoluteSolver_IsBlack</code>", "<code>False</code>", "<code>True</code> / <code>False</code>", "Center color of <b>Absolute Solver</b>: <code>False</code> - white, <code>True</code> - black <i>(channel <b>R</b>)</i>"],
+                    ["<code>AbsoluteSolver_Color_Alpha</code>", "<code>0.3</code>", "<code>0.0-1.0</code>", "Blends the colored <b>G</b> with the b/w <b>R</b>: <code>0</code> - pure color, <code>1</code> - pure white/black. <b>This is not transparency!</b>"],
+                    ["<code>AbsoluteSolver_Color_Center_Emmisive</code>", "<code>1.5</code>", "<code>&ge; 0</code>", "Center glow strength of <b>Absolute Solver</b> <i>(channel <b>R</b>)</i>"],
+                    ["<code>AbsoluteSolver_Color_Stroke_Emmisive</code>", "<code>3</code>", "<code>&ge; 0</code>", "Stroke glow strength of <b>Absolute Solver</b> <i>(channel <b>G</b>)</i>"],
+                    ["<code>AbsoluteSolver_Rotate_Speed</code>", "<code>0.0025</code>", "<code>any</code>", "Rotation speed of the <b>Rotation_Static</b> texture of <b>Absolute Solver</b> in <b>Rotate</b> mode"],
+                    ["<code>AbsoluteSolver_Rotate_Speed_CW</code>", "<code>0</code>", "<code>any</code>", "Rotation speed of the <b>Rotation_CW</b> texture <i>(clockwise)</i> of <b>Absolute Solver</b> in <b>Rotate</b> mode"],
+                    ["<code>AbsoluteSolver_Rotate_Speed_CCW</code>", "<code>0</code>", "<code>any</code>", "Rotation speed of the <b>Rotation_CCW</b> texture <i>(counter-clockwise)</i> of <b>Absolute Solver</b> in <b>Rotate</b> mode"]
+                ]
+            }
+        ]
+    }
 }

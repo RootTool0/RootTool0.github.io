@@ -27,7 +27,7 @@
     "blocks": [
       { "type": "image", "src": "assets/enums_h/class/PSE_CLASS_TRIGGER.png", "alt": "PSE_CLASS_TRIGGER" },
       { "type": "text", "html": "<b>PseClass:</b> <code>PSE_CLASS_TRIGGER</code> <i>(0x0015)</i>" },
-      { "type": "text", "html": "<b>Element Description:</b> A very functional trigger, indeed. More functional than a public service center" },
+      { "type": "text", "html": "<b>Element Description:</b> A very functional trigger, indeed" },
       { "type": "text", "html": "<b>Set State:</b> Not used <i>(no logic)</i>" },
       { "type": "text", "html": "<b>Get State:</b> Returns <code>1</code> if an object <b>entered the trigger</b>, and <code>0</code> if an object <b>left the trigger</b> <i>(but the event itself is created by separate conditions, read the <b>Additional information!</b>)</i>" },
       { "type": "text", "html": "<b>Register layout:</b>" },
