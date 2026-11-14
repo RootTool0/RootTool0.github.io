@@ -4,7 +4,7 @@
         "blocks": [
             {
                 "type": "text",
-                "html": "Внешний вид <b>Absolute Solver</b> можно кастомизировать своими PNG-текстурами. Файлы кладутся в <code>{папка билда}\\PortalSolver_DEV\\Config\\Absolute Solver\\</code>. Если файла нет - берётся встроенная текстура. Эту возможность знают немногие."
+                "html": "Внешний вид <b>Absolute Solver</b> можно кастомизировать своими PNG-текстурами. Файлы кладутся в <code>{папка билда}\\PortalSolver_DEV\\Config\\Absolute Solver\\</code>. Если файла нет - берётся встроенная текстура."
             },
             {
                 "type": "text",
@@ -91,7 +91,7 @@
         "blocks": [
             {
                 "type": "text",
-                "html": "The appearance of <b>Absolute Solver</b> can be customized with your own PNG textures. Files go into <code>{build folder}\\PortalSolver_DEV\\Config\\Absolute Solver\\</code>. If a file is missing - the built-in texture is used. Few people know about this feature."
+                "html": "The appearance of <b>Absolute Solver</b> can be customized with your own PNG textures. Files go into <code>{build folder}\\PortalSolver_DEV\\Config\\Absolute Solver\\</code>. If a file is missing - the built-in texture is used."
             },
             {
                 "type": "text",
